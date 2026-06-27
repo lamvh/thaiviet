@@ -1,9 +1,10 @@
+import { Link } from 'react-router-dom';
 import type { Project } from '../../lib/types';
 import { Icon } from '../ui/Icon';
 
 export function ProjectCard({ project }: { project: Project }) {
   return (
-    <article className="project-item group cursor-pointer relative overflow-hidden rounded-2xl aspect-[4/5] bg-surface-container-low shadow-md hover:shadow-2xl transition-all duration-500">
+    <Link to={'/projects/' + project.id} className="project-item group cursor-pointer relative block overflow-hidden rounded-2xl aspect-[4/5] bg-surface-container-low shadow-md hover:shadow-2xl transition-all duration-500">
       <img className="absolute inset-0 w-full h-full object-cover transition-transform duration-[900ms] group-hover:scale-110" src={project.image} alt={project.title} loading="lazy" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
       <span className="absolute top-5 left-5 bg-white/95 backdrop-blur px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary rounded-full">{project.categoryLabel}</span>
@@ -14,6 +15,6 @@ export function ProjectCard({ project }: { project: Project }) {
           View Project <Icon name="arrow_forward" className="text-base" />
         </div>
       </div>
-    </article>
+    </Link>
   );
 }

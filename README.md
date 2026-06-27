@@ -27,7 +27,7 @@ App (router)
    └─ ChatWidget        (uses hooks/useChat)
 
 pages/
-  HomePage · ServicesPage · ProjectsPage · BlogPage · VlogPage · ContactPage
+  HomePage · ServicesPage · ProjectsPage · ProjectDetailPage · BlogPage · ContactPage
 
 components/
   ui/      Icon · Container · CTASection
@@ -36,12 +36,12 @@ components/
   ProjectFilter
 
 hooks/     useChat · useContactForm
-data/      nav · services · projects · posts · reels · areas
+data/      nav · services · projects · project-details · posts · reels · areas
 lib/       types.ts
 ```
 
 ## Routes
-`/` Home · `/services` · `/projects` · `/blog` · `/vlog` · `/contact`
+`/` Home · `/services` · `/projects` · `/projects/:id` (case study) · `/blog` · `/contact`
 
 ## Where to wire real backends
 - `hooks/useChat.ts` — replace the mock `setTimeout` with `POST /api/chat`.
@@ -51,5 +51,6 @@ lib/       types.ts
 ## Notes
 - All page content lives in `data/*` so you can swap copy/images without touching components.
 - `logo.webp` and the chat avatar load from `project.vinapage.com`; drop local copies in `public/` and update the paths in `Header.tsx` / `ChatWidget.tsx` for production.
-- Vlog embeds are Facebook iframes (data in `data/reels.ts`).
+- Video walkthroughs (Customer Reviews + Service Reels) are Facebook iframes (data in `data/reels.ts`), rendered at the bottom of `BlogPage` so all content lives on one article page.
 - The Projects filter is pure client state (`useState` + `useMemo`) in `ProjectsPage.tsx`.
+- Project cards link to `/projects/:id`. `ProjectDetailPage` renders a rich case study from `data/project-details.ts` (keyed by project id) and falls back to the base project fields (image, title, category, desc) for projects without a detail entry.

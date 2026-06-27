@@ -15,6 +15,22 @@ export interface Project {
   image: string;
 }
 
+export interface ProjectDetail {
+  location: string;
+  service: string;
+  duration: string;
+  completed: string;
+  heroImage: string;
+  intro: string;
+  challenge: string;
+  solution: string;
+  result: string;
+  gallery: string[];
+  videoSrc?: string;
+  testimonialQuote?: string;
+  testimonialBy?: string;
+}
+
 export interface Post { category: string; title: string; excerpt: string; image: string; date: string; readTime: string; }
 
 export interface Reel { src: string; label: string; title?: string; }

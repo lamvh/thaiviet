@@ -4,7 +4,6 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'About', to: '/' },
   { label: 'Projects', to: '/projects' },
   { label: 'Blog', to: '/blog' },
-  { label: 'Vlog', to: '/vlog' },
   { label: 'Contact', to: '/contact' },
 ];
 
