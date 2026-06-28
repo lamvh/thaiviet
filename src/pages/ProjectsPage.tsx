@@ -10,7 +10,10 @@ const SPOTLIGHT = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDg2DbjF7-
 
 export function ProjectsPage() {
   const [filter, setFilter] = useState('all');
-  const visible = useMemo(() => filter === 'all' ? PROJECTS : PROJECTS.filter((p) => p.category === filter), [filter]);
+  const visible = useMemo(() => {
+    const shown = PROJECTS.filter((p) => p.visible !== false);
+    return filter === 'all' ? shown : shown.filter((p) => p.category === filter);
+  }, [filter]);
 
   return (
     <>

@@ -32,9 +32,9 @@ export function ServicesPage() {
       <section className="py-24 px-8 overflow-hidden">
         <Container>
           <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center font-headline">Transforming Homes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-12 grid-rows-2 gap-4 h-[800px]">
+          <div className="grid grid-cols-1 md:grid-cols-12 md:grid-rows-2 gap-4 md:h-[800px]">
             {GALLERY.map((g) => (
-              <div key={g.title} className={'rounded-xl overflow-hidden relative group ' + g.span}>
+              <div key={g.title} className={'rounded-xl overflow-hidden relative group h-64 md:h-auto ' + g.span}>
                 <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src={g.img} alt={g.title} />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity"><p className="text-white font-bold">{g.title}</p></div>
               </div>

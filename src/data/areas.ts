@@ -1,6 +1,4 @@
-export const AREAS: string[] = [
-  'Kapi Mana', 'Paraparaumu', 'Plimmerton', 'Whitby', 'Tawa', 'Newlands', 'Johnsonville', 'Khandallah',
-  'Wellington', 'Newtown', 'Island Bay', 'Miramar', 'Mt Victoria', 'Kelburn', 'Lyall Bay', 'Oriental Bay',
-  'Seatoun', 'Wadestown', 'Wilton', 'Northland', 'Thorndon', 'Kilbirnie', 'Hataitai', 'Brooklyn', 'Karori',
-  'Lower Hutt', 'Upper Hutt', 'Greytown', 'Carterton', 'Masterton', 'Martinborough',
-];
+import content from '../content/site-content.json';
+
+// Editable service areas — sourced from site-content.json (managed via /admin).
+export const AREAS: string[] = content.areas;

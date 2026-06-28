@@ -28,7 +28,7 @@ export function BlogPage() {
 
       <Container className="py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {POSTS.map((p) => <BlogCard key={p.title} post={p} />)}
+          {POSTS.filter((p) => p.visible !== false).map((p) => <BlogCard key={p.id} post={p} />)}
         </div>
 
         {/* Video walkthroughs & reviews — consolidated into the blog so all content lives on one article page */}

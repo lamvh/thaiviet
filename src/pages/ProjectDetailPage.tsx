@@ -8,7 +8,8 @@ export function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>();
   const project = PROJECTS.find((p) => p.id === id);
 
-  if (!project) {
+  // Hidden projects must not be reachable by direct link.
+  if (!project || project.visible === false) {
     return (
       <Container className="py-32 text-center">
         <h1 className="font-headline text-3xl font-bold mb-4">Project not found</h1>

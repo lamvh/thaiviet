@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { PHONE } from '../data/nav';
 
 export interface ChatMessage { role: 'user' | 'assistant'; content: string; }
 
@@ -32,7 +33,7 @@ export function useChat() {
     // TODO: replace with real POST /api/chat
     setTimeout(() => {
       setTyping(false);
-      setMessages((p) => [...p, { role: 'assistant', content: 'Thanks! Our team will get back to you shortly, or call 027 347 8018.' }]);
+      setMessages((p) => [...p, { role: 'assistant', content: `Thanks! Our team will get back to you shortly, or call ${PHONE}.` }]);
     }, 1200);
   }, []);
 

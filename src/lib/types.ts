@@ -13,7 +13,12 @@ export interface Project {
   title: string;
   desc: string;
   image: string;
+  visible?: boolean;
 }
+
+export interface Hero { title: string; subtitle: string; image: string; }
+
+export interface Contact { phone: string; email: string; facebook: string; messenger: string; hours: string; }
 
 export interface ProjectDetail {
   location: string;
@@ -31,6 +36,6 @@ export interface ProjectDetail {
   testimonialBy?: string;
 }
 
-export interface Post { category: string; title: string; excerpt: string; image: string; date: string; readTime: string; }
+export interface Post { id: string; category: string; title: string; excerpt: string; image: string; date: string; readTime: string; visible?: boolean; }
 
 export interface Reel { src: string; label: string; title?: string; }

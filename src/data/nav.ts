@@ -1,4 +1,5 @@
 import type { NavItem } from '../lib/types';
+import { CONTACT } from './contact';
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'About', to: '/' },
@@ -22,7 +23,7 @@ export const SERVICE_LINKS = {
   ],
 };
 
-export const PHONE = '027 347 8018';
-export const EMAIL = 'info@thaiviet.co.nz';
-export const FACEBOOK = 'https://www.facebook.com/thaivietgroupltd/';
-export const MESSENGER = 'https://m.me/thaivietgroupltd';
+export const PHONE = CONTACT.phone;
+export const EMAIL = CONTACT.email;
+export const FACEBOOK = CONTACT.facebook;
+export const MESSENGER = CONTACT.messenger;

@@ -6,8 +6,9 @@ import { ProjectsPage } from './pages/ProjectsPage';
 import { ProjectDetailPage } from './pages/ProjectDetailPage';
 import { BlogPage } from './pages/BlogPage';
 import { ContactPage } from './pages/ContactPage';
+import { AdminPage } from './pages/admin/AdminPage';
 
-export default function App() {
+function PublicSite() {
   return (
     <Layout>
       <Routes>
@@ -20,5 +21,15 @@ export default function App() {
         <Route path="*" element={<HomePage />} />
       </Routes>
     </Layout>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      {/* Admin dashboard has its own shell — rendered outside the public Layout */}
+      <Route path="/admin" element={<AdminPage />} />
+      <Route path="/*" element={<PublicSite />} />
+    </Routes>
   );
 }

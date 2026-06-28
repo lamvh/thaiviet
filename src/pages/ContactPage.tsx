@@ -3,6 +3,7 @@ import { Container } from '../components/ui/Container';
 import { useContactForm } from '../hooks/useContactForm';
 import { AREAS } from '../data/areas';
 import { PHONE, EMAIL, FACEBOOK } from '../data/nav';
+import { CONTACT } from '../data/contact';
 
 const field = 'w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/30 transition-all text-on-surface';
 const label = 'text-xs font-semibold uppercase tracking-wider text-on-surface-variant ml-1';
@@ -65,7 +66,7 @@ export function ContactPage() {
               </div>
               <div className="bg-surface-container-highest/50 p-8 rounded-xl border border-outline-variant/10">
                 <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-on-surface-variant mb-4 flex items-center gap-2"><Icon name="schedule" className="text-sm" /> Business Hours</h3>
-                <div className="flex justify-between items-center py-3 border-b border-outline-variant/10"><span className="font-medium">Monday - Friday</span><span className="text-primary font-bold">8:00 AM - 5:00 PM</span></div>
+                <div className="flex justify-between items-center py-3 border-b border-outline-variant/10"><span className="font-medium">Monday - Friday</span><span className="text-primary font-bold">{CONTACT.hours}</span></div>
                 <div className="flex justify-between items-center py-3"><span className="text-on-surface-variant">Public Holidays</span><span className="text-on-surface-variant font-medium">By Appointment</span></div>
               </div>
               <div className="flex items-center gap-6">
