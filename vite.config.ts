@@ -27,9 +27,11 @@ function cspPlugin(): Plugin {
   };
 }
 
-// base: '/' for local dev (home `/`, admin `/admin`); '/thaiviet/' for the production
-// build that ships to the GitHub Pages project site (https://lamvh.github.io/thaiviet/).
-export default defineConfig(({ command }) => ({
-  base: command === 'build' ? '/thaiviet/' : '/',
+// base defaults to '/' so the app works at a domain root (Vercel, Netlify, custom domain,
+// local dev). The GitHub Pages PROJECT site is served under /thaiviet/, so its build sets
+// VITE_BASE=/thaiviet/ (see .github/workflows/deploy.yml). Hardcoding /thaiviet/ for all
+// builds 404s every asset on root-served hosts → blank page.
+export default defineConfig(() => ({
+  base: process.env.VITE_BASE || '/',
   plugins: [react(), cspPlugin()],
 }));
