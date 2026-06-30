@@ -13,7 +13,7 @@ export function ServicesDropdown() {
           <div>
             <div className="px-3 pb-1 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant">Painting</div>
             {SERVICE_LINKS.painting.map((s) => (
-              <Link key={s.label} to="/services" className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-red-50 hover:text-primary transition-colors font-headline">
+              <Link key={s.label} to={('to' in s && s.to) || '/services'} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-red-50 hover:text-primary transition-colors font-headline">
                 <Icon name={s.icon} className="text-base" />{s.label}
               </Link>
             ))}

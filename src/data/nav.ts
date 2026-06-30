@@ -7,9 +7,10 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Contact', to: '/contact' },
 ];
 
+// `to` overrides the default /services target for services that have a dedicated page.
 export const SERVICE_LINKS = {
   painting: [
-    { icon: 'format_paint', label: 'Interior Painting' },
+    { icon: 'format_paint', label: 'Interior Painting', to: '/services/interior' },
     { icon: 'home_work', label: 'Exterior Painting' },
     { icon: 'roofing', label: 'Roof Painting' },
   ],
