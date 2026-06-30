@@ -1,7 +1,8 @@
-import type { Hero, Contact, Project, Post } from '../../lib/types';
+import type { Hero, Contact, Project, Post, Homepage } from '../../lib/types';
 
 export interface SiteContent {
   hero: Hero;
+  homepage: Homepage;
   projects: Project[];
   posts: Post[];
   areas: string[];

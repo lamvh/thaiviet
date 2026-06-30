@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import type { SiteContent } from '../pages/admin/useAdminContent';
-import bundled from '../content/site-content.json';
 import { supabase, SITE_CONTENT_ID } from './supabase';
+import { DEFAULT_CONTENT, withContentDefaults } from './content-defaults';
 
 // Bundled JSON = instant first paint and offline fallback if Supabase is unreachable.
-const FALLBACK = bundled as unknown as SiteContent;
+const FALLBACK = DEFAULT_CONTENT;
 
 const Ctx = createContext<SiteContent>(FALLBACK);
 
@@ -24,7 +24,7 @@ export function SiteContentProvider({ children }: { children: ReactNode }) {
           console.warn('[site-content] using bundled fallback:', error.message);
           return;
         }
-        if (data?.data) setContent(data.data as SiteContent);
+        if (data?.data) setContent(withContentDefaults(data.data));
       });
     return () => { active = false; };
   }, []);

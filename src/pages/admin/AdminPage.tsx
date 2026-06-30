@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Icon } from '../../components/ui/Icon';
 import type { AdminSection } from './useAdminContent';
 import { AdminContentProvider, useAdminStore, isHttpsUrl } from './admin-content-store';
@@ -8,6 +9,7 @@ import { Overview } from './sections/Overview';
 import { ProjectsTable } from './sections/ProjectsTable';
 import { BlogTable } from './sections/BlogTable';
 import { HeroEditor } from './sections/HeroEditor';
+import { HomepageEditor } from './sections/HomepageEditor';
 import { AreasEditor } from './sections/AreasEditor';
 import { ContactEditor } from './sections/ContactEditor';
 import { EditDrawer } from './EditDrawer';
@@ -19,7 +21,7 @@ const META: Record<AdminSection, [string, string]> = {
   overview: ['Overview', 'A snapshot of your website content'],
   projects: ['Projects', 'Manage the project gallery shown on your site'],
   blog: ['Blog', 'Write and publish articles'],
-  home: ['Homepage / Hero', 'Edit the headline visitors see first'],
+  home: ['Homepage', 'Edit every section of the homepage'],
   areas: ['Service Areas', 'Suburbs and towns you cover'],
   contact: ['Contact & Social', 'Phone, email and social links'],
   settings: ['Settings', 'Your account and sign out'],
@@ -28,7 +30,16 @@ const META: Record<AdminSection, [string, string]> = {
 const SITE_URL = import.meta.env.BASE_URL;
 
 function AdminInner() {
-  const [section, setSection] = useState<AdminSection>('overview');
+  const navigate = useNavigate();
+  const location = useLocation();
+  // The active section lives in the URL (/admin/<section>) so a reload keeps the
+  // current page. useLocation() returns the path with the router basename stripped,
+  // so /admin → '' (overview) and /admin/projects → 'projects'.
+  const seg = location.pathname.split('/')[2] ?? '';
+  const section: AdminSection = (Object.keys(META) as AdminSection[]).includes(seg as AdminSection)
+    ? (seg as AdminSection)
+    : 'overview';
+  const setSection = (s: AdminSection) => navigate(s === 'overview' ? '/admin' : `/admin/${s}`);
   const [mobileNav, setMobileNav] = useState(false);
   const store = useAdminStore();
   const { content } = store.state;
@@ -75,11 +86,14 @@ function AdminInner() {
             <BlogTable posts={content.posts} onToggle={(id) => store.toggle('posts', id)} onEdit={(id) => store.openEdit('posts', id)} onNew={() => store.addItem('posts')} />
           )}
           {section === 'home' && (
-            <HeroEditor
-              hero={content.hero}
-              onChange={store.updateHero}
-              onSave={() => store.toast(isHttpsUrl(content.hero.image) ? 'Homepage updated' : 'Image URL must start with https://')}
-            />
+            <div className="flex flex-col gap-5">
+              <HeroEditor
+                hero={content.hero}
+                onChange={store.updateHero}
+                onSave={() => store.toast(isHttpsUrl(content.hero.image) ? 'Hero applied — click Save to publish' : 'Image URL must start with https://')}
+              />
+              <HomepageEditor />
+            </div>
           )}
           {section === 'areas' && (
             <AreasEditor areas={content.areas} newArea={store.state.newArea} onNewAreaChange={store.setNewArea} onAdd={store.addArea} onRemove={store.removeArea} />

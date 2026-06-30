@@ -36,5 +36,13 @@ export function validateContent(c: SiteContent): string[] {
   if (!c.contact?.email?.trim()) errors.push('Contact email is required.');
   if (!Array.isArray(c.areas) || c.areas.length === 0) errors.push('At least one service area is required.');
 
+  const hp = c.homepage;
+  if (hp) {
+    if (!isHttps(hp.heritage?.image)) errors.push('Heritage section image must be an https:// URL.');
+    if (!isHttps(hp.people?.imageA)) errors.push('People section image (left) must be an https:// URL.');
+    if (!isHttps(hp.people?.imageB)) errors.push('People section image (right) must be an https:// URL.');
+    if (!isHttps(hp.preparation?.image)) errors.push('Preparation section image must be an https:// URL.');
+  }
+
   return errors;
 }

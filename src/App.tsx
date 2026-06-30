@@ -28,7 +28,7 @@ export default function App() {
   return (
     <Routes>
       {/* Admin dashboard has its own shell — rendered outside the public Layout */}
-      <Route path="/admin" element={<AdminPage />} />
+      <Route path="/admin/*" element={<AdminPage />} />
       <Route path="/*" element={<PublicSite />} />
     </Routes>
   );

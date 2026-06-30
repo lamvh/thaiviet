@@ -4,6 +4,65 @@
     "subtitle": "Mastering the art of surface finish across the Wellington region.",
     "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCwqN4WjJxadl7Ow_rT4KAi377FJ0gu0h8bBcTUnYoXGq1vB--LC2hpaCwh1dtq6EsDavOEGjrm3k8XRdaqq9tWwE5qaziHpEx47P7X2cY_7mA-exoTCMu6brjtTKkwJGiOZg1SpDDyeSIRWCRZLdr59qyUy_yL_ymmUfl_XMH3FQsg2MxZV2Or0L9ZrBYQMNsLKD79fmgu5Kz3ij72SLIRof9cZAAvJw25SEWITQikOV3xGXNC66sg4Rk1qgKA0NS1gmYOhhTrIvI"
   },
+  "homepage": {
+    "heritage": {
+      "eyebrow": "Our Heritage",
+      "titleLead": "Your Home.",
+      "titleAccent": "Our Care.",
+      "paragraphs": [
+        "As a Registered Master Painter and Eco-Decorator with multiple years of experience under his tool belt, Thai and his team have been transforming homes and businesses across the Wellington region.",
+        "As the owner of ThaiViet Ltd, Thai leads a large team of tradesmen offering interior and exterior painting, plastering, cedar staining, wallpapering, water blasting, spray painting, and property maintenance. We stay true to our slogan: \"Your home. Our Care.\" — treating every house as if it were our own."
+      ],
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuDS7XMYoRmBAFT9TmFpAzHxWc300tKxxnKbYLUdCYjgK-CPdSLCygVyy6bQe1RyWD9CpeapHOjZRasfFl03l9rktKFIoYmDTbS2LEWH7c3nFRiQsF_DiQLqq623eNF19ZfG9uGZBVFhR0Xfp22Ux8iLTFK6gkS29bQ99fOb5wEVs1AzMHxW85gZtLXz6fF4rLbRzPQgTNSI0nGyo_gzuIYSqz1n1MpIs7o4oKCFTL2YK0Rn8OKgHKVn-jLSLp8WhR9BFAX2QtefcaI",
+      "quote": "Quality is not an act, it is a habit."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "subtitle": "With customer satisfaction as our highest priority, we aim to provide a service that exceeds your expectations every time.",
+      "cards": [
+        { "icon": "brush", "title": "Artisan Painting", "desc": "Interior, exterior, and roof painting using premium coatings designed for Wellington's coastal conditions." },
+        { "icon": "wallpaper", "title": "Master Wallpapering", "desc": "Seamless pattern matching and bubble-free installation for luxury interiors." },
+        { "icon": "home_repair_service", "title": "Total Solutions", "desc": "Comprehensive maintenance that safeguards your investment for decades to come." }
+      ]
+    },
+    "people": {
+      "eyebrow": "Our People",
+      "title": "Highly Skilled Professionals",
+      "paragraphs": [
+        "Our large team of tradesmen put the customer's needs first and work efficiently towards their deadlines. They arrive on site on time every morning, are friendly, professional, and respectful of your living environment.",
+        "We take pride in our punctuality, professional conduct, and the respectful way we treat your space. If you have any questions about the calibre of our work, we can provide you with a list of referees to get in touch with."
+      ],
+      "imageA": "https://lh3.googleusercontent.com/aida-public/AB6AXuB87cGgBk0YBR_tpvL7DxCNsbWCCOmDrDVDds7kso898HAHsbnGKovael_oEGhDU6Zr893QU77Rw4usGN-ma-ML6PVkE_BI4_gZVpwRBHm1J3zRwm0tdFTX4EQE9tkSoTgz10h3S1uR5guO5VV7qGeYI1LbRYLjTqFsgWPk7QfKvNyPr99T4B1VwfZhs0_GbK45CI9WVloJiU9RWedFrRyAMbaF80o17ZpVf_IHf1se8B4ywIhajKQi9mjF4rZzd4Yt-mbdvMtp8R8",
+      "imageB": "https://lh3.googleusercontent.com/aida-public/AB6AXuBIB2Ay362v9lQAhDui7udTY0wpiUsgovjQAl8Ej5Rrke6jLEDfp_rnGzwwBKgK-1IQyzPIJw49f5rzAh4j0GEPogLcfSBc03dap5LSvgR8zWT1Pf8By1JwHuUL4cRKARXyzJv-j7qVlfY2D8vN1WVCcqwHSLqAfYvS1pZCoOrTCol3Z9EHLX_lkqVRcYHRs-Hv-tNIeCbOOEXf31IccceUUgLBk51rZMbzyEYSZDT0LHnluHTkQCnXSjL7ReVxFF4eqUURkMije44"
+    },
+    "preparation": {
+      "title": "Our Commitment to Preparation",
+      "intro": "A great finish is 90% preparation. We don't cut corners; we sand them, prime them, and ensure the foundation is perfect before a single drop of paint is applied.",
+      "bullets": [
+        "Rigorous Surface Cleaning & Degreasing",
+        "Expert Gap Filling & Surface Leveling",
+        "Multi-stage Sanding for Glass-smooth Finishes"
+      ],
+      "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCcPr08pEj_xAVLEbGISFwFFVKO7xC3Y6xA0LPKFa1cCY_iJg22Ihw6HyO8On3NC56We7Qjq889-zL8SrzI7LOtnCQPnOWRMSYzsUUjhOLbN5S0Ht9fdO0RSEs4SrFpnhqLkyoHWLIYHAIHDyoLgItRmaba0Z1wAnaJS76umiJ6P1oZNptIXzQfEUZQv1UNnNxqhUh62wpbfcTkV3msW0JUfo8CzowwsMoWuunwL9Z0mRD0vO5lJ90IUKDS2L4ppG1kO01IU994m8g"
+    },
+    "stats": {
+      "title": "Why Wellington Trusts Us",
+      "items": [
+        { "value": "95%", "label": "Referral Rate", "desc": "Our business thrives on word-of-mouth excellence." },
+        { "value": "26+", "label": "Years Serving Wellington", "desc": "Deep local knowledge of the capital's unique builds." },
+        { "value": "100%", "label": "Satisfaction Guarantee", "desc": "We don't leave until you're absolutely delighted." },
+        { "value": "Elite", "label": "Painter Network", "desc": "Trusted by the city's leading architects." }
+      ]
+    },
+    "cta": {
+      "title": "Ready to Transform Your Space?",
+      "subtitle": "Join the hundreds of satisfied Wellingtonians who trust ThaiViet Ltd for their home's care.",
+      "primaryLabel": "Request a Site Visit",
+      "primaryTo": "/contact",
+      "secondaryLabel": "Our Project Gallery",
+      "secondaryTo": "/projects"
+    }
+  },
   "projects": [
     {
       "id": "plimmerton-coastal",
