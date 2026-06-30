@@ -15,22 +15,29 @@ create policy "site_content public read"
   on public.site_content for select
   using (true);
 
--- TEMPORARY: allow updates without a Supabase session, because admin login is
+-- TEMPORARY: allow writes without a Supabase session, because admin login is
 -- currently a hardcoded client-side gate (admin/admin), not Supabase Auth.
+-- The client publishes via upsert (INSERT ... ON CONFLICT), so the policy must
+-- cover INSERT *and* UPDATE — "for all" does both. An UPDATE-only policy fails the
+-- insert-path WITH CHECK with "new row violates row-level security policy".
 -- WARNING: the publishable key ships in the browser bundle, so while this policy
 -- is active ANYONE can write to this row. Replace with the secure policy below
 -- once real Supabase Auth is wired up.
 drop policy if exists "site_content authenticated update" on public.site_content;
 drop policy if exists "site_content temp open update" on public.site_content;
-create policy "site_content temp open update"
-  on public.site_content for update
+drop policy if exists "site_content temp open write" on public.site_content;
+create policy "site_content temp open write"
+  on public.site_content for all
+  to anon, authenticated
   using (true)
   with check (true);
 
--- SECURE version for later (run these two statements once real auth is in place):
---   drop policy if exists "site_content temp open update" on public.site_content;
---   create policy "site_content authenticated update"
---     on public.site_content for update
+grant select, insert, update on public.site_content to anon, authenticated;
+
+-- SECURE version for later (run these once real Supabase Auth is in place):
+--   drop policy if exists "site_content temp open write" on public.site_content;
+--   create policy "site_content authenticated write"
+--     on public.site_content for all
 --     to authenticated
 --     using (true)
 --     with check (true);

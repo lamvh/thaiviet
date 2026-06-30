@@ -77,7 +77,7 @@ export function EditDrawer() {
 
         <div className="px-6 py-4 border-t border-[#eee9e1] flex gap-2.5 justify-end">
           <button onClick={closeEdit} className="bg-[#f4f2ee] px-5 py-2.5 rounded-lg font-bold text-sm">Cancel</button>
-          <button onClick={saveEdit} className="bg-primary text-white px-5 py-2.5 rounded-lg font-bold text-sm">Save changes</button>
+          <button onClick={saveEdit} className="bg-primary text-white px-5 py-2.5 rounded-lg font-bold text-sm">Apply</button>
         </div>
       </div>
     </div>

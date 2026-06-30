@@ -7,8 +7,6 @@ import { validateContent } from '../../lib/content-schema';
 
 export type PublishStatus = 'idle' | 'publishing' | 'done' | 'error';
 
-export const CONTENT_STORAGE_KEY = 'tv-admin-content-draft';
-
 type ItemKind = 'projects' | 'posts';
 
 interface EditState { kind: ItemKind; id: string; isNew?: boolean; }
@@ -66,7 +64,7 @@ function reducer(state: AdminState, a: Action): AdminState {
       if (!state.editing) return state;
       const { kind, id } = state.editing;
       const list = (state.content[kind] as Array<Project | Post>).map((x) => (x.id === id ? { ...x, ...state.draft } : x));
-      return { ...state, content: { ...state.content, [kind]: list }, editing: null, dirty: true, toast: 'Changes saved' };
+      return { ...state, content: { ...state.content, [kind]: list }, editing: null, dirty: true, toast: 'Applied — click Save to publish' };
     }
     case 'CLOSE_EDIT': {
       // Discard a freshly-added item that was never saved.
@@ -121,17 +119,10 @@ function reducer(state: AdminState, a: Action): AdminState {
 }
 
 function initState(): AdminState {
+  // Bundled content is only the first paint; the live DB row replaces it via HYDRATE on mount.
+  // The database is the single source of truth — no localStorage draft.
   const base = rawContent as unknown as SiteContent;
-  let content = clone(base);
-  let dirty = false;
-  try {
-    const saved = localStorage.getItem(CONTENT_STORAGE_KEY);
-    if (saved) {
-      const parsed = JSON.parse(saved) as { content: SiteContent; dirty: boolean };
-      if (parsed?.content) { content = parsed.content; dirty = !!parsed.dirty; }
-    }
-  } catch { /* ignore corrupt draft */ }
-  return { content, base: clone(base), dirty, editing: null, draft: {}, newArea: '', toast: '', publishStatus: 'idle', publishMsg: '', commitUrl: '' };
+  return { content: clone(base), base: clone(base), dirty: false, editing: null, draft: {}, newArea: '', toast: '', publishStatus: 'idle', publishMsg: '', commitUrl: '' };
 }
 
 interface StoreApi {
@@ -170,12 +161,10 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, undefined, initState);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Autosave working copy + dirty flag to localStorage on every change.
+  // One-time cleanup: drop any draft left behind by the old localStorage-backed version.
   useEffect(() => {
-    try {
-      localStorage.setItem(CONTENT_STORAGE_KEY, JSON.stringify({ content: state.content, dirty: state.dirty }));
-    } catch { /* quota / private mode — ignore */ }
-  }, [state.content, state.dirty]);
+    try { localStorage.removeItem('tv-admin-content-draft'); } catch { /* ignore */ }
+  }, []);
 
   // Load the latest published content so dirty-tracking compares against Supabase.
   useEffect(() => {
@@ -239,12 +228,12 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
         const { data, error } = await supabase
           .from('site_content')
           .upsert({ id: SITE_CONTENT_ID, data: state.content, updated_at: new Date().toISOString() })
-          .eq('id', SITE_CONTENT_ID)
           .select('id');
         if (error) throw new Error(error.message);
         if (!data || data.length === 0) throw new Error('Write blocked — no row updated (check Supabase RLS policy)');
         dispatch({ t: 'MARK_PUBLISHED', content: state.content });
         dispatch({ t: 'PUBLISH_DONE', commitUrl: '' });
+        dispatch({ t: 'TOAST', msg: 'Saved to database ✓' });
       } catch (e) {
         dispatch({ t: 'PUBLISH_ERROR', msg: e instanceof Error ? e.message : 'Save failed' });
       }
