@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Icon } from '../../components/ui/Icon';
 import type { AdminSection, SiteContent } from './useAdminContent';
 
@@ -16,7 +17,7 @@ export function AdminSidebar({ section, onSelect, content }: { section: AdminSec
 
   return (
     <aside className="w-[264px] flex-none flex flex-col p-4 bg-[#1c1c19] text-white min-h-screen">
-      <div className="flex items-center gap-2.5 px-2.5 pt-1.5 pb-5">
+      <Link to="/" title="Go to homepage" className="flex items-center gap-2.5 px-2.5 pt-1.5 pb-5 hover:opacity-90 transition-opacity">
         <div className="w-[34px] h-[34px] rounded-[9px] bg-primary flex items-center justify-center flex-none">
           <Icon name="format_paint" className="text-white text-xl" />
         </div>
@@ -24,7 +25,7 @@ export function AdminSidebar({ section, onSelect, content }: { section: AdminSec
           ThaiViet
           <div className="text-[11px] font-semibold text-white/55 tracking-widest mt-1">CONTENT CMS</div>
         </div>
-      </div>
+      </Link>
 
       <nav className="flex flex-col gap-1 mt-2">
         {nav.map((n) => {
