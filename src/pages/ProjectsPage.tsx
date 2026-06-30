@@ -4,16 +4,17 @@ import { Icon } from '../components/ui/Icon';
 import { Container } from '../components/ui/Container';
 import { ProjectCard } from '../components/cards/ProjectCard';
 import { ProjectFilter } from '../components/ProjectFilter';
-import { PROJECTS } from '../data/projects';
+import { useSiteContent } from '../lib/site-content-context';
 
 const SPOTLIGHT = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDg2DbjF7-sjzLgsi7oE40Av1IK52MRlizgK3CETMIRsQORqAoED0rjteha24wHqXiHI57FzuwJKPUFNoHPVUNdNX4JE2Orbo7ngj_KhWtEAnrmiZxTomyoSiiTyiPCVEi2X4YMidx4SR8kMxuAIBC6h-u_hLSQO0J0C-O1_MwlzQ_9LtY5uyNCTAkJdv4x-Cq9gB64kjnhNUVN3glxnyqeEIufAtxLiEhoFl_NKm1k2O5PhDECoK5c6gtCxJH-gB5HuQwKN6i4-zw';
 
 export function ProjectsPage() {
+  const { projects: PROJECTS } = useSiteContent();
   const [filter, setFilter] = useState('all');
   const visible = useMemo(() => {
     const shown = PROJECTS.filter((p) => p.visible !== false);
     return filter === 'all' ? shown : shown.filter((p) => p.category === filter);
-  }, [filter]);
+  }, [filter, PROJECTS]);
 
   return (
     <>

@@ -1,11 +1,12 @@
 import { useState, useCallback } from 'react';
-import { PHONE } from '../data/nav';
+import { useSiteContent } from '../lib/site-content-context';
 
 export interface ChatMessage { role: 'user' | 'assistant'; content: string; }
 
 const WELCOME = "Hi! I'm Ngoc Nguyen from Thai Viet Ltd. How can I help you today? Feel free to ask about our painting services, free quotes, or anything else! \uD83D\uDE0A";
 
 export function useChat() {
+  const { contact } = useSiteContent();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [typing, setTyping] = useState(false);
@@ -33,9 +34,9 @@ export function useChat() {
     // TODO: replace with real POST /api/chat
     setTimeout(() => {
       setTyping(false);
-      setMessages((p) => [...p, { role: 'assistant', content: `Thanks! Our team will get back to you shortly, or call ${PHONE}.` }]);
+      setMessages((p) => [...p, { role: 'assistant', content: `Thanks! Our team will get back to you shortly, or call ${contact.phone}.` }]);
     }, 1200);
-  }, []);
+  }, [contact.phone]);
 
   return { open, openChat, closeChat, toggle: () => (open ? closeChat() : openChat()), messages, typing, send };
 }

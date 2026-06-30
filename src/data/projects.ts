@@ -1,9 +1,4 @@
-import type { Project } from '../lib/types';
-import content from '../content/site-content.json';
-
-// Editable project gallery — sourced from site-content.json (managed via /admin).
-export const PROJECTS: Project[] = content.projects as unknown as Project[];
-
+// Static filter options for the project gallery (not editable content).
 export const PROJECT_FILTERS: { value: string; label: string }[] = [
   { value: 'all', label: 'All' },
   { value: 'interior', label: 'Interior Painting' },

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Icon } from '../../components/ui/Icon';
 import type { AdminSection } from './useAdminContent';
 import { AdminContentProvider, useAdminStore, isHttpsUrl } from './admin-content-store';
+import { AdminAuthGate } from './AdminAuthGate';
 import { AdminSidebar } from './AdminSidebar';
 import { Overview } from './sections/Overview';
 import { ProjectsTable } from './sections/ProjectsTable';
@@ -21,7 +22,7 @@ const META: Record<AdminSection, [string, string]> = {
   home: ['Homepage / Hero', 'Edit the headline visitors see first'],
   areas: ['Service Areas', 'Suburbs and towns you cover'],
   contact: ['Contact & Social', 'Phone, email and social links'],
-  settings: ['Settings', 'Connect GitHub publishing'],
+  settings: ['Settings', 'Your account and sign out'],
 };
 
 const SITE_URL = import.meta.env.BASE_URL;
@@ -98,8 +99,10 @@ function AdminInner() {
 
 export function AdminPage() {
   return (
-    <AdminContentProvider>
-      <AdminInner />
-    </AdminContentProvider>
+    <AdminAuthGate>
+      <AdminContentProvider>
+        <AdminInner />
+      </AdminContentProvider>
+    </AdminAuthGate>
   );
 }

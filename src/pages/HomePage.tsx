@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '../components/ui/Icon';
 import { Container } from '../components/ui/Container';
-import { HERO as HERO_CONTENT } from '../data/hero';
+import { useSiteContent } from '../lib/site-content-context';
 const IMG_PAINTER = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDS7XMYoRmBAFT9TmFpAzHxWc300tKxxnKbYLUdCYjgK-CPdSLCygVyy6bQe1RyWD9CpeapHOjZRasfFl03l9rktKFIoYmDTbS2LEWH7c3nFRiQsF_DiQLqq623eNF19ZfG9uGZBVFhR0Xfp22Ux8iLTFK6gkS29bQ99fOb5wEVs1AzMHxW85gZtLXz6fF4rLbRzPQgTNSI0nGyo_gzuIYSqz1n1MpIs7o4oKCFTL2YK0Rn8OKgHKVn-jLSLp8WhR9BFAX2QtefcaI';
 const IMG_A = 'https://lh3.googleusercontent.com/aida-public/AB6AXuB87cGgBk0YBR_tpvL7DxCNsbWCCOmDrDVDds7kso898HAHsbnGKovael_oEGhDU6Zr893QU77Rw4usGN-ma-ML6PVkE_BI4_gZVpwRBHm1J3zRwm0tdFTX4EQE9tkSoTgz10h3S1uR5guO5VV7qGeYI1LbRYLjTqFsgWPk7QfKvNyPr99T4B1VwfZhs0_GbK45CI9WVloJiU9RWedFrRyAMbaF80o17ZpVf_IHf1se8B4ywIhajKQi9mjF4rZzd4Yt-mbdvMtp8R8';
 const IMG_B = 'https://lh3.googleusercontent.com/aida-public/AB6AXuBIB2Ay362v9lQAhDui7udTY0wpiUsgovjQAl8Ej5Rrke6jLEDfp_rnGzwwBKgK-1IQyzPIJw49f5rzAh4j0GEPogLcfSBc03dap5LSvgR8zWT1Pf8By1JwHuUL4cRKARXyzJv-j7qVlfY2D8vN1WVCcqwHSLqAfYvS1pZCoOrTCol3Z9EHLX_lkqVRcYHRs-Hv-tNIeCbOOEXf31IccceUUgLBk51rZMbzyEYSZDT0LHnluHTkQCnXSjL7ReVxFF4eqUURkMije44';
@@ -20,6 +20,7 @@ const STATS = [
 ];
 
 export function HomePage() {
+  const { hero: HERO_CONTENT } = useSiteContent();
   return (
     <>
       <section className="relative h-[614px] flex items-center justify-center overflow-hidden">

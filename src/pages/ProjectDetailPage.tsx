@@ -1,10 +1,11 @@
 import { Link, useParams } from 'react-router-dom';
 import { Icon } from '../components/ui/Icon';
 import { Container } from '../components/ui/Container';
-import { PROJECTS } from '../data/projects';
+import { useSiteContent } from '../lib/site-content-context';
 import { PROJECT_DETAILS } from '../data/project-details';
 
 export function ProjectDetailPage() {
+  const { projects: PROJECTS } = useSiteContent();
   const { id } = useParams<{ id: string }>();
   const project = PROJECTS.find((p) => p.id === id);
 

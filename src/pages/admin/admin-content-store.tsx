@@ -2,11 +2,10 @@ import { createContext, useContext, useEffect, useReducer, useRef, type ReactNod
 import type { Hero, Contact, Project, Post } from '../../lib/types';
 import rawContent from '../../content/site-content.json';
 import type { SiteContent } from './useAdminContent';
-import { getPat } from '../../lib/pat-store';
-import { getContentFile, putContentFile } from '../../lib/github-api';
+import { supabase, SITE_CONTENT_ID } from '../../lib/supabase';
 import { validateContent } from '../../lib/content-schema';
 
-export type PublishStatus = 'idle' | 'publishing' | 'done' | 'error' | 'conflict';
+export type PublishStatus = 'idle' | 'publishing' | 'done' | 'error';
 
 export const CONTENT_STORAGE_KEY = 'tv-admin-content-draft';
 
@@ -25,7 +24,6 @@ interface AdminState {
   publishStatus: PublishStatus;
   publishMsg: string;
   commitUrl: string;
-  conflict: { remote: SiteContent; sha: string } | null;
 }
 
 type Action =
@@ -44,9 +42,9 @@ type Action =
   | { t: 'PUBLISH_START' }
   | { t: 'PUBLISH_DONE'; commitUrl: string }
   | { t: 'PUBLISH_ERROR'; msg: string }
-  | { t: 'PUBLISH_CONFLICT'; remote: SiteContent; sha: string }
   | { t: 'CLEAR_PUBLISH' }
-  | { t: 'MARK_PUBLISHED'; content: SiteContent };
+  | { t: 'MARK_PUBLISHED'; content: SiteContent }
+  | { t: 'HYDRATE'; remote: SiteContent };
 
 const PLACEHOLDER_IMG = 'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=800&q=80';
 
@@ -103,17 +101,20 @@ function reducer(state: AdminState, a: Action): AdminState {
     case 'TOAST':
       return { ...state, toast: a.msg };
     case 'PUBLISH_START':
-      return { ...state, publishStatus: 'publishing', publishMsg: '', commitUrl: '', conflict: null };
+      return { ...state, publishStatus: 'publishing', publishMsg: '', commitUrl: '' };
     case 'PUBLISH_DONE':
-      return { ...state, publishStatus: 'done', publishMsg: 'Published — site rebuilding (~1 min)', commitUrl: a.commitUrl };
+      return { ...state, publishStatus: 'done', publishMsg: 'Saved — live now', commitUrl: a.commitUrl };
     case 'PUBLISH_ERROR':
       return { ...state, publishStatus: 'error', publishMsg: a.msg };
-    case 'PUBLISH_CONFLICT':
-      return { ...state, publishStatus: 'conflict', publishMsg: 'Site changed since you loaded.', conflict: { remote: a.remote, sha: a.sha } };
     case 'CLEAR_PUBLISH':
-      return { ...state, publishStatus: 'idle', publishMsg: '', conflict: null };
+      return { ...state, publishStatus: 'idle', publishMsg: '' };
     case 'MARK_PUBLISHED':
       return { ...state, base: clone(a.content), content: clone(a.content), dirty: false };
+    case 'HYDRATE':
+      // Refresh the published-state snapshot; adopt remote as the working copy only when there's no local draft.
+      return state.dirty
+        ? { ...state, base: clone(a.remote) }
+        : { ...state, base: clone(a.remote), content: clone(a.remote) };
     default:
       return state;
   }
@@ -130,12 +131,7 @@ function initState(): AdminState {
       if (parsed?.content) { content = parsed.content; dirty = !!parsed.dirty; }
     }
   } catch { /* ignore corrupt draft */ }
-  return { content, base: clone(base), dirty, editing: null, draft: {}, newArea: '', toast: '', publishStatus: 'idle', publishMsg: '', commitUrl: '', conflict: null };
-}
-
-const COMMIT_MSG = 'chore(content): update site content via admin dashboard';
-function serialize(content: SiteContent): string {
-  return JSON.stringify(content, null, 2) + '\n';
+  return { content, base: clone(base), dirty, editing: null, draft: {}, newArea: '', toast: '', publishStatus: 'idle', publishMsg: '', commitUrl: '' };
 }
 
 interface StoreApi {
@@ -154,8 +150,6 @@ interface StoreApi {
   toast: (msg: string) => void;
   markPublished: (content: SiteContent) => void;
   publish: () => Promise<void>;
-  reloadRemote: () => void;
-  forceOverwrite: () => Promise<void>;
   clearPublish: () => void;
 }
 
@@ -182,6 +176,21 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
       localStorage.setItem(CONTENT_STORAGE_KEY, JSON.stringify({ content: state.content, dirty: state.dirty }));
     } catch { /* quota / private mode — ignore */ }
   }, [state.content, state.dirty]);
+
+  // Load the latest published content so dirty-tracking compares against Supabase.
+  useEffect(() => {
+    let active = true;
+    supabase
+      .from('site_content')
+      .select('data')
+      .eq('id', SITE_CONTENT_ID)
+      .single()
+      .then(({ data, error }) => {
+        if (!active || error || !data?.data) return;
+        dispatch({ t: 'HYDRATE', remote: data.data as SiteContent });
+      });
+    return () => { active = false; };
+  }, []);
 
   // Warn before leaving with unsaved (unpublished) edits.
   useEffect(() => {
@@ -222,46 +231,17 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
     publish: async () => {
       const errors = validateContent(state.content);
       if (errors.length) { dispatch({ t: 'TOAST', msg: errors[0] }); return; }
-      const pat = getPat();
-      if (!pat) { dispatch({ t: 'TOAST', msg: 'Add a GitHub token in Settings first' }); return; }
       dispatch({ t: 'PUBLISH_START' });
       try {
-        const remote = await getContentFile(pat);
-        let remoteContent: SiteContent | null = null;
-        try { remoteContent = JSON.parse(remote.text) as SiteContent; } catch { remoteContent = null; }
-        // Unreadable remote → never auto-overwrite; surface an error so the user can investigate.
-        if (!remoteContent) {
-          dispatch({ t: 'PUBLISH_ERROR', msg: 'Could not read the current site content on GitHub. Reload and retry.' });
-          return;
-        }
-        // Conflict guard: refuse to clobber out-of-band repo changes.
-        if (JSON.stringify(remoteContent) !== JSON.stringify(state.base)) {
-          dispatch({ t: 'PUBLISH_CONFLICT', remote: remoteContent, sha: remote.sha });
-          return;
-        }
-        const res = await putContentFile(pat, serialize(state.content), remote.sha, COMMIT_MSG);
+        const { error } = await supabase
+          .from('site_content')
+          .update({ data: state.content, updated_at: new Date().toISOString() })
+          .eq('id', SITE_CONTENT_ID);
+        if (error) throw new Error(error.message);
         dispatch({ t: 'MARK_PUBLISHED', content: state.content });
-        dispatch({ t: 'PUBLISH_DONE', commitUrl: res.commitUrl });
+        dispatch({ t: 'PUBLISH_DONE', commitUrl: '' });
       } catch (e) {
-        dispatch({ t: 'PUBLISH_ERROR', msg: e instanceof Error ? e.message : 'Publish failed' });
-      }
-    },
-    reloadRemote: () => {
-      if (!state.conflict) return;
-      dispatch({ t: 'MARK_PUBLISHED', content: state.conflict.remote });
-      dispatch({ t: 'CLEAR_PUBLISH' });
-      dispatch({ t: 'TOAST', msg: 'Reloaded the latest content from the site' });
-    },
-    forceOverwrite: async () => {
-      const pat = getPat();
-      if (!pat || !state.conflict) return;
-      dispatch({ t: 'PUBLISH_START' });
-      try {
-        const res = await putContentFile(pat, serialize(state.content), state.conflict.sha, COMMIT_MSG + ' (overwrite)');
-        dispatch({ t: 'MARK_PUBLISHED', content: state.content });
-        dispatch({ t: 'PUBLISH_DONE', commitUrl: res.commitUrl });
-      } catch (e) {
-        dispatch({ t: 'PUBLISH_ERROR', msg: e instanceof Error ? e.message : 'Publish failed' });
+        dispatch({ t: 'PUBLISH_ERROR', msg: e instanceof Error ? e.message : 'Save failed' });
       }
     },
   };

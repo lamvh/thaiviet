@@ -1,5 +1,4 @@
 import type { NavItem } from '../lib/types';
-import { CONTACT } from './contact';
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'About', to: '/' },
@@ -22,8 +21,3 @@ export const SERVICE_LINKS = {
     { icon: 'grid_on', label: 'Flooring' },
   ],
 };
-
-export const PHONE = CONTACT.phone;
-export const EMAIL = CONTACT.email;
-export const FACEBOOK = CONTACT.facebook;
-export const MESSENGER = CONTACT.messenger;

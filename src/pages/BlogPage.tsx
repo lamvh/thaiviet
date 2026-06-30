@@ -2,7 +2,7 @@ import { Container } from '../components/ui/Container';
 import { CTASection } from '../components/ui/CTASection';
 import { BlogCard } from '../components/cards/BlogCard';
 import { VlogCard } from '../components/cards/VlogCard';
-import { POSTS } from '../data/posts';
+import { useSiteContent } from '../lib/site-content-context';
 import { REVIEWS, REELS } from '../data/reels';
 
 function Heading({ eyebrow, title, sub }: { eyebrow: string; title: string; sub: string }) {
@@ -16,6 +16,7 @@ function Heading({ eyebrow, title, sub }: { eyebrow: string; title: string; sub:
 }
 
 export function BlogPage() {
+  const { posts: POSTS } = useSiteContent();
   return (
     <>
       <section className="pt-20 pb-16 px-8 bg-gradient-to-br from-surface-container-low to-surface text-center">

@@ -1,15 +1,14 @@
 import { Icon } from '../components/ui/Icon';
 import { Container } from '../components/ui/Container';
 import { useContactForm } from '../hooks/useContactForm';
-import { AREAS } from '../data/areas';
-import { PHONE, EMAIL, FACEBOOK } from '../data/nav';
-import { CONTACT } from '../data/contact';
+import { useSiteContent } from '../lib/site-content-context';
 
 const field = 'w-full bg-surface-container-low border-none rounded-lg p-4 focus:ring-2 focus:ring-primary/30 transition-all text-on-surface';
 const label = 'text-xs font-semibold uppercase tracking-wider text-on-surface-variant ml-1';
 const TRUST = ['MASTER PAINTERS', 'QUALITY ASSURED', '5-YEAR WARRANTY', 'FULLY INSURED'];
 
 export function ContactPage() {
+  const { areas: AREAS, contact: CONTACT } = useSiteContent();
   const { toast, submitting, submit } = useContactForm();
   const cols = [AREAS.slice(0, 11), AREAS.slice(11, 22), AREAS.slice(22)];
 
@@ -41,7 +40,7 @@ export function ContactPage() {
                   <div className="space-y-2"><label className={label}>Email Address *</label><input name="email" type="email" placeholder="john@example.com" className={field} required /></div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2"><label className={label}>Phone Number</label><input name="phone" type="tel" placeholder={PHONE} className={field} /></div>
+                  <div className="space-y-2"><label className={label}>Phone Number</label><input name="phone" type="tel" placeholder={CONTACT.phone} className={field} /></div>
                   <div className="space-y-2"><label className={label}>Service Type</label>
                     <select name="service" className={field + ' appearance-none'}>
                       <option>Residential Painting</option><option>Commercial Painting</option><option>Exterior Specialist</option><option>Interior Refresh</option><option>Other Services</option>
@@ -60,8 +59,8 @@ export function ContactPage() {
               <div className="space-y-8">
                 <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-primary">Direct Contact</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8">
-                  <div className="flex items-start gap-6 group"><div className="bg-surface-container-highest p-4 rounded-xl group-hover:bg-primary/10 transition-colors"><Icon name="call" className="text-primary text-3xl" /></div><div><p className="text-on-surface-variant text-xs font-bold uppercase mb-1">Call Us</p><a className="text-2xl font-headline font-bold hover:text-primary transition-colors" href={'tel:' + PHONE.replace(/\s/g, '')}>{PHONE}</a></div></div>
-                  <div className="flex items-start gap-6 group"><div className="bg-surface-container-highest p-4 rounded-xl group-hover:bg-primary/10 transition-colors"><Icon name="mail" className="text-primary text-3xl" /></div><div><p className="text-on-surface-variant text-xs font-bold uppercase mb-1">Email Support</p><a className="text-2xl font-headline font-bold hover:text-primary transition-colors" href={'mailto:' + EMAIL}>{EMAIL}</a></div></div>
+                  <div className="flex items-start gap-6 group"><div className="bg-surface-container-highest p-4 rounded-xl group-hover:bg-primary/10 transition-colors"><Icon name="call" className="text-primary text-3xl" /></div><div><p className="text-on-surface-variant text-xs font-bold uppercase mb-1">Call Us</p><a className="text-2xl font-headline font-bold hover:text-primary transition-colors" href={'tel:' + CONTACT.phone.replace(/\s/g, '')}>{CONTACT.phone}</a></div></div>
+                  <div className="flex items-start gap-6 group"><div className="bg-surface-container-highest p-4 rounded-xl group-hover:bg-primary/10 transition-colors"><Icon name="mail" className="text-primary text-3xl" /></div><div><p className="text-on-surface-variant text-xs font-bold uppercase mb-1">Email Support</p><a className="text-2xl font-headline font-bold hover:text-primary transition-colors" href={'mailto:' + CONTACT.email}>{CONTACT.email}</a></div></div>
                 </div>
               </div>
               <div className="bg-surface-container-highest/50 p-8 rounded-xl border border-outline-variant/10">
@@ -71,7 +70,7 @@ export function ContactPage() {
               </div>
               <div className="flex items-center gap-6">
                 <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-on-surface-variant">Follow Our Work</h3>
-                <a className="w-12 h-12 bg-[#1877F2] rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform shadow-lg" href={FACEBOOK} target="_blank" rel="noopener" aria-label="Facebook">
+                <a className="w-12 h-12 bg-[#1877F2] rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform shadow-lg" href={CONTACT.facebook} target="_blank" rel="noopener" aria-label="Facebook">
                   <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" /></svg>
                 </a>
               </div>

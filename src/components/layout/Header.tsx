@@ -3,11 +3,13 @@ import { Link, NavLink } from 'react-router-dom';
 import { Icon } from '../ui/Icon';
 import { ServicesDropdown } from './ServicesDropdown';
 import { FacebookIcon } from './FacebookIcon';
-import { NAV_ITEMS, PHONE, FACEBOOK } from '../../data/nav';
+import { NAV_ITEMS } from '../../data/nav';
+import { useSiteContent } from '../../lib/site-content-context';
 
 const LOGO = 'https://project.vinapage.com/thaivietconz/images/logo.webp';
 
 export function Header() {
+  const { contact } = useSiteContent();
   const [open, setOpen] = useState(false);
   const linkBase = 'transition-colors font-headline';
   const navClass = ({ isActive }: { isActive: boolean }) =>
@@ -27,8 +29,8 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-4">
-          <a className="hidden sm:inline-flex items-center justify-center w-10 h-10 text-slate-700 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all active:scale-95" href={FACEBOOK} target="_blank" rel="noopener" aria-label="Facebook"><FacebookIcon className="w-5 h-5" /></a>
-          <a className="hidden sm:flex text-slate-700 font-semibold px-4 py-2 hover:bg-surface-container-low rounded-lg transition-all active:scale-95" href={'tel:' + PHONE.replace(/\s/g, '')}>Call Now</a>
+          <a className="hidden sm:inline-flex items-center justify-center w-10 h-10 text-slate-700 hover:text-primary hover:bg-surface-container-low rounded-lg transition-all active:scale-95" href={contact.facebook} target="_blank" rel="noopener" aria-label="Facebook"><FacebookIcon className="w-5 h-5" /></a>
+          <a className="hidden sm:flex text-slate-700 font-semibold px-4 py-2 hover:bg-surface-container-low rounded-lg transition-all active:scale-95" href={'tel:' + contact.phone.replace(/\s/g, '')}>Call Now</a>
           <Link to="/contact" className="hidden lg:inline-flex bg-primary text-on-primary px-6 py-2.5 rounded-lg font-bold shadow-lg shadow-primary/20 hover:brightness-110 active:scale-95 transition-all">Get a Free Quote</Link>
           <button className="lg:hidden text-on-surface p-2" onClick={() => setOpen((v) => !v)} aria-label="Menu"><Icon name="menu" className="text-2xl" /></button>
         </div>
@@ -40,7 +42,7 @@ export function Header() {
           {NAV_ITEMS.map((n) => (
             <MobileLink key={n.to + n.label} to={n.to} onClick={() => setOpen(false)}>{n.label}</MobileLink>
           ))}
-          <a className="mx-8 mt-4 mb-4 block bg-primary text-on-primary px-6 py-3 rounded-lg font-bold text-center shadow-lg shadow-primary/20" href={'tel:' + PHONE.replace(/\s/g, '')}>Call {PHONE}</a>
+          <a className="mx-8 mt-4 mb-4 block bg-primary text-on-primary px-6 py-3 rounded-lg font-bold text-center shadow-lg shadow-primary/20" href={'tel:' + contact.phone.replace(/\s/g, '')}>Call {contact.phone}</a>
         </div>
       )}
     </header>
