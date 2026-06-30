@@ -11,8 +11,8 @@ const CSP = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src https://fonts.gstatic.com",
   "img-src 'self' https: data:",
-  "connect-src 'self' https://api.github.com",
-  "frame-src https://www.facebook.com",
+  "connect-src 'self' https://api.github.com https://cwcyjnlkkiqmwvueiilg.supabase.co",
+  "frame-src https://www.facebook.com https://web.facebook.com",
   "base-uri 'self'",
   "form-action 'self'",
 ].join('; ');
