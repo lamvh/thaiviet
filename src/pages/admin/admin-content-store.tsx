@@ -233,11 +233,16 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
       if (errors.length) { dispatch({ t: 'TOAST', msg: errors[0] }); return; }
       dispatch({ t: 'PUBLISH_START' });
       try {
-        const { error } = await supabase
+        // upsert (not update): creates row 1 if the seed never ran, instead of
+        // silently affecting 0 rows. .select() returns the written row so we can
+        // confirm the write actually landed rather than trusting a null error.
+        const { data, error } = await supabase
           .from('site_content')
-          .update({ data: state.content, updated_at: new Date().toISOString() })
-          .eq('id', SITE_CONTENT_ID);
+          .upsert({ id: SITE_CONTENT_ID, data: state.content, updated_at: new Date().toISOString() })
+          .eq('id', SITE_CONTENT_ID)
+          .select('id');
         if (error) throw new Error(error.message);
+        if (!data || data.length === 0) throw new Error('Write blocked — no row updated (check Supabase RLS policy)');
         dispatch({ t: 'MARK_PUBLISHED', content: state.content });
         dispatch({ t: 'PUBLISH_DONE', commitUrl: '' });
       } catch (e) {
