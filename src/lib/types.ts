@@ -4,7 +4,34 @@ export type ProjectCategory =
 
 export interface NavItem { label: string; to: string; }
 
-export interface Service { icon: string; title: string; desc: string; features: string[]; }
+export interface Service { icon: string; title: string; desc: string; features: string[]; slug: string; }
+
+export interface ServiceFeature { icon: string; title: string; desc: string; }
+export interface ServiceShowcase { title: string; blurb: string; img: string; }
+
+export interface ServiceDetail {
+  slug: string;
+  name: string;
+  heroTitle: string;
+  heroSub: string;
+  heroImg: string;
+  introTitle: string;
+  introA: string;
+  introB: string;
+  features: ServiceFeature[];
+  midEyebrow: string;
+  midTitle: string;
+  midImage: string;
+  midParas: string[];
+  midList: string[];
+  beforeImg: string;
+  afterImg: string;
+  gallery: string[];
+  showcase: ServiceShowcase[];
+  quote: string;
+  quoteName: string;
+  quoteSub: string;
+}
 
 export interface Project {
   id: string;

@@ -41,7 +41,7 @@ lib/       types.ts
 ```
 
 ## Routes
-`/` Home (marketing landing) · `/about` (company story) · `/services` · `/projects` · `/projects/:id` (case study) · `/blog` · `/contact`
+`/` Home (marketing landing) · `/about` (company story) · `/services` · `/services/interior` (bespoke) · `/services/:slug` (generic service detail) · `/projects` · `/projects/:id` (case study) · `/blog` · `/contact`
 
 The landing page content lives under the `home` block in `data`/Supabase (admin → **Homepage**); the about page content lives under the `homepage` block (admin → **About Page** — key kept for content compatibility).
 
