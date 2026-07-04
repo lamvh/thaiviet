@@ -21,9 +21,9 @@ export function Header() {
         <Link to="/"><img src={LOGO} alt="ThaiViet Ltd" className="h-12 w-auto" /></Link>
 
         <div className="hidden lg:flex items-center gap-7">
-          <NavLink to="/" end className={navClass}>About</NavLink>
+          <NavLink to="/about" className={navClass}>About</NavLink>
           <ServicesDropdown />
-          {NAV_ITEMS.filter((n) => n.to !== '/').map((n) => (
+          {NAV_ITEMS.filter((n) => n.to !== '/about').map((n) => (
             <NavLink key={n.to} to={n.to} className={navClass}>{n.label}</NavLink>
           ))}
         </div>

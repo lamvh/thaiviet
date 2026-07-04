@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer, useRef, type ReactNode } from 'react';
-import type { Hero, Contact, Project, Post, Homepage } from '../../lib/types';
+import type { Hero, Contact, Project, Post, Homepage, Home } from '../../lib/types';
 import type { SiteContent } from './useAdminContent';
 import { supabase, SITE_CONTENT_ID } from '../../lib/supabase';
 import { validateContent } from '../../lib/content-schema';
@@ -32,6 +32,7 @@ type Action =
   | { t: 'CLOSE_EDIT' }
   | { t: 'ADD_ITEM'; kind: ItemKind; id: string }
   | { t: 'UPDATE_HERO'; key: keyof Hero; val: string }
+  | { t: 'UPDATE_HOME'; home: Home }
   | { t: 'UPDATE_HOMEPAGE'; homepage: Homepage }
   | { t: 'UPDATE_CONTACT'; key: keyof Contact; val: string }
   | { t: 'SET_NEW_AREA'; val: string }
@@ -86,6 +87,8 @@ function reducer(state: AdminState, a: Action): AdminState {
     }
     case 'UPDATE_HERO':
       return { ...state, content: { ...state.content, hero: { ...state.content.hero, [a.key]: a.val } }, dirty: true };
+    case 'UPDATE_HOME':
+      return { ...state, content: { ...state.content, home: a.home }, dirty: true };
     case 'UPDATE_HOMEPAGE':
       return { ...state, content: { ...state.content, homepage: a.homepage }, dirty: true };
     case 'UPDATE_CONTACT':
@@ -137,6 +140,7 @@ interface StoreApi {
   closeEdit: () => void;
   addItem: (kind: ItemKind) => void;
   updateHero: (key: keyof Hero, val: string) => void;
+  updateHome: (updater: (h: Home) => Home) => void;
   updateHomepage: (updater: (h: Homepage) => Homepage) => void;
   updateContact: (key: keyof Contact, val: string) => void;
   setNewArea: (val: string) => void;
@@ -214,6 +218,7 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
     closeEdit: () => dispatch({ t: 'CLOSE_EDIT' }),
     addItem: (kind) => dispatch({ t: 'ADD_ITEM', kind, id: uniqueId(kind === 'projects' ? 'p' : 'b', state.content[kind].map((x) => x.id)) }),
     updateHero: (key, val) => dispatch({ t: 'UPDATE_HERO', key, val }),
+    updateHome: (updater) => dispatch({ t: 'UPDATE_HOME', home: updater(state.content.home) }),
     updateHomepage: (updater) => dispatch({ t: 'UPDATE_HOMEPAGE', homepage: updater(state.content.homepage) }),
     updateContact: (key, val) => dispatch({ t: 'UPDATE_CONTACT', key, val }),
     setNewArea: (val) => dispatch({ t: 'SET_NEW_AREA', val }),

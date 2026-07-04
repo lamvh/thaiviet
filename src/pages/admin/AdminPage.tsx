@@ -9,6 +9,7 @@ import { Overview } from './sections/Overview';
 import { ProjectsTable } from './sections/ProjectsTable';
 import { BlogTable } from './sections/BlogTable';
 import { HeroEditor } from './sections/HeroEditor';
+import { HomeEditor } from './sections/HomeEditor';
 import { HomepageEditor } from './sections/HomepageEditor';
 import { AreasEditor } from './sections/AreasEditor';
 import { ContactEditor } from './sections/ContactEditor';
@@ -21,7 +22,8 @@ const META: Record<AdminSection, [string, string]> = {
   overview: ['Overview', 'A snapshot of your website content'],
   projects: ['Projects', 'Manage the project gallery shown on your site'],
   blog: ['Blog', 'Write and publish articles'],
-  home: ['Homepage', 'Edit every section of the homepage'],
+  home: ['Homepage', 'Edit every section of the landing page'],
+  about: ['About Page', 'Edit the hero and every section of the about page'],
   areas: ['Service Areas', 'Suburbs and towns you cover'],
   contact: ['Contact & Social', 'Phone, email and social links'],
   settings: ['Settings', 'Your account and sign out'],
@@ -85,7 +87,8 @@ function AdminInner() {
           {section === 'blog' && (
             <BlogTable posts={content.posts} onToggle={(id) => store.toggle('posts', id)} onEdit={(id) => store.openEdit('posts', id)} onNew={() => store.addItem('posts')} />
           )}
-          {section === 'home' && (
+          {section === 'home' && <HomeEditor />}
+          {section === 'about' && (
             <div className="flex flex-col gap-5">
               <HeroEditor
                 hero={content.hero}

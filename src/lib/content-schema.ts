@@ -44,5 +44,16 @@ export function validateContent(c: SiteContent): string[] {
     if (!isHttps(hp.preparation?.image)) errors.push('Preparation section image must be an https:// URL.');
   }
 
+  const hm = c.home;
+  if (hm) {
+    if (!hm.hero?.titleLead?.trim() && !hm.hero?.titleAccent?.trim()) errors.push('Homepage hero headline is required.');
+    if (!isHttps(hm.hero?.image)) errors.push('Homepage hero image must be an https:// URL.');
+    if (!isHttps(hm.intro?.image)) errors.push('Homepage intro image must be an https:// URL.');
+    if (!isHttps(hm.serviceAreas?.mapImage)) errors.push('Homepage service-areas map image must be an https:// URL.');
+    (hm.services?.cards ?? []).forEach((card, i) => {
+      if (!isHttps(card.image)) errors.push(`Homepage service card ${card.title || `#${i + 1}`} image must be an https:// URL.`);
+    });
+  }
+
   return errors;
 }

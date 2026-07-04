@@ -8,7 +8,7 @@ export function Overview({ content, onNavigate }: { content: SiteContent; onNavi
     { label: 'Projects', value: content.projects.length, icon: 'photo_library', sub: content.projects.filter((p) => p.visible !== false).length + ' visible' },
     { label: 'Blog posts', value: content.posts.length, icon: 'article', sub: content.posts.filter((p) => p.visible !== false).length + ' visible' },
     { label: 'Service areas', value: content.areas.length, icon: 'location_on', sub: 'across the region' },
-    { label: 'Live pages', value: 6, icon: 'public', sub: 'Home · Services · more' },
+    { label: 'Live pages', value: 7, icon: 'public', sub: 'Home · About · more' },
   ];
   const quick: { label: string; icon: string; to: AdminSection }[] = [
     { label: 'Edit projects', icon: 'photo_library', to: 'projects' },

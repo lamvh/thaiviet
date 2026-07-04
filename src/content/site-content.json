@@ -4,6 +4,128 @@
     "subtitle": "Mastering the art of surface finish across the Wellington region.",
     "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCwqN4WjJxadl7Ow_rT4KAi377FJ0gu0h8bBcTUnYoXGq1vB--LC2hpaCwh1dtq6EsDavOEGjrm3k8XRdaqq9tWwE5qaziHpEx47P7X2cY_7mA-exoTCMu6brjtTKkwJGiOZg1SpDDyeSIRWCRZLdr59qyUy_yL_ymmUfl_XMH3FQsg2MxZV2Or0L9ZrBYQMNsLKD79fmgu5Kz3ij72SLIRof9cZAAvJw25SEWITQikOV3xGXNC66sg4Rk1qgKA0NS1gmYOhhTrIvI"
   },
+  "home": {
+    "hero": {
+      "badge": "Registered Master Painter & Eco-Decorator",
+      "titleLead": "Your Home.",
+      "titleAccent": "Our Care.",
+      "subtitle": "Quality interior & exterior painting, plastering, wallpapering, cedar staining and decorating — backed by a 5-year workmanship guarantee. Proudly serving Wellington, Lower Hutt, Upper Hutt, Porirua, Kāpiti Coast & Wairarapa since 2008.",
+      "image": "https://project.vinapage.com/thaivietconz/images/banner.png",
+      "certLabel": "Certified by:",
+      "certs": [
+        "https://project.vinapage.com/thaivietconz/images/cert-1.png",
+        "https://project.vinapage.com/thaivietconz/images/cert-2.png",
+        "https://project.vinapage.com/thaivietconz/images/cert-3.png"
+      ]
+    },
+    "trust": [
+      { "icon": "verified", "label": "Master Painter Certified" },
+      { "icon": "schedule", "label": "Reliable Service" },
+      { "icon": "security", "label": "5 Years Warranty" },
+      { "icon": "request_quote", "label": "Free Quotes" }
+    ],
+    "intro": {
+      "eyebrow": "ThaiViet Ltd",
+      "title": "Wellington's Premier Painting Company.",
+      "body": "As a Registered Master Painter and Eco-Decorator, Thai Viet brings years of hands-on experience transforming homes and businesses across Wellington. From interior and exterior painting to plastering, cedar staining, wallpapering, and water blasting — no job is too big or too small. We treat every home as if it were our own.",
+      "yearsValue": "26+",
+      "yearsLabel": "Years Experience",
+      "certLabel": "Our Certifications",
+      "certs": [
+        "https://project.vinapage.com/thaivietconz/images/cert-1.png",
+        "https://project.vinapage.com/thaivietconz/images/cert-2.png",
+        "https://project.vinapage.com/thaivietconz/images/cert-3.png"
+      ],
+      "image": "https://project.vinapage.com/thaivietconz/images/truck.jpg",
+      "testimonialQuote": "The quality of finish exceeded our expectations. Highly recommend ThaiViet.",
+      "testimonialBy": "Home Owner, Wellington"
+    },
+    "video": {
+      "eyebrow": "See Our Work",
+      "title": "A Closer Look at ThaiViet",
+      "poster": "https://project.vinapage.com/thaivietconz/images/banner.png",
+      "src": "https://project.vinapage.com/thaivietconz/videos/intro.mp4"
+    },
+    "services": {
+      "title": "Our Services",
+      "ctaTitle": "Need Something Else?",
+      "ctaText": "Contact our team to discuss your specific project needs.",
+      "ctaLabel": "Get in Touch",
+      "cards": [
+        { "image": "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800&q=80", "title": "Interior Painting", "desc": "Premium interior wall and ceiling painting for every room of the house.", "tag": "Indoor" },
+        { "image": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=80", "title": "Exterior Painting", "desc": "Long-lasting exterior coatings built to handle New Zealand weather.", "tag": "Outdoor" },
+        { "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80", "title": "Roof Painting", "desc": "Restore and protect your roof with weather-resistant coatings.", "tag": "Roof" },
+        { "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=80", "title": "Paint Stripping", "desc": "Strip old layers down to a clean, paint-ready surface.", "tag": "Prep" },
+        { "image": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80", "title": "Plastering & GIB Stopping", "desc": "Smooth, level walls and crisp GIB stopping ready for a flawless finish.", "tag": "Skimming" },
+        { "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80", "title": "Wood Staining", "desc": "Bring out the natural grain of timber while protecting it from the elements.", "tag": "Protection" },
+        { "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80", "title": "Building Work", "desc": "Minor carpentry, repairs, and prep work to get your project ready for paint.", "tag": "Carpentry" },
+        { "image": "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&q=80", "title": "Flooring", "desc": "Floor sanding and varnishing to bring tired timber floors back to a smooth, durable finish.", "tag": "Sanding & Varnish" }
+      ]
+    },
+    "whyChoose": {
+      "title": "Why Choose Our Painters in Wellington?",
+      "intro": "Quality workmanship, transparent pricing, and dependable service from start to finish. Our accredited painting professionals deliver exceptional results across the Wellington region, keeping you informed every step of the way—from the initial quote to the final coat.",
+      "subtitle": "What sets us apart",
+      "bullets": [
+        "Accredited and experienced painters",
+        "Clear, upfront pricing with no hidden costs",
+        "High-quality materials and lasting finishes",
+        "Reliable project timelines and communication",
+        "Residential and commercial painting expertise",
+        "Trusted service throughout the Wellington region"
+      ],
+      "closing": "Whether you're refreshing a single room or repainting an entire property, our team is committed to delivering a smooth, professional experience and results you can be proud of."
+    },
+    "featuredProjects": {
+      "eyebrow": "Recent Work",
+      "title": "Featured Projects"
+    },
+    "process": {
+      "title": "Our Simple Process",
+      "subtitle": "How we take your project from initial vision to final completion.",
+      "steps": [
+        { "title": "Enquiry", "desc": "Send us your details online or call us directly." },
+        { "title": "Site Visit", "desc": "We visit your property for a thorough assessment." },
+        { "title": "Detailed Quote", "desc": "You receive a clear, comprehensive fixed-price quote." },
+        { "title": "Preparation", "desc": "Surface prep begins—the key to a great finish." },
+        { "title": "Painting", "desc": "Our craftsmen apply premium coats of paint." },
+        { "title": "Final Review", "desc": "A walkthrough to ensure 100% satisfaction." }
+      ]
+    },
+    "reviews": {
+      "eyebrow": "Customer Reviews",
+      "title": "What Our Clients Say",
+      "ratingLabel": "5.0 from local homeowners",
+      "items": [
+        { "quote": "ThaiViet recently completed the painting for our new house in Plimmerton. The professionalism was outstanding — the attention to detail in the plastering and the crispness of the paint lines made all the difference.", "name": "Peter Mathews", "meta": "New Build Project, Plimmerton" },
+        { "quote": "Thai and his team repainted the exterior of our 1920s villa in Karori. They prepped meticulously, kept the worksite tidy every day, and finished bang on schedule. Couldn't be happier.", "name": "Sarah Roberts", "meta": "Villa Repaint, Karori" },
+        { "quote": "We had ThaiViet repaint our office over a long weekend so we could open Monday morning with no downtime. Quote was clear, the work was tidy, and they came back to touch up two small spots without any fuss.", "name": "James Liu", "meta": "Office Fitout, Wellington CBD" },
+        { "quote": "Booked Thai for a full interior repaint of our Lower Hutt home. Quote was honest, the team turned up on time every day, and the finish is flawless. Highly recommend.", "name": "Hannah Williams", "meta": "Interior Repaint, Lower Hutt" },
+        { "quote": "Cedar staining job on our deck and pergola in Whitby. Excellent prep work, careful around our garden, and the colour match was spot on. Will use them again.", "name": "David Chen", "meta": "Cedar Staining, Whitby" }
+      ]
+    },
+    "serviceAreas": {
+      "title": "Service Areas",
+      "intro": "Based in Porirua, we proudly serve the wider Wellington region with premium painting, plastering, and decorating for residential and commercial clients:",
+      "areas": [
+        "Wellington City",
+        "Porirua",
+        "Lower Hutt",
+        "Upper Hutt",
+        "Kapi Mana",
+        "Plimmerton & Whitby",
+        "Paraparaumu",
+        "Wairarapa"
+      ],
+      "mapImage": "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&q=80",
+      "mapLabel": "Our Headquarters"
+    },
+    "cta": {
+      "title": "Ready to Transform Your Space?",
+      "subtitle": "Contact us today for a free, no-obligation consultation and quote for your next project.",
+      "primaryLabel": "Get Your Free Quote"
+    }
+  },
   "homepage": {
     "heritage": {
       "eyebrow": "Our Heritage",

@@ -1,7 +1,7 @@
 import type { NavItem } from '../lib/types';
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: 'About', to: '/' },
+  { label: 'About', to: '/about' },
   { label: 'Projects', to: '/projects' },
   { label: 'Blog', to: '/blog' },
   { label: 'Contact', to: '/contact' },

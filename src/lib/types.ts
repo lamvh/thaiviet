@@ -61,3 +61,56 @@ export interface Homepage {
   stats: HomeStats;
   cta: HomeCta;
 }
+
+// ---- Landing page ("/") content blocks (editable from the admin "Homepage" section) ----
+// Note: the `Homepage` interface above powers the /about page (it predates this landing
+// page and keeps its original data key to avoid migrating existing published content).
+// This `Home` interface powers the marketing landing page at "/".
+
+export interface HomeHeroBlock {
+  badge: string;
+  titleLead: string;
+  titleAccent: string;
+  subtitle: string;
+  image: string;
+  certLabel: string;
+  certs: string[];
+}
+export interface TrustItem { icon: string; label: string; }
+export interface HomeIntro {
+  eyebrow: string;
+  title: string;
+  body: string;
+  yearsValue: string;
+  yearsLabel: string;
+  certLabel: string;
+  certs: string[];
+  image: string;
+  testimonialQuote: string;
+  testimonialBy: string;
+}
+export interface HomeVideo { eyebrow: string; title: string; poster: string; src: string; }
+export interface HomeServiceCard { image: string; title: string; desc: string; tag: string; }
+export interface HomeServices { title: string; ctaTitle: string; ctaText: string; ctaLabel: string; cards: HomeServiceCard[]; }
+export interface HomeWhyChoose { title: string; intro: string; subtitle: string; bullets: string[]; closing: string; }
+export interface HomeFeaturedProjects { eyebrow: string; title: string; }
+export interface ProcessStep { title: string; desc: string; }
+export interface HomeProcess { title: string; subtitle: string; steps: ProcessStep[]; }
+export interface Review { quote: string; name: string; meta: string; }
+export interface HomeReviews { eyebrow: string; title: string; ratingLabel: string; items: Review[]; }
+export interface HomeServiceAreas { title: string; intro: string; areas: string[]; mapImage: string; mapLabel: string; }
+export interface HomeLandingCta { title: string; subtitle: string; primaryLabel: string; }
+
+export interface Home {
+  hero: HomeHeroBlock;
+  trust: TrustItem[];
+  intro: HomeIntro;
+  video: HomeVideo;
+  services: HomeServices;
+  whyChoose: HomeWhyChoose;
+  featuredProjects: HomeFeaturedProjects;
+  process: HomeProcess;
+  reviews: HomeReviews;
+  serviceAreas: HomeServiceAreas;
+  cta: HomeLandingCta;
+}

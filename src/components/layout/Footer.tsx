@@ -4,7 +4,7 @@ import { useSiteContent } from '../../lib/site-content-context';
 
 const SERVICES = ['Interior Painting', 'Exterior Painting', 'Roof Painting', 'Plastering & GIB Stopping', 'Wood Staining'];
 const COMPANY: { label: string; to: string }[] = [
-  { label: 'Home', to: '/' }, { label: 'About', to: '/' }, { label: 'Why Choose Us', to: '/services' },
+  { label: 'Home', to: '/' }, { label: 'About', to: '/about' }, { label: 'Why Choose Us', to: '/services' },
   { label: 'Process', to: '/services' }, { label: 'Projects', to: '/projects' },
 ];
 

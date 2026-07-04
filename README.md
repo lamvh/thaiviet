@@ -27,7 +27,7 @@ App (router)
    └─ ChatWidget        (uses hooks/useChat)
 
 pages/
-  HomePage · ServicesPage · ProjectsPage · ProjectDetailPage · BlogPage · ContactPage
+  HomePage (landing) · AboutPage · ServicesPage · ProjectsPage · ProjectDetailPage · BlogPage · ContactPage
 
 components/
   ui/      Icon · Container · CTASection
@@ -41,7 +41,9 @@ lib/       types.ts
 ```
 
 ## Routes
-`/` Home · `/services` · `/projects` · `/projects/:id` (case study) · `/blog` · `/contact`
+`/` Home (marketing landing) · `/about` (company story) · `/services` · `/projects` · `/projects/:id` (case study) · `/blog` · `/contact`
+
+The landing page content lives under the `home` block in `data`/Supabase (admin → **Homepage**); the about page content lives under the `homepage` block (admin → **About Page** — key kept for content compatibility).
 
 ## Where to wire real backends
 - `hooks/useChat.ts` — replace the mock `setTimeout` with `POST /api/chat`.
