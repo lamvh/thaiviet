@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon } from '../components/ui/Icon';
+import { VlogCard } from '../components/cards/VlogCard';
+import { REVIEWS } from '../data/reels';
 import { useSiteContent } from '../lib/site-content-context';
 
 // Filled Material Symbol star used in the reviews section.
@@ -188,6 +190,14 @@ export function HomePage() {
             </div>
           ))}
         </div>
+        {REVIEWS.length > 0 && (
+          <div className="max-w-7xl mx-auto px-8 mt-12">
+            <div className="flex items-center gap-2 mb-6 text-primary"><Icon name="play_circle" filled /><span className="font-bold uppercase tracking-[0.2em] text-sm">Video Reviews</span></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {REVIEWS.map((r) => <VlogCard key={r.src} reel={r} ratio="16/9" padding="p-6" />)}
+            </div>
+          </div>
+        )}
       </section>
 
       {/* Service Areas */}

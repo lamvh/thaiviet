@@ -3,7 +3,7 @@ import { CTASection } from '../components/ui/CTASection';
 import { BlogCard } from '../components/cards/BlogCard';
 import { VlogCard } from '../components/cards/VlogCard';
 import { useSiteContent } from '../lib/site-content-context';
-import { REVIEWS, REELS } from '../data/reels';
+import { REELS } from '../data/reels';
 
 function Heading({ eyebrow, title, sub }: { eyebrow: string; title: string; sub: string }) {
   return (
@@ -32,27 +32,8 @@ export function BlogPage() {
           {POSTS.filter((p) => p.visible !== false).map((p) => <BlogCard key={p.id} post={p} />)}
         </div>
 
-        {/* Video walkthroughs & reviews — consolidated into the blog so all content lives on one article page */}
+        {/* On-site video clips — consolidated into the blog so all video content lives on one article page */}
         <div className="mt-24 border-t border-outline-variant/15 pt-20">
-          <Heading
-            eyebrow="Watch Our Work"
-            title="Video Walkthroughs & Reviews"
-            sub="Step inside the homes we've transformed — customer reviews and short on-site clips of our painting, plastering and renovation work."
-          />
-        </div>
-
-        <div className="mt-4">
-          <Heading
-            eyebrow="Customer Feedback"
-            title="Customer Reviews"
-            sub="Real video reviews from Wellington homeowners — straight from our Facebook page."
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {REVIEWS.map((r) => <VlogCard key={r.src} reel={r} ratio="16/9" padding="p-6" />)}
-          </div>
-        </div>
-
-        <div className="mt-20">
           <Heading
             eyebrow="Our Work in Action"
             title="Service Videos & Reels"

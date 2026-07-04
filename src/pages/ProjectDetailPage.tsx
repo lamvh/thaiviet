@@ -101,7 +101,7 @@ export function ProjectDetailPage() {
             <span className="text-primary font-bold uppercase tracking-[0.2em] text-sm">On Site</span>
             <h2 className="font-headline text-3xl font-bold mt-2">Watch the Walkthrough</h2>
           </div>
-          <div className="aspect-video bg-black rounded-xl overflow-hidden relative shadow-lg">
+          <div className="aspect-[9/16] max-w-sm mx-auto bg-black rounded-xl overflow-hidden relative shadow-lg">
             <iframe className="absolute inset-0 w-full h-full border-none" src={d.videoSrc} scrolling="no" allowFullScreen allow="autoplay; encrypted-media; picture-in-picture" loading="lazy" title={'Walkthrough — ' + project.title} />
           </div>
         </section>
