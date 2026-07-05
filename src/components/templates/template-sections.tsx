@@ -45,8 +45,8 @@ export function SectionView({ section: s, value }: { section: SectionDef; value:
     );
   }
 
-  // repeat
-  const items = asArr(value);
+  // repeat — drop items the admin left entirely blank so they don't render empty rows.
+  const items = asArr(value).filter((it) => Object.values(it).some((x) => (x ?? '').trim() !== ''));
   if (s.style === 'gallery') {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

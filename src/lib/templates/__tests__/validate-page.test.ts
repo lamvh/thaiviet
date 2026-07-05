@@ -6,7 +6,7 @@ const base: ProjectPage = {
   templateId: 'beforeafter',
   meta: { title: 'T', category: 'C', location: 'L', duration: 'D', year: 'Y',
     cover: 'https://x/c.jpg', intro: 'i' },
-  values: { ba: { before: 'https://x/b.jpg', after: 'https://x/a.jpg' } },
+  values: { ba: { before: 'https://x/b.jpg', after: 'https://x/a.jpg' }, result: 'A crisp result.' },
 };
 
 describe('validateProjectPage', () => {
@@ -24,5 +24,9 @@ describe('validateProjectPage', () => {
   it('rejects an unknown templateId', () => {
     const bad = { ...base, templateId: 'nope' as ProjectPage['templateId'] };
     expect(validateProjectPage(bad, 'T').some((e) => /template/i.test(e))).toBe(true);
+  });
+  it('rejects an empty required body section', () => {
+    const bad = { ...base, values: { ...base.values, result: '   ' } };
+    expect(validateProjectPage(bad, 'T').some((e) => /required/i.test(e))).toBe(true);
   });
 });
