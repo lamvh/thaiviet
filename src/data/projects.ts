@@ -3,7 +3,7 @@ export const PROJECT_FILTERS: { value: string; label: string }[] = [
   { value: 'all', label: 'All' },
   { value: 'interior', label: 'Interior Painting' },
   { value: 'exterior', label: 'Exterior Painting' },
-  { value: 'roof', label: 'Roof Painting' },
+  { value: 'roof', label: 'Roof Maintenance' },
   { value: 'stripping', label: 'Paint Stripping' },
   { value: 'plastering', label: 'Plastering & GIB Stopping' },
   { value: 'wood', label: 'Wood Staining' },

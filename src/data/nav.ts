@@ -13,7 +13,7 @@ export const SERVICE_LINKS = {
   painting: [
     { icon: 'format_paint', label: 'Interior Painting', to: '/services/interior' },
     { icon: 'home_work', label: 'Exterior Painting', to: '/services/exterior' },
-    { icon: 'roofing', label: 'Roof Painting', to: '/services/roof' },
+    { icon: 'roofing', label: 'Roof Maintenance', to: '/services/roof' },
   ],
   speciality: [
     { icon: 'cleaning_services', label: 'Paint Stripping', to: '/services/stripping' },

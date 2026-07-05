@@ -56,7 +56,7 @@ export const projectTemplateList: ProjectTemplateDef[] = [
     includes: ['Facts', 'Phases', 'Result'],
     categoryValue: 'roof',
     defaultMeta: {
-      title: 'Whitby Family Home Roof', category: 'Roof Painting',
+      title: 'Whitby Family Home Roof', category: 'Roof Maintenance',
       location: 'Whitby, Porirua', duration: '4 days', year: '2025',
       cover: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80',
       intro: 'A full roof restoration delivered in four tidy days — no mess, fixed price, and a finish built to shrug off Wellington weather.',

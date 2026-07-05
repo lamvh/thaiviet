@@ -21,7 +21,7 @@ describe('compose reducer', () => {
     let s = reducer(initState(), { t: 'COMPOSE_PICK', id: 'casestudy' });
     s = reducer(s, { t: 'COMPOSE_CATEGORY', cat: 'roof' });
     expect(s.compose.category).toBe('roof');
-    expect(s.compose.meta?.category).toBe('Roof Painting');
+    expect(s.compose.meta?.category).toBe('Roof Maintenance');
   });
 
   it('COMPOSE_PUBLISH (new) prepends a project with a page and card fields derived from meta', () => {

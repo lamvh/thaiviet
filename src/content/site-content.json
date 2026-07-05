@@ -79,8 +79,8 @@
         },
         {
           "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
-          "title": "Roof Painting",
-          "desc": "Restore and protect your roof with weather-resistant coatings.",
+          "title": "Roof Maintenance",
+          "desc": "Re-roofing, roof repairs and brand-new roofs for every roof type.",
           "tag": "Roof"
         },
         {
@@ -463,45 +463,45 @@
     },
     {
       "slug": "roof",
-      "name": "Roof Painting",
-      "heroTitle": "Restore and protect your roof.",
-      "heroSub": "Rust treatment, re-coating and cool-roof systems for every roof type — from corrugated iron to concrete tiles and Decramastic.",
+      "name": "Roof Maintenance",
+      "heroTitle": "Re-roof, repair, or build new.",
+      "heroSub": "From patching a leak to a full re-roof or a brand-new roof — we fix, replace and install roofs of every type across Wellington, built to last.",
       "heroImg": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80",
-      "introTitle": "Curb appeal and protection, in a couple of days.",
-      "introA": "A tired roof drags down the whole house. We soft-wash off lichen and chalking, treat rust and loose fixings, then re-coat with a durable membrane that sheds Wellington weather.",
-      "introB": "Fixed-price quotes, tidy work, and no mess left behind — most homes are finished in two working days.",
+      "introTitle": "The right fix — repair, re-roof, or new build.",
+      "introA": "Whether your roof needs a quick repair, a full re-roof, or a brand-new build, we handle it end to end. We inspect the structure, sort flashings and fixings, and replace what's past saving — no shortcuts, no mess left behind.",
+      "introB": "Fixed-price quotes and honest advice: we'll tell you when a repair will do and when re-roofing is the smarter spend.",
       "features": [
         {
-          "icon": "roofing",
-          "title": "All Roof Types",
-          "desc": "Corrugated iron, long-run steel, concrete & Decramastic tiles."
+          "icon": "autorenew",
+          "title": "Re-Roofing",
+          "desc": "Strip the old roof and replace it with new long-run steel, tile or membrane."
         },
         {
-          "icon": "build",
-          "title": "Rust Treatment",
-          "desc": "Rust converted and primed, loose screws and fixings re-secured."
+          "icon": "handyman",
+          "title": "Roof Repairs",
+          "desc": "Fix leaks, cracked tiles, rusted sheets, flashings and blocked valleys — fast."
         },
         {
-          "icon": "ac_unit",
-          "title": "Cool-Roof Coatings",
-          "desc": "Heat-reflective options to keep the home cooler in summer."
+          "icon": "add_home",
+          "title": "New Roofs",
+          "desc": "Design and install a brand-new roof for new builds, extensions and re-clads."
         },
         {
           "icon": "schedule",
           "title": "Fast Turnaround",
-          "desc": "Most roofs washed, prepped and coated within two days."
+          "desc": "Most repairs sorted in a day; full re-roofs planned around the weather."
         }
       ],
       "midEyebrow": "Done properly",
-      "midTitle": "Wash, treat, prime, coat.",
+      "midTitle": "Repair, replace, or start fresh.",
       "midImage": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=900&q=80",
       "midParas": [
-        "Skipping prep is why cheap roof jobs peel within a year. We never do. Every roof is cleaned back to a sound surface and primed before the colour coats go on."
+        "A roof only works when every layer does. We check the framing, underlay, flashings and fixings before we quote — so you get the right fix, not just the cheapest one. Re-roofs and new roofs go on with quality underlay and correctly lapped sheets that shed Wellington weather for decades."
       ],
       "midList": [
-        "Soft-wash & moss/lichen treatment",
-        "Rust conversion & spot-priming",
-        "Two coats of premium roof membrane"
+        "Leak tracing, flashing & valley repairs",
+        "Full re-roof in steel, tile or membrane",
+        "New-roof design & install for builds and extensions"
       ],
       "beforeImg": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1200&q=80",
       "afterImg": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
@@ -513,24 +513,24 @@
       ],
       "showcase": [
         {
-          "title": "Whitby Family Home Roof",
-          "blurb": "Full roof restoration with weather-resistant coating.",
+          "title": "Whitby Full Re-Roof",
+          "blurb": "Old iron stripped and replaced with new long-run steel.",
           "img": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
         },
         {
-          "title": "Khandallah Roof Repaint",
-          "blurb": "Two-day roof repaint, no mess, fixed price.",
+          "title": "Khandallah Leak Repair",
+          "blurb": "Traced a persistent leak to failed flashing and sealed it for good.",
           "img": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800&q=80"
         },
         {
-          "title": "Lower Hutt Roof Protection",
-          "blurb": "Rust treatment and re-coat on long-run steel.",
+          "title": "Lower Hutt New Roof",
+          "blurb": "Brand-new roof designed and installed over a rear extension.",
           "img": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=80"
         }
       ],
-      "quote": "Quoted on Monday, finished by Wednesday. The roof looks brand new and the price didn't budge.",
+      "quote": "They found the leak two other roofers missed, fixed it properly, and the price didn't budge.",
       "quoteName": "Rachel M.",
-      "quoteSub": "Roof Repaint, Whitby"
+      "quoteSub": "Roof Repair, Whitby"
     },
     {
       "slug": "stripping",
@@ -946,7 +946,7 @@
     {
       "id": "whitby-roof",
       "category": "roof",
-      "categoryLabel": "Roof Painting",
+      "categoryLabel": "Roof Maintenance",
       "title": "Whitby Family Home Roof",
       "desc": "Full roof restoration with weather-resistant coating.",
       "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
@@ -955,7 +955,7 @@
     {
       "id": "khandallah-roof",
       "category": "roof",
-      "categoryLabel": "Roof Painting",
+      "categoryLabel": "Roof Maintenance",
       "title": "Khandallah Roof Repaint",
       "desc": "Two-day roof repaint, no mess, fixed price.",
       "image": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800&q=80",
