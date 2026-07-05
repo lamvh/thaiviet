@@ -1,0 +1,124 @@
+import type { ProjectTemplateDef, ProjectTemplateId } from './types';
+
+// Template definitions extracted verbatim from the dashboard design (composeTemplatesData()).
+// Data only — one generic renderer/form interprets `sections`.
+export const projectTemplateList: ProjectTemplateDef[] = [
+  {
+    id: 'casestudy', name: 'Case Study', icon: 'workspace_premium',
+    desc: 'The full story of a job: challenge, solution and result.',
+    includes: ['Facts', 'Challenge', 'Solution', 'Result', 'Quote'],
+    defaultMeta: {
+      title: 'Plimmerton Coastal Home', category: 'Exterior Painting',
+      location: 'Plimmerton, Porirua', duration: '3 weeks', year: '2024',
+      cover: 'https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=900&q=80',
+      intro: 'A 1990s weatherboard home perched above the Plimmerton coastline — beautiful views, brutal salt-wind exposure. Here is how we made it weather-tight again.',
+    },
+    sections: [
+      { key: 'challenge', kind: 'text', style: 'rule', title: 'The Challenge', heading: 'The Challenge', label: 'The challenge', area: true,
+        default: 'Salt spray and driving wind had degraded the previous coating, with flaking on the seaward elevation and early rot in two weatherboards.' },
+      { key: 'solution', kind: 'text', style: 'rule', title: 'Our Solution', heading: 'Our Solution', label: 'Our solution', area: true,
+        default: 'Full wash-down and chloride treatment, scrape and sand back to sound substrate, replace damaged boards, then a 3-coat UV- and salt-resistant system.' },
+      { key: 'result', kind: 'text', style: 'rule', title: 'The Result', heading: 'The Result', label: 'The result', area: true,
+        default: 'A weather-tight, low-sheen finish built to last in marine conditions — backed by our 5-year workmanship guarantee.' },
+      { key: 'quote', kind: 'text', style: 'quote', title: 'Client quote', heading: 'Client quote', label: 'Testimonial quote', area: true,
+        default: "Our house has never looked better and it's holding up beautifully against the sea wind. The team was tidy, on time and genuinely cared." },
+      { key: 'author', kind: 'text', style: 'author', title: 'Quote attribution', label: 'Who said it', area: false,
+        default: 'Sarah & Mark — Plimmerton' },
+    ],
+  },
+  {
+    id: 'beforeafter', name: 'Before & After', icon: 'compare',
+    desc: 'Lead with the transformation — two images side by side.',
+    includes: ['Facts', 'Before / After', 'Result', 'Quote'],
+    defaultMeta: {
+      title: 'Modern Villa Refresh — Karori', category: 'Interior Painting',
+      location: 'Karori, Wellington', duration: '2 weeks', year: '2024',
+      cover: 'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=900&q=80',
+      intro: 'A character villa due for a modern interior refresh — tired walls, yellowed trim and dated colours throughout the living spaces.',
+    },
+    sections: [
+      { key: 'ba', kind: 'pair', style: 'beforeafter', title: 'Before & After',
+        fields: [{ key: 'before', label: 'Before image URL' }, { key: 'after', label: 'After image URL' }],
+        default: { before: 'https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=700&q=80', after: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=700&q=80' } },
+      { key: 'result', kind: 'text', style: 'rule', title: 'The Result', heading: 'The Result', label: 'The result', area: true,
+        default: "Crisp, even walls and glass-smooth trim — a calm, modern interior that still respects the villa's character." },
+      { key: 'quote', kind: 'text', style: 'quote', title: 'Client quote', heading: 'Client quote', label: 'Testimonial quote', area: true,
+        default: "They treated our home with so much respect — drop sheets everywhere, spotless each evening. The feature wall is exactly what we hoped for." },
+      { key: 'author', kind: 'text', style: 'author', title: 'Quote attribution', label: 'Who said it', area: false,
+        default: 'The Nguyen Family — Karori' },
+    ],
+  },
+  {
+    id: 'timeline', name: 'Process Timeline', icon: 'timeline',
+    desc: 'Show how the job unfolded, phase by phase.',
+    includes: ['Facts', 'Phases', 'Result'],
+    defaultMeta: {
+      title: 'Whitby Family Home Roof', category: 'Roof Painting',
+      location: 'Whitby, Porirua', duration: '4 days', year: '2025',
+      cover: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80',
+      intro: 'A full roof restoration delivered in four tidy days — no mess, fixed price, and a finish built to shrug off Wellington weather.',
+    },
+    sections: [
+      { key: 'phases', kind: 'repeat', style: 'steps', title: 'How it went', itemLabel: 'Phase', addLabel: 'Add phase',
+        fields: [{ key: 'h', label: 'Phase title' }, { key: 'b', label: 'What we did', area: true }],
+        default: [
+          { h: 'Inspect & quote', b: 'Walked the roof, checked fixings and flashings, and gave a clear fixed-price quote.' },
+          { h: 'Wash & prep', b: 'Soft-washed off lichen and chalking, treated rust spots and re-secured loose screws.' },
+          { h: 'Prime & coat', b: 'Applied a rust-inhibiting primer, then two coats of premium roof membrane in the chosen colour.' },
+          { h: 'Clean up & check', b: 'Cleared gutters, removed all debris and walked the result with the owner.' },
+        ] },
+      { key: 'result', kind: 'text', style: 'rule', title: 'The Result', heading: 'The Result', label: 'The result', area: true,
+        default: 'A sharp, protected roof finished in two working days — lifting the whole street appeal of the home.' },
+    ],
+  },
+  {
+    id: 'photostory', name: 'Photo Story', icon: 'collections',
+    desc: 'An image-led gallery with short captions.',
+    includes: ['Facts', 'Gallery', 'Closing'],
+    defaultMeta: {
+      title: 'Whitby Cedar Deck & Pergola', category: 'Wood Staining',
+      location: 'Whitby, Porirua', duration: '1 week', year: '2024',
+      cover: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80',
+      intro: 'Cedar staining with full surface prep — restoring the natural grain and protecting the timber for years of outdoor living.',
+    },
+    sections: [
+      { key: 'gallery', kind: 'repeat', style: 'gallery', title: 'Gallery', itemLabel: 'Photo', addLabel: 'Add photo',
+        fields: [{ key: 'img', label: 'Image URL' }, { key: 'cap', label: 'Caption' }],
+        default: [
+          { img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', cap: 'Weathered cedar before prep' },
+          { img: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80', cap: 'Sanded back and ready to stain' },
+          { img: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80', cap: 'Rich finished stain, grain restored' },
+        ] },
+      { key: 'closing', kind: 'text', style: 'plain', title: 'Closing note', heading: 'The finish', label: 'Closing paragraph', area: true,
+        default: 'Two coats of premium oil-based stain bring out the warmth of the cedar and seal it against the elements.' },
+    ],
+  },
+  {
+    id: 'spotlight', name: 'Quick Spotlight', icon: 'bolt',
+    desc: 'A short highlight reel — key facts and wins.',
+    includes: ['Facts', 'Highlights', 'Quote'],
+    defaultMeta: {
+      title: 'Lower Hutt New Build', category: 'Plastering & GIB Stopping',
+      location: 'Lower Hutt', duration: '2 weeks', year: '2025',
+      cover: 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=900&q=80',
+      intro: 'Full GIB stopping and skim across a new build, finished to a flawless Level 5 and handed over ready for paint.',
+    },
+    sections: [
+      { key: 'highlights', kind: 'repeat', style: 'highlights', title: 'Highlights', itemLabel: 'Highlight', addLabel: 'Add highlight',
+        fields: [{ key: 't', label: 'Highlight' }],
+        default: [
+          { t: 'Whole-house GIB stopping and jointing' },
+          { t: 'Level 5 skim on feature walls and ceilings' },
+          { t: 'Dust-managed sanding, site left spotless' },
+          { t: 'Delivered on schedule, ready for painters' },
+        ] },
+      { key: 'quote', kind: 'text', style: 'quote', title: 'Client quote', heading: 'Client quote', label: 'Testimonial quote', area: true,
+        default: 'Walls came up perfectly flat — you can see the difference once the light hits them. Faultless work.' },
+      { key: 'author', kind: 'text', style: 'author', title: 'Quote attribution', label: 'Who said it', area: false,
+        default: 'Group home builder — Lower Hutt' },
+    ],
+  },
+];
+
+export const projectTemplates: Record<ProjectTemplateId, ProjectTemplateDef> =
+  Object.fromEntries(projectTemplateList.map((t) => [t.id, t])) as Record<ProjectTemplateId, ProjectTemplateDef>;
