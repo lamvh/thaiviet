@@ -8,6 +8,7 @@ import { AdminSidebar } from './AdminSidebar';
 import { Overview } from './sections/Overview';
 import { ProjectsTable } from './sections/ProjectsTable';
 import { BlogTable } from './sections/BlogTable';
+import { ComposeWizard } from './sections/compose/ComposeWizard';
 import { HeroEditor } from './sections/HeroEditor';
 import { HomeEditor } from './sections/HomeEditor';
 import { HomepageEditor } from './sections/HomepageEditor';
@@ -23,7 +24,7 @@ const META: Record<AdminSection, [string, string]> = {
   overview: ['Overview', 'A snapshot of your website content'],
   projects: ['Projects', 'Manage the project gallery shown on your site'],
   blog: ['Blog', 'Write and publish articles'],
-  compose: ['Compose', 'Build a new project page from a template'],
+  compose: ['Create content', 'Pick a template and build a new project page'],
   home: ['Homepage', 'Edit every section of the landing page'],
   about: ['About Page', 'Edit the hero and every section of the about page'],
   servicePages: ['Service Pages', 'Edit each service detail page'],
@@ -85,11 +86,18 @@ function AdminInner() {
         <div className="p-4 sm:p-8 flex-1 overflow-auto">
           {section === 'overview' && <Overview content={content} onNavigate={setSection} />}
           {section === 'projects' && (
-            <ProjectsTable projects={content.projects} onToggle={(id) => store.toggle('projects', id)} onEdit={(id) => store.openEdit('projects', id)} onNew={() => store.addItem('projects')} />
+            <ProjectsTable
+              projects={content.projects}
+              onToggle={(id) => store.toggle('projects', id)}
+              onEdit={(id) => store.openEdit('projects', id)}
+              onNew={() => store.addItem('projects')}
+              onNewFromTemplate={() => setSection('compose')}
+            />
           )}
           {section === 'blog' && (
             <BlogTable posts={content.posts} onToggle={(id) => store.toggle('posts', id)} onEdit={(id) => store.openEdit('posts', id)} onNew={() => store.addItem('posts')} />
           )}
+          {section === 'compose' && <ComposeWizard />}
           {section === 'home' && <HomeEditor />}
           {section === 'about' && (
             <div className="flex flex-col gap-5">

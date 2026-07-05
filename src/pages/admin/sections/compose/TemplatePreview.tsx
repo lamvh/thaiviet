@@ -1,0 +1,21 @@
+import { MemoryRouter } from 'react-router-dom';
+import { useSiteContent } from '../../../../lib/site-content-context';
+import { ProjectTemplateRenderer } from '../../../../components/templates/ProjectTemplateRenderer';
+import type { ProjectMeta, SectionDef, TemplateValue } from '../../../../lib/types';
+
+// Live preview = the real public renderer, wrapped so its <Link>s resolve, scaled to fit.
+export function TemplatePreview({ meta, values, sections }: { meta: ProjectMeta; values: Record<string, TemplateValue>; sections: SectionDef[] }) {
+  const { contact } = useSiteContent();
+  return (
+    <div className="sticky top-4 border border-[#eae6df] rounded-2xl overflow-hidden bg-white">
+      <div className="text-[11px] font-bold uppercase tracking-widest text-[#8a8377] px-4 py-2 border-b border-[#eae6df] bg-[#faf8f4]">Live preview</div>
+      <div className="h-[620px] overflow-auto">
+        <div className="origin-top-left scale-[0.62] w-[161%]">
+          <MemoryRouter>
+            <ProjectTemplateRenderer meta={meta} values={values} sections={sections} contact={contact} />
+          </MemoryRouter>
+        </div>
+      </div>
+    </div>
+  );
+}

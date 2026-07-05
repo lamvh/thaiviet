@@ -9,6 +9,7 @@ export function AdminSidebar({ section, onSelect, content }: { section: AdminSec
     { key: 'overview', label: 'Overview', icon: 'dashboard' },
     { key: 'projects', label: 'Projects', icon: 'photo_library', count: content.projects.length },
     { key: 'blog', label: 'Blog', icon: 'article', count: content.posts.length },
+    { key: 'compose', label: 'Create content', icon: 'add_circle' },
     { key: 'home', label: 'Homepage', icon: 'home' },
     { key: 'about', label: 'About Page', icon: 'info' },
     { key: 'servicePages', label: 'Service Pages', icon: 'design_services', count: content.serviceDetails.length },

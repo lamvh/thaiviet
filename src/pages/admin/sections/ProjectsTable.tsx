@@ -6,22 +6,33 @@ interface Props {
   onToggle?: (id: string) => void;
   onEdit?: (id: string) => void;
   onNew?: () => void;
+  onNewFromTemplate?: () => void;
 }
 
 const COLS = 'grid grid-cols-[64px_minmax(150px,1fr)_180px_130px_96px] gap-3.5 min-w-[720px]';
 
-export function ProjectsTable({ projects, onToggle, onEdit, onNew }: Props) {
+export function ProjectsTable({ projects, onToggle, onEdit, onNew, onNewFromTemplate }: Props) {
   return (
     <div className="bg-white border border-[#eae6df] rounded-2xl overflow-x-auto">
-      <div className="flex items-center justify-between px-5 py-4 border-b border-[#eee9e1]">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-[#eee9e1] gap-2">
         <div className="font-bold text-[15px]">All Projects</div>
-        <button
-          onClick={onNew}
-          disabled={!onNew}
-          className="inline-flex items-center gap-1.5 bg-primary text-white px-3.5 py-2 rounded-lg font-bold text-[13px] disabled:opacity-50"
-        >
-          <Icon name="add" className="text-[17px]" /> New Project
-        </button>
+        <div className="flex items-center gap-2">
+          {onNewFromTemplate && (
+            <button
+              onClick={onNewFromTemplate}
+              className="inline-flex items-center gap-1.5 bg-white border border-[#e2ddd4] text-on-surface px-3.5 py-2 rounded-lg font-bold text-[13px]"
+            >
+              <Icon name="auto_awesome" className="text-[17px]" /> New from template
+            </button>
+          )}
+          <button
+            onClick={onNew}
+            disabled={!onNew}
+            className="inline-flex items-center gap-1.5 bg-primary text-white px-3.5 py-2 rounded-lg font-bold text-[13px] disabled:opacity-50"
+          >
+            <Icon name="add" className="text-[17px]" /> New Project
+          </button>
+        </div>
       </div>
       <div className={COLS + ' px-5 py-2.5 text-[11px] font-bold uppercase tracking-wider text-[#9b9488] border-b border-[#eee9e1]'}>
         <div /><div>Title</div><div>Category</div><div>Status</div><div className="text-right">Edit</div>
