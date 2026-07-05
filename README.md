@@ -24,7 +24,7 @@ App (router)
    │  └─ FacebookIcon
    ├─ <page>            (Routes render here)
    ├─ Footer
-   └─ ChatWidget        (uses hooks/useChat)
+   └─ ChatWidget        (floating Messenger button)
 
 pages/
   HomePage (landing) · AboutPage · ServicesPage · ProjectsPage · ProjectDetailPage · BlogPage · ContactPage
@@ -41,7 +41,7 @@ pages/admin/sections/
   compose/    ComposeWizard · TemplatePicker · TemplateForm · TemplatePreview · TemplatePreviewModal   (new-project wizard)
   ServiceStyleEditor   (global service-page layout picker)
 
-hooks/     useChat · useContactForm
+hooks/     useContactForm
 data/      nav · services · projects · project-details · posts · reels · areas
 lib/       types.ts · templates/ (registry: types · project-templates · seed · validate-page)
 ```
@@ -66,13 +66,13 @@ Two code-registered catalogs, both editable from `/admin`, both stored in the si
 Publish-time validation for templated pages + `serviceStyle` lives in `src/lib/content-schema.ts` (delegates to `src/lib/templates/validate-page.ts`). Pure-logic helpers are unit-tested with Vitest (`npm test`).
 
 ## Where to wire real backends
-- `hooks/useChat.ts` — replace the mock `setTimeout` with `POST /api/chat`.
 - `hooks/useContactForm.ts` — replace the mock submit with your form endpoint.
 - Routing uses `BrowserRouter`; for static hosting add an SPA fallback to `index.html`.
 
 ## Notes
 - All page content lives in `data/*` so you can swap copy/images without touching components.
-- `logo.webp` and the chat avatar load from `project.vinapage.com`; drop local copies in `public/` and update the paths in `Header.tsx` / `ChatWidget.tsx` for production.
+- `logo.webp` loads from `project.vinapage.com`; drop a local copy in `public/` and update the path in `Header.tsx` for production.
+- `ChatWidget` is a single floating **Messenger** button linking to `contact.messenger` (editable in admin → **Contact & Social**). The former support chat + its avatar were removed.
 - Video walkthroughs (Customer Reviews + Service Reels) are Facebook iframes (data in `data/reels.ts`), rendered at the bottom of `BlogPage` so all content lives on one article page.
 - The Projects filter is pure client state (`useState` + `useMemo`) in `ProjectsPage.tsx`.
 - Project cards link to `/projects/:id`. `ProjectDetailPage` renders, in priority order: (1) a `page` template (if the project was created via the compose wizard) through the project-template registry, else (2) a rich case study from `data/project-details.ts` (keyed by project id), else (3) the base project fields (image, title, category, desc).
