@@ -27,7 +27,7 @@ App (router)
    └─ ChatWidget        (floating Messenger button)
 
 pages/
-  HomePage (landing) · AboutPage · ServicesPage · ProjectsPage · ProjectDetailPage · BlogPage · ContactPage · PrivacyPage
+  HomePage (landing) · AboutPage · ServicesPage · ProjectsPage · ProjectDetailPage · BlogPage · OurWorkPage · ContactPage · PrivacyPage
 
 components/
   ui/         Icon · Container · CTASection
@@ -47,7 +47,7 @@ lib/       types.ts · templates/ (registry: types · project-templates · seed 
 ```
 
 ## Routes
-`/` Home (marketing landing) · `/about` (company story) · `/services` · `/services/:slug` (service detail, all 8 services) · `/projects` · `/projects/:id` (case study) · `/blog` · `/contact` · `/privacy` (privacy policy)
+`/` Home (marketing landing) · `/about` (company story) · `/services` · `/services/:slug` (service detail, all 8 services) · `/projects` · `/projects/:id` (case study) · `/our-work` (service videos & reels) · `/blog` · `/contact` · `/privacy` (privacy policy)
 
 Content blocks are admin-editable and stored in Supabase / bundled `site-content.json`:
 - `home` block → landing page (admin → **Homepage**)
@@ -76,6 +76,6 @@ Publish-time validation for templated pages + `serviceStyle` lives in `src/lib/c
 - All page content lives in `data/*` so you can swap copy/images without touching components.
 - `logo.webp` loads from `project.vinapage.com`; drop a local copy in `public/` and update the path in `Header.tsx` for production.
 - `ChatWidget` is a single floating **Messenger** button linking to `contact.messenger` (editable in admin → **Contact & Social**). The former support chat + its avatar were removed.
-- Video walkthroughs (Customer Reviews + Service Reels) are Facebook iframes (data in `data/reels.ts`), rendered at the bottom of `BlogPage` so all content lives on one article page.
+- Video walkthroughs are Facebook iframes (data in `data/reels.ts`): `REVIEWS` render in the homepage Customer Reviews section; `REELS` render on the dedicated **Our Work** page (`/our-work`, "Service Videos & Reels"). Reels data stays static in `data/reels.ts` (not CMS-backed, unchanged by the split).
 - The Projects filter is pure client state (`useState` + `useMemo`) in `ProjectsPage.tsx`.
 - Project cards link to `/projects/:id`. `ProjectDetailPage` renders, in priority order: (1) a `page` template (if the project was created via the compose wizard) through the project-template registry, else (2) a rich case study from `data/project-details.ts` (keyed by project id), else (3) the base project fields (image, title, category, desc).

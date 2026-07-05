@@ -7,6 +7,7 @@ import { ServiceDetailPage } from './pages/ServiceDetailPage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { ProjectDetailPage } from './pages/ProjectDetailPage';
 import { BlogPage } from './pages/BlogPage';
+import { OurWorkPage } from './pages/OurWorkPage';
 import { ContactPage } from './pages/ContactPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { AdminPage } from './pages/admin/AdminPage';
@@ -22,6 +23,7 @@ function PublicSite() {
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/:id" element={<ProjectDetailPage />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/our-work" element={<OurWorkPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="*" element={<HomePage />} />
