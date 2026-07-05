@@ -65,7 +65,6 @@ const PLACEHOLDER_IMG = 'https://images.unsplash.com/photo-1562259929-b4e1fd3aef
 
 const CAT_OPTS = PROJECT_FILTERS.filter((f) => f.value !== 'all');
 const catLabel = (v: string): string => CAT_OPTS.find((o) => o.value === v)?.label ?? v;
-const catFromLabel = (label: string): ProjectCategory => (CAT_OPTS.find((o) => o.label === label)?.value as ProjectCategory) ?? 'interior';
 
 function clone<T>(v: T): T { return JSON.parse(JSON.stringify(v)) as T; }
 
@@ -146,7 +145,7 @@ export function reducer(state: AdminState, a: Action): AdminState {
       return { ...state, compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior', editingId: null } };
     case 'COMPOSE_PICK': {
       const def = projectTemplates[a.id];
-      return { ...state, compose: { step: 'build', templateId: a.id, meta: { ...def.defaultMeta }, values: seedValues(def.sections), category: catFromLabel(def.defaultMeta.category), editingId: null } };
+      return { ...state, compose: { step: 'build', templateId: a.id, meta: { ...def.defaultMeta }, values: seedValues(def.sections), category: def.categoryValue, editingId: null } };
     }
     case 'COMPOSE_BACK':
       return { ...state, compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior', editingId: null } };

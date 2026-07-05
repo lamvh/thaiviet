@@ -7,6 +7,7 @@ export const projectTemplateList: ProjectTemplateDef[] = [
     id: 'casestudy', name: 'Case Study', icon: 'workspace_premium',
     desc: 'The full story of a job: challenge, solution and result.',
     includes: ['Facts', 'Challenge', 'Solution', 'Result', 'Quote'],
+    categoryValue: 'exterior',
     defaultMeta: {
       title: 'Plimmerton Coastal Home', category: 'Exterior Painting',
       location: 'Plimmerton, Porirua', duration: '3 weeks', year: '2024',
@@ -30,6 +31,7 @@ export const projectTemplateList: ProjectTemplateDef[] = [
     id: 'beforeafter', name: 'Before & After', icon: 'compare',
     desc: 'Lead with the transformation — two images side by side.',
     includes: ['Facts', 'Before / After', 'Result', 'Quote'],
+    categoryValue: 'interior',
     defaultMeta: {
       title: 'Modern Villa Refresh — Karori', category: 'Interior Painting',
       location: 'Karori, Wellington', duration: '2 weeks', year: '2024',
@@ -52,6 +54,7 @@ export const projectTemplateList: ProjectTemplateDef[] = [
     id: 'timeline', name: 'Process Timeline', icon: 'timeline',
     desc: 'Show how the job unfolded, phase by phase.',
     includes: ['Facts', 'Phases', 'Result'],
+    categoryValue: 'roof',
     defaultMeta: {
       title: 'Whitby Family Home Roof', category: 'Roof Painting',
       location: 'Whitby, Porirua', duration: '4 days', year: '2025',
@@ -75,6 +78,7 @@ export const projectTemplateList: ProjectTemplateDef[] = [
     id: 'photostory', name: 'Photo Story', icon: 'collections',
     desc: 'An image-led gallery with short captions.',
     includes: ['Facts', 'Gallery', 'Closing'],
+    categoryValue: 'wood',
     defaultMeta: {
       title: 'Whitby Cedar Deck & Pergola', category: 'Wood Staining',
       location: 'Whitby, Porirua', duration: '1 week', year: '2024',
@@ -97,6 +101,7 @@ export const projectTemplateList: ProjectTemplateDef[] = [
     id: 'spotlight', name: 'Quick Spotlight', icon: 'bolt',
     desc: 'A short highlight reel — key facts and wins.',
     includes: ['Facts', 'Highlights', 'Quote'],
+    categoryValue: 'plastering',
     defaultMeta: {
       title: 'Lower Hutt New Build', category: 'Plastering & GIB Stopping',
       location: 'Lower Hutt', duration: '2 weeks', year: '2025',

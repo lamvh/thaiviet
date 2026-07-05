@@ -1,5 +1,6 @@
 // Shared template-registry types. Field-kind model extracted from the dashboard design's
 // composeTemplatesData(): a template is meta + an ordered list of typed sections.
+import type { ProjectCategory } from '../types';
 
 export type TemplateValue = string | Record<string, string> | Array<Record<string, string>>;
 
@@ -44,6 +45,7 @@ export interface ProjectTemplateDef {
   icon: string;          // Material Symbols name for the picker card
   desc: string;
   includes: string[];    // picker card chips
+  categoryValue: ProjectCategory; // gallery-filter enum for projects made from this template
   defaultMeta: ProjectMeta;
   sections: SectionDef[];
 }
