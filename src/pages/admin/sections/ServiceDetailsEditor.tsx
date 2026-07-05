@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAdminStore } from '../admin-content-store';
 import type { ServiceDetail } from '../../../lib/types';
 import { Card, Field, StringList, ItemCard, AddButton } from './homepage-editor-primitives';
+import { ServiceStyleEditor } from './ServiceStyleEditor';
 
 // Editor for the service detail pages (/services/<slug>). A selector picks one service;
 // its fields are edited below. Each control patches one service in the array by index
@@ -23,6 +24,8 @@ export function ServiceDetailsEditor() {
 
   return (
     <div className="flex flex-col gap-5 max-w-3xl">
+      <ServiceStyleEditor />
+
       {/* Service selector */}
       <div className="flex flex-wrap gap-2">
         {list.map((sd, j) => (

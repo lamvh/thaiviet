@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer, useRef, type ReactNode } from 'react';
-import type { Hero, Contact, Project, Post, Homepage, Home, ServiceDetail, ProjectCategory } from '../../lib/types';
+import type { Hero, Contact, Project, Post, Homepage, Home, ServiceDetail, ProjectCategory, ServiceStyleId } from '../../lib/types';
 import type { ProjectMeta, ProjectTemplateId, TemplateValue } from '../../lib/types';
 import { projectTemplates } from '../../lib/templates/project-templates';
 import { seedValues } from '../../lib/templates/seed';
@@ -39,6 +39,7 @@ type Action =
   | { t: 'UPDATE_HERO'; key: keyof Hero; val: string }
   | { t: 'UPDATE_HOME'; home: Home }
   | { t: 'UPDATE_SERVICE_DETAILS'; serviceDetails: ServiceDetail[] }
+  | { t: 'SET_SERVICE_STYLE'; id: ServiceStyleId }
   | { t: 'UPDATE_HOMEPAGE'; homepage: Homepage }
   | { t: 'UPDATE_CONTACT'; key: keyof Contact; val: string }
   | { t: 'SET_NEW_AREA'; val: string }
@@ -108,6 +109,8 @@ function reducer(state: AdminState, a: Action): AdminState {
       return { ...state, content: { ...state.content, home: a.home }, dirty: true };
     case 'UPDATE_SERVICE_DETAILS':
       return { ...state, content: { ...state.content, serviceDetails: a.serviceDetails }, dirty: true };
+    case 'SET_SERVICE_STYLE':
+      return { ...state, content: { ...state.content, serviceStyle: a.id }, dirty: true, toast: 'Layout style updated — click Save to publish' };
     case 'UPDATE_HOMEPAGE':
       return { ...state, content: { ...state.content, homepage: a.homepage }, dirty: true };
     case 'UPDATE_CONTACT':
@@ -189,6 +192,7 @@ interface StoreApi {
   updateHero: (key: keyof Hero, val: string) => void;
   updateHome: (updater: (h: Home) => Home) => void;
   updateServiceDetails: (updater: (arr: ServiceDetail[]) => ServiceDetail[]) => void;
+  setServiceStyle: (id: ServiceStyleId) => void;
   updateHomepage: (updater: (h: Homepage) => Homepage) => void;
   updateContact: (key: keyof Contact, val: string) => void;
   setNewArea: (val: string) => void;
@@ -275,6 +279,7 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
     updateHero: (key, val) => dispatch({ t: 'UPDATE_HERO', key, val }),
     updateHome: (updater) => dispatch({ t: 'UPDATE_HOME', home: updater(state.content.home) }),
     updateServiceDetails: (updater) => dispatch({ t: 'UPDATE_SERVICE_DETAILS', serviceDetails: updater(state.content.serviceDetails) }),
+    setServiceStyle: (id) => dispatch({ t: 'SET_SERVICE_STYLE', id }),
     updateHomepage: (updater) => dispatch({ t: 'UPDATE_HOMEPAGE', homepage: updater(state.content.homepage) }),
     updateContact: (key, val) => dispatch({ t: 'UPDATE_CONTACT', key, val }),
     setNewArea: (val) => dispatch({ t: 'SET_NEW_AREA', val }),
