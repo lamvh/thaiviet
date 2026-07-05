@@ -27,7 +27,7 @@ App (router)
    └─ ChatWidget        (floating Messenger button)
 
 pages/
-  HomePage (landing) · AboutPage · ServicesPage · ProjectsPage · ProjectDetailPage · BlogPage · ContactPage
+  HomePage (landing) · AboutPage · ServicesPage · ProjectsPage · ProjectDetailPage · BlogPage · ContactPage · PrivacyPage
 
 components/
   ui/         Icon · Container · CTASection
@@ -47,13 +47,14 @@ lib/       types.ts · templates/ (registry: types · project-templates · seed 
 ```
 
 ## Routes
-`/` Home (marketing landing) · `/about` (company story) · `/services` · `/services/:slug` (service detail, all 8 services) · `/projects` · `/projects/:id` (case study) · `/blog` · `/contact`
+`/` Home (marketing landing) · `/about` (company story) · `/services` · `/services/:slug` (service detail, all 8 services) · `/projects` · `/projects/:id` (case study) · `/blog` · `/contact` · `/privacy` (privacy policy)
 
 Content blocks are admin-editable and stored in Supabase / bundled `site-content.json`:
 - `home` block → landing page (admin → **Homepage**)
 - `homepage` block → about page (admin → **About Page** — key kept for content compatibility)
 - `serviceDetails[]` → every `/services/:slug` page including Interior (admin → **Service Pages**)
 - `serviceStyle` → global service-page layout style `A`–`E` applied to all `/services/:slug` pages (admin → **Service Pages** → "Service page layout"; A + B shipped, C/D/E "coming soon")
+- `privacy` block → privacy policy page (`/privacy`, admin → **Privacy Policy**). Title + intro, an ordered list of sections (each with paragraphs + optional bullets), and contact/closing copy. The contact block's email + phone pull live from the `contact` block (Contact & Social), so they never drift.
 - `projects[].page` → optional templated project detail content, created via the **Create content** compose wizard (admin sidebar) and rendered on `/projects/:id` by the matching template. Editing a templated project from the **Projects** list re-opens the wizard on that project and saves in place (card fields are derived from the template meta, so the card and detail page never drift)
 
 ## Templates (developer-defined)

@@ -8,6 +8,7 @@ import { ProjectsPage } from './pages/ProjectsPage';
 import { ProjectDetailPage } from './pages/ProjectDetailPage';
 import { BlogPage } from './pages/BlogPage';
 import { ContactPage } from './pages/ContactPage';
+import { PrivacyPage } from './pages/PrivacyPage';
 import { AdminPage } from './pages/admin/AdminPage';
 
 function PublicSite() {
@@ -22,6 +23,7 @@ function PublicSite() {
         <Route path="/projects/:id" element={<ProjectDetailPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>
     </Layout>

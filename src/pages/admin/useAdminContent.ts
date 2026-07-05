@@ -1,4 +1,4 @@
-import type { Hero, Contact, Project, Post, Homepage, Home, ServiceDetail, ServiceStyleId } from '../../lib/types';
+import type { Hero, Contact, Project, Post, Homepage, Home, ServiceDetail, ServiceStyleId, PrivacyPolicy } from '../../lib/types';
 
 export interface SiteContent {
   hero: Hero;
@@ -10,9 +10,10 @@ export interface SiteContent {
   posts: Post[];
   areas: string[];
   contact: Contact;
+  privacy: PrivacyPolicy; // privacy policy page ("/privacy") content
 }
 
-export type AdminSection = 'overview' | 'projects' | 'blog' | 'compose' | 'home' | 'about' | 'servicePages' | 'areas' | 'contact' | 'settings';
+export type AdminSection = 'overview' | 'projects' | 'blog' | 'compose' | 'home' | 'about' | 'servicePages' | 'areas' | 'contact' | 'privacy' | 'settings';
 
 // The editable content store lives in admin-content-store.tsx (context + reducer with
 // localStorage autosave). This module now only owns the shared shape types.

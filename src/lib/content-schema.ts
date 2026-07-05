@@ -71,5 +71,13 @@ export function validateContent(c: SiteContent): string[] {
 
   if (!['A', 'B', 'C', 'D', 'E'].includes(c.serviceStyle)) errors.push('Service style must be one of A–E.');
 
+  const pv = c.privacy;
+  if (pv) {
+    if (!pv.title?.trim()) errors.push('Privacy policy title is required.');
+    (pv.sections ?? []).forEach((s, i) => {
+      if (!s.heading?.trim()) errors.push(`Privacy section #${i + 1} needs a heading.`);
+    });
+  }
+
   return errors;
 }

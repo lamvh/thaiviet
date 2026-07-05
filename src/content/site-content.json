@@ -1153,5 +1153,62 @@
     "facebook": "https://www.facebook.com/thaivietgroupltd/",
     "messenger": "https://m.me/thaivietgroupltd",
     "hours": "8:00 AM - 5:00 PM"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "intro": "At ThaiViet Ltd, we respect your privacy and are committed to protecting the personal information you share with us. This Privacy Policy explains how we collect, use, store, and protect your information when you visit our website or contact us about our painting, plastering, decorating, and renovation services.",
+    "sections": [
+      {
+        "heading": "Information We Collect",
+        "paragraphs": ["We may collect the following information:"],
+        "bullets": [
+          "Your name",
+          "Phone number",
+          "Email address",
+          "Property address (where relevant to your enquiry)",
+          "Details about your project or service request",
+          "Information you provide through our contact forms, emails, or phone calls",
+          "Basic website usage information collected through cookies or analytics"
+        ]
+      },
+      {
+        "heading": "How We Use Your Information",
+        "paragraphs": ["We use your information to:"],
+        "bullets": [
+          "Respond to your enquiries",
+          "Prepare quotations and estimates",
+          "Schedule site visits and services",
+          "Communicate with you about your project",
+          "Improve our website and customer service",
+          "Meet our legal and business obligations"
+        ]
+      },
+      {
+        "heading": "Sharing Your Information",
+        "paragraphs": [
+          "We do not sell or rent your personal information.",
+          "We may share your information with trusted contractors, suppliers, or service providers only when necessary to deliver our services or where required by law."
+        ],
+        "bullets": []
+      },
+      {
+        "heading": "Data Security",
+        "paragraphs": ["We take reasonable steps to protect your personal information from unauthorised access, loss, misuse, or disclosure."],
+        "bullets": []
+      },
+      {
+        "heading": "Cookies",
+        "paragraphs": ["Our website may use cookies and analytics tools to improve your browsing experience and help us understand how visitors use our website. You can disable cookies through your browser settings if you prefer."],
+        "bullets": []
+      },
+      {
+        "heading": "Your Rights",
+        "paragraphs": ["You may request access to the personal information we hold about you or ask us to correct any inaccurate information. Please contact us if you have any privacy-related questions or requests."],
+        "bullets": []
+      }
+    ],
+    "contactHeading": "Contact Us",
+    "contactIntro": "If you have any questions about this Privacy Policy or how we handle your personal information, please contact:",
+    "closing": "We may update this Privacy Policy from time to time. Any changes will be published on this page."
   }
 }

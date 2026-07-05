@@ -54,6 +54,18 @@ export interface Hero { title: string; subtitle: string; image: string; }
 
 export interface Contact { phone: string; email: string; facebook: string; messenger: string; hours: string; }
 
+// Privacy policy page ("/privacy") content — a title + intro, an ordered list of
+// sections (each with paragraphs and optional bullet points), and a closing note.
+export interface PrivacySection { heading: string; paragraphs: string[]; bullets: string[]; }
+export interface PrivacyPolicy {
+  title: string;
+  intro: string;
+  sections: PrivacySection[];
+  contactHeading: string;
+  contactIntro: string;
+  closing: string;
+}
+
 export interface ProjectDetail {
   location: string;
   service: string;

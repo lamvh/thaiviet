@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer, useRef, type ReactNode } from 'react';
-import type { Hero, Contact, Project, Post, Homepage, Home, ServiceDetail, ProjectCategory, ServiceStyleId } from '../../lib/types';
+import type { Hero, Contact, Project, Post, Homepage, Home, ServiceDetail, ProjectCategory, ServiceStyleId, PrivacyPolicy } from '../../lib/types';
 import type { ProjectMeta, ProjectTemplateId, TemplateValue } from '../../lib/types';
 import { projectTemplates } from '../../lib/templates/project-templates';
 import { seedValues } from '../../lib/templates/seed';
@@ -43,6 +43,7 @@ type Action =
   | { t: 'SET_SERVICE_STYLE'; id: ServiceStyleId }
   | { t: 'UPDATE_HOMEPAGE'; homepage: Homepage }
   | { t: 'UPDATE_CONTACT'; key: keyof Contact; val: string }
+  | { t: 'UPDATE_PRIVACY'; privacy: PrivacyPolicy }
   | { t: 'SET_NEW_AREA'; val: string }
   | { t: 'ADD_AREA' }
   | { t: 'REMOVE_AREA'; index: number }
@@ -122,6 +123,8 @@ export function reducer(state: AdminState, a: Action): AdminState {
       return { ...state, content: { ...state.content, homepage: a.homepage }, dirty: true };
     case 'UPDATE_CONTACT':
       return { ...state, content: { ...state.content, contact: { ...state.content.contact, [a.key]: a.val } }, dirty: true };
+    case 'UPDATE_PRIVACY':
+      return { ...state, content: { ...state.content, privacy: a.privacy }, dirty: true };
     case 'SET_NEW_AREA':
       return { ...state, newArea: a.val };
     case 'ADD_AREA': {
@@ -215,6 +218,7 @@ interface StoreApi {
   setServiceStyle: (id: ServiceStyleId) => void;
   updateHomepage: (updater: (h: Homepage) => Homepage) => void;
   updateContact: (key: keyof Contact, val: string) => void;
+  updatePrivacy: (updater: (p: PrivacyPolicy) => PrivacyPolicy) => void;
   setNewArea: (val: string) => void;
   addArea: () => void;
   removeArea: (index: number) => void;
@@ -304,6 +308,7 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
     setServiceStyle: (id) => dispatch({ t: 'SET_SERVICE_STYLE', id }),
     updateHomepage: (updater) => dispatch({ t: 'UPDATE_HOMEPAGE', homepage: updater(state.content.homepage) }),
     updateContact: (key, val) => dispatch({ t: 'UPDATE_CONTACT', key, val }),
+    updatePrivacy: (updater) => dispatch({ t: 'UPDATE_PRIVACY', privacy: updater(state.content.privacy) }),
     setNewArea: (val) => dispatch({ t: 'SET_NEW_AREA', val }),
     addArea: () => dispatch({ t: 'ADD_AREA' }),
     removeArea: (index) => dispatch({ t: 'REMOVE_AREA', index }),

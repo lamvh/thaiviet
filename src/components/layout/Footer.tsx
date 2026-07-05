@@ -94,7 +94,7 @@ export function Footer() {
             </li>
             <li className="pt-4">
               <Link
-                to="/"
+                to="/privacy"
                 className="text-primary font-bold underline underline-offset-4"
               >
                 Privacy Policy

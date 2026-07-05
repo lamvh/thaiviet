@@ -15,6 +15,7 @@ import { HomepageEditor } from './sections/HomepageEditor';
 import { ServiceDetailsEditor } from './sections/ServiceDetailsEditor';
 import { AreasEditor } from './sections/AreasEditor';
 import { ContactEditor } from './sections/ContactEditor';
+import { PrivacyEditor } from './sections/PrivacyEditor';
 import { EditDrawer } from './EditDrawer';
 import { Toast } from './Toast';
 import { PublishBar } from './PublishBar';
@@ -30,6 +31,7 @@ const META: Record<AdminSection, [string, string]> = {
   servicePages: ['Service Pages', 'Edit each service detail page'],
   areas: ['Service Areas', 'Suburbs and towns you cover'],
   contact: ['Contact & Social', 'Phone, email and social links'],
+  privacy: ['Privacy Policy', 'Edit the privacy policy page'],
   settings: ['Settings', 'Your account and sign out'],
 };
 
@@ -123,6 +125,7 @@ function AdminInner() {
           {section === 'contact' && (
             <ContactEditor contact={content.contact} onChange={store.updateContact} onSave={() => store.toast('Contact details saved')} />
           )}
+          {section === 'privacy' && <PrivacyEditor />}
           {section === 'settings' && <SettingsPanel />}
         </div>
       </div>
