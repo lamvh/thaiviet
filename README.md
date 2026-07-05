@@ -54,7 +54,7 @@ Content blocks are admin-editable and stored in Supabase / bundled `site-content
 - `homepage` block → about page (admin → **About Page** — key kept for content compatibility)
 - `serviceDetails[]` → every `/services/:slug` page including Interior (admin → **Service Pages**)
 - `serviceStyle` → global service-page layout style `A`–`E` applied to all `/services/:slug` pages (admin → **Service Pages** → "Service page layout"; A + B shipped, C/D/E "coming soon")
-- `projects[].page` → optional templated project detail content, created via the **Create content** compose wizard (admin sidebar) and rendered on `/projects/:id` by the matching template
+- `projects[].page` → optional templated project detail content, created via the **Create content** compose wizard (admin sidebar) and rendered on `/projects/:id` by the matching template. Editing a templated project from the **Projects** list re-opens the wizard on that project and saves in place (card fields are derived from the template meta, so the card and detail page never drift)
 
 ## Templates (developer-defined)
 

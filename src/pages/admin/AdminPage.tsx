@@ -89,9 +89,15 @@ function AdminInner() {
             <ProjectsTable
               projects={content.projects}
               onToggle={(id) => store.toggle('projects', id)}
-              onEdit={(id) => store.openEdit('projects', id)}
+              onEdit={(id) => {
+                // Templated projects edit through the compose wizard (their body lives in `page`);
+                // plain projects use the generic card-field drawer.
+                const proj = content.projects.find((p) => p.id === id);
+                if (proj?.page) { store.editComposed(id); setSection('compose'); }
+                else store.openEdit('projects', id);
+              }}
               onNew={() => store.addItem('projects')}
-              onNewFromTemplate={() => setSection('compose')}
+              onNewFromTemplate={() => { store.startCompose(); setSection('compose'); }}
             />
           )}
           {section === 'blog' && (

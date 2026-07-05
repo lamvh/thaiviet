@@ -1,4 +1,4 @@
-import type { SectionDef, TemplateValue, ProjectMeta } from './types';
+import type { SectionDef, TemplateValue } from './types';
 
 export function cloneTemplateValue(v: TemplateValue): TemplateValue {
   if (typeof v === 'string') return v;
@@ -11,8 +11,4 @@ export function seedValues(sections: SectionDef[]): Record<string, TemplateValue
   const out: Record<string, TemplateValue> = {};
   for (const s of sections) out[s.key] = cloneTemplateValue(s.default);
   return out;
-}
-
-export function emptyMetaFrom(meta: ProjectMeta): ProjectMeta {
-  return { ...meta };
 }

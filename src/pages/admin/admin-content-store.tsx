@@ -26,7 +26,7 @@ interface AdminState {
   publishStatus: PublishStatus;
   publishMsg: string;
   commitUrl: string;
-  compose: { step: 'pick' | 'build'; templateId: ProjectTemplateId | null; meta: ProjectMeta | null; values: Record<string, TemplateValue> | null; category: ProjectCategory };
+  compose: { step: 'pick' | 'build'; templateId: ProjectTemplateId | null; meta: ProjectMeta | null; values: Record<string, TemplateValue> | null; category: ProjectCategory; editingId: string | null };
 }
 
 type Action =
@@ -58,6 +58,7 @@ type Action =
   | { t: 'COMPOSE_META'; key: keyof ProjectMeta; val: string }
   | { t: 'COMPOSE_VALUE'; key: string; val: TemplateValue }
   | { t: 'COMPOSE_CATEGORY'; cat: ProjectCategory }
+  | { t: 'COMPOSE_EDIT'; id: string }
   | { t: 'COMPOSE_PUBLISH'; id: string };
 
 const PLACEHOLDER_IMG = 'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=800&q=80';
@@ -142,28 +143,40 @@ function reducer(state: AdminState, a: Action): AdminState {
         ? { ...state, base: clone(a.remote) }
         : { ...state, base: clone(a.remote), content: clone(a.remote) };
     case 'COMPOSE_START':
-      return { ...state, compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior' } };
+      return { ...state, compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior', editingId: null } };
     case 'COMPOSE_PICK': {
       const def = projectTemplates[a.id];
-      return { ...state, compose: { step: 'build', templateId: a.id, meta: { ...def.defaultMeta }, values: seedValues(def.sections), category: catFromLabel(def.defaultMeta.category) } };
+      return { ...state, compose: { step: 'build', templateId: a.id, meta: { ...def.defaultMeta }, values: seedValues(def.sections), category: catFromLabel(def.defaultMeta.category), editingId: null } };
     }
     case 'COMPOSE_BACK':
-      return { ...state, compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior' } };
+      return { ...state, compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior', editingId: null } };
     case 'COMPOSE_META':
       return state.compose.meta ? { ...state, compose: { ...state.compose, meta: { ...state.compose.meta, [a.key]: a.val } } } : state;
     case 'COMPOSE_VALUE':
       return state.compose.values ? { ...state, compose: { ...state.compose, values: { ...state.compose.values, [a.key]: a.val } } } : state;
     case 'COMPOSE_CATEGORY':
       return { ...state, compose: { ...state.compose, category: a.cat, meta: state.compose.meta ? { ...state.compose.meta, category: catLabel(a.cat) } : state.compose.meta } };
+    case 'COMPOSE_EDIT': {
+      // Open the wizard on an existing templated project so its meta + body are editable in place.
+      const proj = state.content.projects.find((p) => p.id === a.id);
+      if (!proj?.page) return state;
+      return { ...state, compose: { step: 'build', templateId: proj.page.templateId, meta: { ...proj.page.meta }, values: clone(proj.page.values), category: proj.category, editingId: proj.id } };
+    }
     case 'COMPOSE_PUBLISH': {
       const c = state.compose;
       if (!c.templateId || !c.meta || !c.values) return state;
-      const proj: Project = {
-        id: a.id, category: c.category, categoryLabel: catLabel(c.category),
-        title: c.meta.title, desc: c.meta.intro, image: c.meta.cover, visible: true,
-        page: { templateId: c.templateId, meta: c.meta, values: c.values },
-      };
-      return { ...state, content: { ...state.content, projects: [proj, ...state.content.projects] }, dirty: true, compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior' }, toast: 'Project added — click Save to publish' };
+      const page = { templateId: c.templateId, meta: c.meta, values: c.values };
+      // Card fields are derived from the template meta so the /projects card and the
+      // detail page never drift apart.
+      const fields = { category: c.category, categoryLabel: catLabel(c.category), title: c.meta.title, desc: c.meta.intro, image: c.meta.cover };
+      const reset = { step: 'pick' as const, templateId: null, meta: null, values: null, category: 'interior' as ProjectCategory, editingId: null };
+      if (c.editingId) {
+        const id = c.editingId;
+        const projects = state.content.projects.map((p) => (p.id === id ? { ...p, ...fields, page } : p));
+        return { ...state, content: { ...state.content, projects }, dirty: true, compose: reset, toast: 'Project updated — click Save to publish' };
+      }
+      const proj: Project = { id: a.id, ...fields, visible: true, page };
+      return { ...state, content: { ...state.content, projects: [proj, ...state.content.projects] }, dirty: true, compose: reset, toast: 'Project added — click Save to publish' };
     }
     default:
       return state;
@@ -177,7 +190,7 @@ function initState(): AdminState {
   return {
     content: clone(base), base: clone(base), dirty: false, editing: null, draft: {}, newArea: '', toast: '',
     publishStatus: 'idle', publishMsg: '', commitUrl: '',
-    compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior' },
+    compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior', editingId: null },
   };
 }
 
@@ -208,6 +221,7 @@ interface StoreApi {
   updateComposeMeta: (key: keyof ProjectMeta, val: string) => void;
   updateComposeValue: (key: string, val: TemplateValue) => void;
   updateComposeCategory: (cat: ProjectCategory) => void;
+  editComposed: (id: string) => void;
   publishComposed: () => void;
 }
 
@@ -315,6 +329,7 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
     updateComposeMeta: (key, val) => dispatch({ t: 'COMPOSE_META', key, val }),
     updateComposeValue: (key, val) => dispatch({ t: 'COMPOSE_VALUE', key, val }),
     updateComposeCategory: (cat) => dispatch({ t: 'COMPOSE_CATEGORY', cat }),
+    editComposed: (id) => dispatch({ t: 'COMPOSE_EDIT', id }),
     publishComposed: () => dispatch({ t: 'COMPOSE_PUBLISH', id: uniqueId('p', state.content.projects.map((x) => x.id)) }),
   };
 
