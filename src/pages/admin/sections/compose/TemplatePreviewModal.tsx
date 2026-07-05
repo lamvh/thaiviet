@@ -15,7 +15,7 @@ export function TemplatePreviewModal({ def, onClose, onUse }: { def: ProjectTemp
 
   return (
     <div className="fixed inset-0 z-[90] flex flex-col bg-black/50">
-      <div className="flex items-center gap-3 px-4 sm:px-5 py-3 bg-white border-b border-[#eae6df]">
+      <div className="flex items-center flex-wrap gap-x-3 gap-y-2 px-4 sm:px-5 py-3 bg-white border-b border-[#eae6df]">
         <Icon name={def.icon} className="text-primary text-2xl flex-none" />
         <div className="flex-1 min-w-0">
           <div className="font-headline font-extrabold leading-tight truncate">{def.name}</div>
@@ -25,7 +25,7 @@ export function TemplatePreviewModal({ def, onClose, onUse }: { def: ProjectTemp
           <button onClick={() => setFull(false)} className={'px-3 py-1.5 ' + (!full ? 'bg-primary text-white' : 'text-[#8a8377]')}>Simple</button>
           <button onClick={() => setFull(true)} className={'px-3 py-1.5 ' + (full ? 'bg-primary text-white' : 'text-[#8a8377]')}>Full</button>
         </div>
-        <button onClick={onUse} className="hidden sm:inline-flex bg-primary text-white rounded-lg px-4 py-2 font-bold text-sm flex-none hover:brightness-110">Use this template</button>
+        <button onClick={onUse} className="inline-flex items-center bg-primary text-white rounded-lg px-4 py-2 font-bold text-sm flex-none hover:brightness-110 whitespace-nowrap">Use this template</button>
         <button onClick={onClose} aria-label="Close preview" className="w-9 h-9 rounded-lg bg-[#f4f2ee] text-on-surface-variant flex items-center justify-center flex-none">
           <Icon name="close" className="text-[19px]" />
         </button>
