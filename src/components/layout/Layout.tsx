@@ -12,14 +12,14 @@ function ScrollToTop() {
 }
 
 export function Layout({ children }: { children: ReactNode }) {
-  const { pathname } = useLocation();
   return (
     <div className="bg-surface text-on-surface font-body min-h-screen">
       <ScrollToTop />
       <Header />
       <main className="pt-[72px]">{children}</main>
       <Footer />
-      {pathname !== '/' && <ChatWidget />}
+      {/* Floating Messenger button on every page, including the home page. */}
+      <ChatWidget />
     </div>
   );
 }
