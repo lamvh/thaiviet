@@ -140,6 +140,7 @@ export function HomePage() {
                   </p>
                 </div>
               </div>
+              {/* Certificate section #2 temporarily hidden — kept in hero banner only.
               {intro.certs.length > 0 && (
                 <div>
                   <p className="text-xs uppercase tracking-widest text-on-surface-variant font-semibold mb-4">
@@ -157,6 +158,7 @@ export function HomePage() {
                   </div>
                 </div>
               )}
+              */}
             </div>
             <div className="lg:col-span-5 relative">
               <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">

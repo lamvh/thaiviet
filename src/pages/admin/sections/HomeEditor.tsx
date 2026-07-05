@@ -48,8 +48,10 @@ export function HomeEditor() {
           <Field label="Years value" value={hm.intro.yearsValue} onChange={(v) => patch('intro', { yearsValue: v })} />
           <Field label="Years label" value={hm.intro.yearsLabel} onChange={(v) => patch('intro', { yearsLabel: v })} />
         </div>
+        {/* Certificate fields temporarily hidden — section #2 removed from the homepage, kept in hero banner only.
         <Field label="Certifications label" value={hm.intro.certLabel} onChange={(v) => patch('intro', { certLabel: v })} />
         <StringList label="Certification image URLs" items={hm.intro.certs} onChange={(certs) => patch('intro', { certs })} />
+        */}
         <Field label="Image URL" value={hm.intro.image} onChange={(v) => patch('intro', { image: v })} />
         <Field label="Testimonial quote" area value={hm.intro.testimonialQuote} onChange={(v) => patch('intro', { testimonialQuote: v })} />
         <Field label="Testimonial attribution" value={hm.intro.testimonialBy} onChange={(v) => patch('intro', { testimonialBy: v })} />
