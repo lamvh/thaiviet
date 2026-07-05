@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useReducer, useRef, type ReactNode } from 'react';
-import type { Hero, Contact, Project, Post, Homepage, Home, ServiceDetail } from '../../lib/types';
+import type { Hero, Contact, Project, Post, Homepage, Home, ServiceDetail, ProjectCategory } from '../../lib/types';
 import type { ProjectMeta, ProjectTemplateId, TemplateValue } from '../../lib/types';
 import { projectTemplates } from '../../lib/templates/project-templates';
 import { seedValues } from '../../lib/templates/seed';
@@ -7,6 +7,7 @@ import type { SiteContent } from './useAdminContent';
 import { supabase, SITE_CONTENT_ID } from '../../lib/supabase';
 import { validateContent } from '../../lib/content-schema';
 import { DEFAULT_CONTENT, withContentDefaults } from '../../lib/content-defaults';
+import { PROJECT_FILTERS } from '../../data/projects';
 
 export type PublishStatus = 'idle' | 'publishing' | 'done' | 'error';
 
@@ -25,7 +26,7 @@ interface AdminState {
   publishStatus: PublishStatus;
   publishMsg: string;
   commitUrl: string;
-  compose: { step: 'pick' | 'build'; templateId: ProjectTemplateId | null; meta: ProjectMeta | null; values: Record<string, TemplateValue> | null };
+  compose: { step: 'pick' | 'build'; templateId: ProjectTemplateId | null; meta: ProjectMeta | null; values: Record<string, TemplateValue> | null; category: ProjectCategory };
 }
 
 type Action =
@@ -55,9 +56,14 @@ type Action =
   | { t: 'COMPOSE_BACK' }
   | { t: 'COMPOSE_META'; key: keyof ProjectMeta; val: string }
   | { t: 'COMPOSE_VALUE'; key: string; val: TemplateValue }
+  | { t: 'COMPOSE_CATEGORY'; cat: ProjectCategory }
   | { t: 'COMPOSE_PUBLISH'; id: string };
 
 const PLACEHOLDER_IMG = 'https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=800&q=80';
+
+const CAT_OPTS = PROJECT_FILTERS.filter((f) => f.value !== 'all');
+const catLabel = (v: string): string => CAT_OPTS.find((o) => o.value === v)?.label ?? v;
+const catFromLabel = (label: string): ProjectCategory => (CAT_OPTS.find((o) => o.label === label)?.value as ProjectCategory) ?? 'interior';
 
 function clone<T>(v: T): T { return JSON.parse(JSON.stringify(v)) as T; }
 
@@ -133,26 +139,28 @@ function reducer(state: AdminState, a: Action): AdminState {
         ? { ...state, base: clone(a.remote) }
         : { ...state, base: clone(a.remote), content: clone(a.remote) };
     case 'COMPOSE_START':
-      return { ...state, compose: { step: 'pick', templateId: null, meta: null, values: null } };
+      return { ...state, compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior' } };
     case 'COMPOSE_PICK': {
       const def = projectTemplates[a.id];
-      return { ...state, compose: { step: 'build', templateId: a.id, meta: { ...def.defaultMeta }, values: seedValues(def.sections) } };
+      return { ...state, compose: { step: 'build', templateId: a.id, meta: { ...def.defaultMeta }, values: seedValues(def.sections), category: catFromLabel(def.defaultMeta.category) } };
     }
     case 'COMPOSE_BACK':
-      return { ...state, compose: { step: 'pick', templateId: null, meta: null, values: null } };
+      return { ...state, compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior' } };
     case 'COMPOSE_META':
       return state.compose.meta ? { ...state, compose: { ...state.compose, meta: { ...state.compose.meta, [a.key]: a.val } } } : state;
     case 'COMPOSE_VALUE':
       return state.compose.values ? { ...state, compose: { ...state.compose, values: { ...state.compose.values, [a.key]: a.val } } } : state;
+    case 'COMPOSE_CATEGORY':
+      return { ...state, compose: { ...state.compose, category: a.cat, meta: state.compose.meta ? { ...state.compose.meta, category: catLabel(a.cat) } : state.compose.meta } };
     case 'COMPOSE_PUBLISH': {
       const c = state.compose;
       if (!c.templateId || !c.meta || !c.values) return state;
       const proj: Project = {
-        id: a.id, category: 'interior', categoryLabel: c.meta.category || 'Project',
+        id: a.id, category: c.category, categoryLabel: catLabel(c.category),
         title: c.meta.title, desc: c.meta.intro, image: c.meta.cover, visible: true,
         page: { templateId: c.templateId, meta: c.meta, values: c.values },
       };
-      return { ...state, content: { ...state.content, projects: [proj, ...state.content.projects] }, dirty: true, compose: { step: 'pick', templateId: null, meta: null, values: null }, toast: 'Project added — click Save to publish' };
+      return { ...state, content: { ...state.content, projects: [proj, ...state.content.projects] }, dirty: true, compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior' }, toast: 'Project added — click Save to publish' };
     }
     default:
       return state;
@@ -166,7 +174,7 @@ function initState(): AdminState {
   return {
     content: clone(base), base: clone(base), dirty: false, editing: null, draft: {}, newArea: '', toast: '',
     publishStatus: 'idle', publishMsg: '', commitUrl: '',
-    compose: { step: 'pick', templateId: null, meta: null, values: null },
+    compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior' },
   };
 }
 
@@ -195,6 +203,7 @@ interface StoreApi {
   backToTemplates: () => void;
   updateComposeMeta: (key: keyof ProjectMeta, val: string) => void;
   updateComposeValue: (key: string, val: TemplateValue) => void;
+  updateComposeCategory: (cat: ProjectCategory) => void;
   publishComposed: () => void;
 }
 
@@ -300,6 +309,7 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
     backToTemplates: () => dispatch({ t: 'COMPOSE_BACK' }),
     updateComposeMeta: (key, val) => dispatch({ t: 'COMPOSE_META', key, val }),
     updateComposeValue: (key, val) => dispatch({ t: 'COMPOSE_VALUE', key, val }),
+    updateComposeCategory: (cat) => dispatch({ t: 'COMPOSE_CATEGORY', cat }),
     publishComposed: () => dispatch({ t: 'COMPOSE_PUBLISH', id: uniqueId('p', state.content.projects.map((x) => x.id)) }),
   };
 

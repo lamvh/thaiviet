@@ -1,5 +1,8 @@
-import { Card, Field, ItemCard, AddButton } from '../homepage-editor-primitives';
-import type { ProjectMeta, SectionDef, TemplateValue } from '../../../../lib/types';
+import { Card, Field, ItemCard, AddButton, labelCls, fieldCls } from '../homepage-editor-primitives';
+import type { ProjectCategory, ProjectMeta, SectionDef, TemplateValue } from '../../../../lib/types';
+import { PROJECT_FILTERS } from '../../../../data/projects';
+
+const CATEGORY_OPTIONS = PROJECT_FILTERS.filter((f) => f.value !== 'all');
 
 function RepeatEditor({ section: s, value, onChange }: { section: SectionDef; value: Array<Record<string, string>>; onChange: (v: TemplateValue) => void }) {
   const set = (i: number, k: string, v: string) => onChange(value.map((it, j) => (j === i ? { ...it, [k]: v } : it)));
@@ -18,16 +21,22 @@ function RepeatEditor({ section: s, value, onChange }: { section: SectionDef; va
 }
 
 export function TemplateForm({
-  meta, values, sections, onMeta, onValue,
+  meta, values, sections, onMeta, onValue, category, onCategory,
 }: {
   meta: ProjectMeta; values: Record<string, TemplateValue>; sections: SectionDef[];
   onMeta: (k: keyof ProjectMeta, v: string) => void; onValue: (k: string, v: TemplateValue) => void;
+  category: ProjectCategory; onCategory: (c: ProjectCategory) => void;
 }) {
   return (
     <div className="flex flex-col gap-5">
       <Card title="Project details" hint="The header facts shown at the top of the page.">
         <Field label="Title" value={meta.title} onChange={(v) => onMeta('title', v)} />
-        <Field label="Category" value={meta.category} onChange={(v) => onMeta('category', v)} />
+        <div>
+          <label className={labelCls}>Category</label>
+          <select className={fieldCls} value={category} onChange={(e) => onCategory(e.target.value as ProjectCategory)}>
+            {CATEGORY_OPTIONS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+          </select>
+        </div>
         <Field label="Location" value={meta.location} onChange={(v) => onMeta('location', v)} />
         <Field label="Duration" value={meta.duration} onChange={(v) => onMeta('duration', v)} />
         <Field label="Year" value={meta.year} onChange={(v) => onMeta('year', v)} />

@@ -26,7 +26,7 @@ export function ComposeWizard() {
         <button onClick={store.publishComposed} className="bg-primary text-white rounded-lg px-5 py-2.5 font-bold text-sm">Add project</button>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_460px] gap-6 items-start">
-        <TemplateForm meta={c.meta} values={c.values} sections={def.sections} onMeta={store.updateComposeMeta} onValue={store.updateComposeValue} />
+        <TemplateForm meta={c.meta} values={c.values} sections={def.sections} onMeta={store.updateComposeMeta} onValue={store.updateComposeValue} category={c.category} onCategory={store.updateComposeCategory} />
         <TemplatePreview meta={c.meta} values={c.values} sections={def.sections} />
       </div>
     </div>
