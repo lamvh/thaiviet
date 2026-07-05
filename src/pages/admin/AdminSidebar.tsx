@@ -11,6 +11,7 @@ export function AdminSidebar({ section, onSelect, content }: { section: AdminSec
     { key: 'blog', label: 'Blog', icon: 'article', count: content.posts.length },
     { key: 'home', label: 'Homepage', icon: 'home' },
     { key: 'about', label: 'About Page', icon: 'info' },
+    { key: 'servicePages', label: 'Service Pages', icon: 'design_services', count: content.serviceDetails.length },
     { key: 'areas', label: 'Service Areas', icon: 'location_on', count: content.areas.length },
     { key: 'contact', label: 'Contact & Social', icon: 'call' },
     { key: 'settings', label: 'Settings', icon: 'settings' },

@@ -28,9 +28,12 @@ export interface ServiceDetail {
   afterImg: string;
   gallery: string[];
   showcase: ServiceShowcase[];
-  quote: string;
-  quoteName: string;
-  quoteSub: string;
+  // Optional badge list for the approach section (e.g. Interior's paint brand partners).
+  paintPartners?: string[];
+  // Testimonial is optional — not every service page carries one.
+  quote?: string;
+  quoteName?: string;
+  quoteSub?: string;
 }
 
 export interface Project {

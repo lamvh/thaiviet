@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { Icon } from '../components/ui/Icon';
 import { useSiteContent } from '../lib/site-content-context';
-import { SERVICE_DETAILS } from '../data/service-details';
 
 // Drag-to-reveal before/after comparison. Position is React state so it works without
 // the design's inline oninput handler.
@@ -26,8 +25,8 @@ function BeforeAfter({ before, after }: { before: string; after: string }) {
 
 export function ServiceDetailPage() {
   const { slug } = useParams<{ slug: string }>();
-  const { contact } = useSiteContent();
-  const s = slug ? SERVICE_DETAILS[slug] : undefined;
+  const { contact, serviceDetails } = useSiteContent();
+  const s = serviceDetails.find((d) => d.slug === slug);
 
   // Unknown slug → back to the services list.
   if (!s) return <Navigate to="/services" replace />;
@@ -101,6 +100,16 @@ export function ServiceDetailPage() {
                 <li key={t} className="flex items-center gap-3 text-on-surface"><Icon name="check_circle" className="text-primary text-lg" /><span className="font-medium">{t}</span></li>
               ))}
             </ul>
+            {s.paintPartners && s.paintPartners.length > 0 && (
+              <div className="mt-8">
+                <h3 className="text-[13px] font-bold uppercase tracking-[0.15em] text-on-surface-variant mb-4">Premium paint partners</h3>
+                <div className="flex flex-wrap gap-3">
+                  {s.paintPartners.map((b) => (
+                    <span key={b} className="px-5 py-2.5 bg-white rounded-full font-headline font-bold shadow-sm">{b}</span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -147,13 +156,15 @@ export function ServiceDetailPage() {
       </section>
 
       {/* Quote */}
-      <section className="py-24 px-8 bg-surface">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="text-primary mb-8"><Icon name="format_quote" className="text-5xl" filled /></div>
-          <p className="text-2xl md:text-3xl font-medium leading-relaxed mb-10 text-on-surface">"{s.quote}"</p>
-          <div className="flex flex-col items-center"><h4 className="font-bold text-lg font-headline">{s.quoteName}</h4><p className="text-on-surface-variant text-sm uppercase tracking-widest">{s.quoteSub}</p></div>
-        </div>
-      </section>
+      {s.quote && (
+        <section className="py-24 px-8 bg-surface">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="text-primary mb-8"><Icon name="format_quote" className="text-5xl" filled /></div>
+            <p className="text-2xl md:text-3xl font-medium leading-relaxed mb-10 text-on-surface">"{s.quote}"</p>
+            <div className="flex flex-col items-center"><h4 className="font-bold text-lg font-headline">{s.quoteName}</h4><p className="text-on-surface-variant text-sm uppercase tracking-widest">{s.quoteSub}</p></div>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="py-24 px-8">

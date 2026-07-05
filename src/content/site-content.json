@@ -19,10 +19,22 @@
       ]
     },
     "trust": [
-      { "icon": "verified", "label": "Master Painter Certified" },
-      { "icon": "schedule", "label": "Reliable Service" },
-      { "icon": "security", "label": "5 Years Warranty" },
-      { "icon": "request_quote", "label": "Free Quotes" }
+      {
+        "icon": "verified",
+        "label": "Master Painter Certified"
+      },
+      {
+        "icon": "schedule",
+        "label": "Reliable Service"
+      },
+      {
+        "icon": "security",
+        "label": "5 Years Warranty"
+      },
+      {
+        "icon": "request_quote",
+        "label": "Free Quotes"
+      }
     ],
     "intro": {
       "eyebrow": "ThaiViet Ltd",
@@ -52,14 +64,54 @@
       "ctaText": "Contact our team to discuss your specific project needs.",
       "ctaLabel": "Get in Touch",
       "cards": [
-        { "image": "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800&q=80", "title": "Interior Painting", "desc": "Premium interior wall and ceiling painting for every room of the house.", "tag": "Indoor" },
-        { "image": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=80", "title": "Exterior Painting", "desc": "Long-lasting exterior coatings built to handle New Zealand weather.", "tag": "Outdoor" },
-        { "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80", "title": "Roof Painting", "desc": "Restore and protect your roof with weather-resistant coatings.", "tag": "Roof" },
-        { "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=80", "title": "Paint Stripping", "desc": "Strip old layers down to a clean, paint-ready surface.", "tag": "Prep" },
-        { "image": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80", "title": "Plastering & GIB Stopping", "desc": "Smooth, level walls and crisp GIB stopping ready for a flawless finish.", "tag": "Skimming" },
-        { "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80", "title": "Wood Staining", "desc": "Bring out the natural grain of timber while protecting it from the elements.", "tag": "Protection" },
-        { "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80", "title": "Building Work", "desc": "Minor carpentry, repairs, and prep work to get your project ready for paint.", "tag": "Carpentry" },
-        { "image": "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&q=80", "title": "Flooring", "desc": "Floor sanding and varnishing to bring tired timber floors back to a smooth, durable finish.", "tag": "Sanding & Varnish" }
+        {
+          "image": "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800&q=80",
+          "title": "Interior Painting",
+          "desc": "Premium interior wall and ceiling painting for every room of the house.",
+          "tag": "Indoor"
+        },
+        {
+          "image": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=80",
+          "title": "Exterior Painting",
+          "desc": "Long-lasting exterior coatings built to handle New Zealand weather.",
+          "tag": "Outdoor"
+        },
+        {
+          "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+          "title": "Roof Painting",
+          "desc": "Restore and protect your roof with weather-resistant coatings.",
+          "tag": "Roof"
+        },
+        {
+          "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=80",
+          "title": "Paint Stripping",
+          "desc": "Strip old layers down to a clean, paint-ready surface.",
+          "tag": "Prep"
+        },
+        {
+          "image": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80",
+          "title": "Plastering & GIB Stopping",
+          "desc": "Smooth, level walls and crisp GIB stopping ready for a flawless finish.",
+          "tag": "Skimming"
+        },
+        {
+          "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80",
+          "title": "Wood Staining",
+          "desc": "Bring out the natural grain of timber while protecting it from the elements.",
+          "tag": "Protection"
+        },
+        {
+          "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80",
+          "title": "Building Work",
+          "desc": "Minor carpentry, repairs, and prep work to get your project ready for paint.",
+          "tag": "Carpentry"
+        },
+        {
+          "image": "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&q=80",
+          "title": "Flooring",
+          "desc": "Floor sanding and varnishing to bring tired timber floors back to a smooth, durable finish.",
+          "tag": "Sanding & Varnish"
+        }
       ]
     },
     "whyChoose": {
@@ -84,12 +136,30 @@
       "title": "Our Simple Process",
       "subtitle": "How we take your project from initial vision to final completion.",
       "steps": [
-        { "title": "Enquiry", "desc": "Send us your details online or call us directly." },
-        { "title": "Site Visit", "desc": "We visit your property for a thorough assessment." },
-        { "title": "Detailed Quote", "desc": "You receive a clear, comprehensive fixed-price quote." },
-        { "title": "Preparation", "desc": "Surface prep begins—the key to a great finish." },
-        { "title": "Painting", "desc": "Our craftsmen apply premium coats of paint." },
-        { "title": "Final Review", "desc": "A walkthrough to ensure 100% satisfaction." }
+        {
+          "title": "Enquiry",
+          "desc": "Send us your details online or call us directly."
+        },
+        {
+          "title": "Site Visit",
+          "desc": "We visit your property for a thorough assessment."
+        },
+        {
+          "title": "Detailed Quote",
+          "desc": "You receive a clear, comprehensive fixed-price quote."
+        },
+        {
+          "title": "Preparation",
+          "desc": "Surface prep begins—the key to a great finish."
+        },
+        {
+          "title": "Painting",
+          "desc": "Our craftsmen apply premium coats of paint."
+        },
+        {
+          "title": "Final Review",
+          "desc": "A walkthrough to ensure 100% satisfaction."
+        }
       ]
     },
     "reviews": {
@@ -97,11 +167,31 @@
       "title": "What Our Clients Say",
       "ratingLabel": "5.0 from local homeowners",
       "items": [
-        { "quote": "ThaiViet recently completed the painting for our new house in Plimmerton. The professionalism was outstanding — the attention to detail in the plastering and the crispness of the paint lines made all the difference.", "name": "Peter Mathews", "meta": "New Build Project, Plimmerton" },
-        { "quote": "Thai and his team repainted the exterior of our 1920s villa in Karori. They prepped meticulously, kept the worksite tidy every day, and finished bang on schedule. Couldn't be happier.", "name": "Sarah Roberts", "meta": "Villa Repaint, Karori" },
-        { "quote": "We had ThaiViet repaint our office over a long weekend so we could open Monday morning with no downtime. Quote was clear, the work was tidy, and they came back to touch up two small spots without any fuss.", "name": "James Liu", "meta": "Office Fitout, Wellington CBD" },
-        { "quote": "Booked Thai for a full interior repaint of our Lower Hutt home. Quote was honest, the team turned up on time every day, and the finish is flawless. Highly recommend.", "name": "Hannah Williams", "meta": "Interior Repaint, Lower Hutt" },
-        { "quote": "Cedar staining job on our deck and pergola in Whitby. Excellent prep work, careful around our garden, and the colour match was spot on. Will use them again.", "name": "David Chen", "meta": "Cedar Staining, Whitby" }
+        {
+          "quote": "ThaiViet recently completed the painting for our new house in Plimmerton. The professionalism was outstanding — the attention to detail in the plastering and the crispness of the paint lines made all the difference.",
+          "name": "Peter Mathews",
+          "meta": "New Build Project, Plimmerton"
+        },
+        {
+          "quote": "Thai and his team repainted the exterior of our 1920s villa in Karori. They prepped meticulously, kept the worksite tidy every day, and finished bang on schedule. Couldn't be happier.",
+          "name": "Sarah Roberts",
+          "meta": "Villa Repaint, Karori"
+        },
+        {
+          "quote": "We had ThaiViet repaint our office over a long weekend so we could open Monday morning with no downtime. Quote was clear, the work was tidy, and they came back to touch up two small spots without any fuss.",
+          "name": "James Liu",
+          "meta": "Office Fitout, Wellington CBD"
+        },
+        {
+          "quote": "Booked Thai for a full interior repaint of our Lower Hutt home. Quote was honest, the team turned up on time every day, and the finish is flawless. Highly recommend.",
+          "name": "Hannah Williams",
+          "meta": "Interior Repaint, Lower Hutt"
+        },
+        {
+          "quote": "Cedar staining job on our deck and pergola in Whitby. Excellent prep work, careful around our garden, and the colour match was spot on. Will use them again.",
+          "name": "David Chen",
+          "meta": "Cedar Staining, Whitby"
+        }
       ]
     },
     "serviceAreas": {
@@ -142,9 +232,21 @@
       "title": "Our Mission",
       "subtitle": "With customer satisfaction as our highest priority, we aim to provide a service that exceeds your expectations every time.",
       "cards": [
-        { "icon": "brush", "title": "Artisan Painting", "desc": "Interior, exterior, and roof painting using premium coatings designed for Wellington's coastal conditions." },
-        { "icon": "wallpaper", "title": "Master Wallpapering", "desc": "Seamless pattern matching and bubble-free installation for luxury interiors." },
-        { "icon": "home_repair_service", "title": "Total Solutions", "desc": "Comprehensive maintenance that safeguards your investment for decades to come." }
+        {
+          "icon": "brush",
+          "title": "Artisan Painting",
+          "desc": "Interior, exterior, and roof painting using premium coatings designed for Wellington's coastal conditions."
+        },
+        {
+          "icon": "wallpaper",
+          "title": "Master Wallpapering",
+          "desc": "Seamless pattern matching and bubble-free installation for luxury interiors."
+        },
+        {
+          "icon": "home_repair_service",
+          "title": "Total Solutions",
+          "desc": "Comprehensive maintenance that safeguards your investment for decades to come."
+        }
       ]
     },
     "people": {
@@ -170,10 +272,26 @@
     "stats": {
       "title": "Why Wellington Trusts Us",
       "items": [
-        { "value": "95%", "label": "Referral Rate", "desc": "Our business thrives on word-of-mouth excellence." },
-        { "value": "26+", "label": "Years Serving Wellington", "desc": "Deep local knowledge of the capital's unique builds." },
-        { "value": "100%", "label": "Satisfaction Guarantee", "desc": "We don't leave until you're absolutely delighted." },
-        { "value": "Elite", "label": "Painter Network", "desc": "Trusted by the city's leading architects." }
+        {
+          "value": "95%",
+          "label": "Referral Rate",
+          "desc": "Our business thrives on word-of-mouth excellence."
+        },
+        {
+          "value": "26+",
+          "label": "Years Serving Wellington",
+          "desc": "Deep local knowledge of the capital's unique builds."
+        },
+        {
+          "value": "100%",
+          "label": "Satisfaction Guarantee",
+          "desc": "We don't leave until you're absolutely delighted."
+        },
+        {
+          "value": "Elite",
+          "label": "Painter Network",
+          "desc": "Trusted by the city's leading architects."
+        }
       ]
     },
     "cta": {
@@ -185,6 +303,590 @@
       "secondaryTo": "/projects"
     }
   },
+  "serviceDetails": [
+    {
+      "slug": "interior",
+      "name": "Interior Painting",
+      "heroTitle": "A flawless finish, room by room.",
+      "heroSub": "From a single feature wall to a whole-home repaint, we deliver dust-free preparation and a smooth, hard-wearing finish that lifts every room — all backed by our 5-year workmanship guarantee.",
+      "heroImg": "https://lh3.googleusercontent.com/aida-public/AB6AXuBFIVxAWkyuyJKwXUYqIR3iz2ttS1KGU3GazGzibFfN2_DQ5cG7q7KOonVor3L5Z9mxdUbXGRt5AKcnSLwQcrbQCuo7JiqJRnNoOVE4Le-lr9-Au3ukfZiRer7Sa7iwCSajQlCIcJDk6BrlJ7SEvxfN0jOwvhxLvY_kZ8vXEgPdNcROW9I0b6Rok8Qan0cRJ9VKzryqsB7HkRZ2qiUEe2gDwhAN6qidWDYHs_Kf6yDLO_9-ZuEwGsbgN7J6I008N0bqTJwaVBsa22o",
+      "introTitle": "Every surface inside your home, beautifully finished.",
+      "introA": "Whether you're refreshing one tired room or repainting an entire house, our team treats your home like our own. We move and protect your furniture, mask every edge, and keep the site tidy from the first day to the last.",
+      "introB": "A great finish is 90% preparation — so we fill, sand and prime properly before a single drop of colour goes on.",
+      "features": [
+        {
+          "icon": "format_paint",
+          "title": "Walls & Ceilings",
+          "desc": "Even, roller-perfect coverage with crisp, hand-cut lines where wall meets ceiling and trim."
+        },
+        {
+          "icon": "crop_16_9",
+          "title": "Trim, Skirting & Architraves",
+          "desc": "Glass-smooth enamel finishes on skirting boards, door frames and window reveals."
+        },
+        {
+          "icon": "door_front",
+          "title": "Doors & Cabinetry",
+          "desc": "Spray-smooth refinishing for interior doors, built-ins and kitchen cabinetry — a fresh look without a full renovation."
+        },
+        {
+          "icon": "wallpaper",
+          "title": "Feature & Accent Walls",
+          "desc": "Deep, true colour on statement walls — perfectly masked and bleed-free at every edge."
+        },
+        {
+          "icon": "layers",
+          "title": "Plaster & GIB Repair",
+          "desc": "Cracks, dings and patchy plaster made good and stopped to a Level 4–5 finish before paint."
+        },
+        {
+          "icon": "eco",
+          "title": "Low-VOC & Eco Options",
+          "desc": "As registered Eco-Decorators we offer low-odour, low-VOC paints that are kinder to your family and home."
+        }
+      ],
+      "midEyebrow": "Colour & Paint",
+      "midTitle": "Not sure on colour? We'll help you choose.",
+      "midImage": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=900&q=80",
+      "midParas": [
+        "Choosing a colour is the hardest part — so we make it easy. We'll bring sample pots and fan decks to your home, look at how the light falls through the day, and help you land on tones that suit your space and stick to your budget.",
+        "We work with New Zealand's leading paint systems and only apply premium interior-grade products built to wash, wear and last."
+      ],
+      "midList": [
+        "Furniture moved, floors & fittings protected",
+        "Holes filled, cracks repaired, surfaces sanded",
+        "Spotless, dust-free clean-up every evening"
+      ],
+      "paintPartners": [
+        "Resene",
+        "Dulux",
+        "Wattyl",
+        "Low-VOC & Eco"
+      ],
+      "beforeImg": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200&q=80",
+      "afterImg": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=600&q=80",
+        "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80",
+        "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=600&q=80",
+        "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=600&q=80"
+      ],
+      "showcase": [
+        {
+          "title": "Modern Villa Refresh — Karori",
+          "blurb": "Precision interior detailing and feature wall.",
+          "img": "https://lh3.googleusercontent.com/aida-public/AB6AXuBFIVxAWkyuyJKwXUYqIR3iz2ttS1KGU3GazGzibFfN2_DQ5cG7q7KOonVor3L5Z9mxdUbXGRt5AKcnSLwQcrbQCuo7JiqJRnNoOVE4Le-lr9-Au3ukfZiRer7Sa7iwCSajQlCIcJDk6BrlJ7SEvxfN0jOwvhxLvY_kZ8vXEgPdNcROW9I0b6Rok8Qan0cRJ9VKzryqsB7HkRZ2qiUEe2gDwhAN6qidWDYHs_Kf6yDLO_9-ZuEwGsbgN7J6I008N0bqTJwaVBsa22o"
+        },
+        {
+          "title": "Wellington CBD Office",
+          "blurb": "High-traffic durable finishes for corporate HQ.",
+          "img": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80"
+        },
+        {
+          "title": "Newtown Apartment Repaint",
+          "blurb": "Full interior repaint between tenancies.",
+          "img": "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=800&q=80"
+        }
+      ]
+    },
+    {
+      "slug": "exterior",
+      "name": "Exterior Painting",
+      "heroTitle": "Protection that looks the part.",
+      "heroSub": "Weather-tight, UV- and salt-resistant finishes built for New Zealand's coastal and windy conditions — backed by our 5-year workmanship guarantee.",
+      "heroImg": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=1600&q=80",
+      "introTitle": "A finish that defends your home for years.",
+      "introA": "Wellington weather is hard on a house. We prepare every surface properly — wash, scrape, treat and prime — so the new coating bonds tight and stays looking sharp through wind, rain and salt air.",
+      "introB": "From weatherboard villas to modern cladding, we colour-match, protect your gardens and leave the site spotless every evening.",
+      "features": [
+        {
+          "icon": "home_work",
+          "title": "Weatherboard & Cladding",
+          "desc": "Timber, fibre-cement and brick — prepped and coated to suit the substrate."
+        },
+        {
+          "icon": "water_drop",
+          "title": "Wash & Treat",
+          "desc": "Soft-wash, mould treatment and rust spot-priming before any topcoat."
+        },
+        {
+          "icon": "wb_sunny",
+          "title": "UV & Salt Resistant",
+          "desc": "Premium exterior systems chosen for coastal exposure and harsh sun."
+        },
+        {
+          "icon": "verified",
+          "title": "5-Year Guarantee",
+          "desc": "Workmanship guaranteed in writing, so you can book with confidence."
+        }
+      ],
+      "midEyebrow": "Built for the coast",
+      "midTitle": "Premium systems, properly applied.",
+      "midImage": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&q=80",
+      "midParas": [
+        "We only apply premium exterior-grade products and follow the manufacturer's spec coat-for-coat — the detail that decides whether a paint job lasts 5 years or 15."
+      ],
+      "midList": [
+        "Full surface wash & preparation",
+        "Gap-fill, caulk & flexible sealants",
+        "Two-coat premium weatherproof system"
+      ],
+      "beforeImg": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1200&q=80",
+      "afterImg": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=1200&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80",
+        "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=600&q=80",
+        "https://images.unsplash.com/photo-1572883454114-1cf0031ede2a?w=600&q=80",
+        "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80"
+      ],
+      "showcase": [
+        {
+          "title": "Plimmerton Coastal Home",
+          "blurb": "Weatherboard restoration and protective coating.",
+          "img": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=80"
+        },
+        {
+          "title": "Kāpiti Beach House",
+          "blurb": "Coastal weatherboard repaint with full prep.",
+          "img": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800&q=80"
+        },
+        {
+          "title": "Architectural Waterfront Estate",
+          "blurb": "Weather-resistant coatings for coastal exposure.",
+          "img": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
+        }
+      ],
+      "quote": "They prepped everything properly before a brush touched the house. Two winters on and it still looks freshly done.",
+      "quoteName": "Andrew T.",
+      "quoteSub": "Exterior Repaint, Plimmerton"
+    },
+    {
+      "slug": "roof",
+      "name": "Roof Painting",
+      "heroTitle": "Restore and protect your roof.",
+      "heroSub": "Rust treatment, re-coating and cool-roof systems for every roof type — from corrugated iron to concrete tiles and Decramastic.",
+      "heroImg": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80",
+      "introTitle": "Curb appeal and protection, in a couple of days.",
+      "introA": "A tired roof drags down the whole house. We soft-wash off lichen and chalking, treat rust and loose fixings, then re-coat with a durable membrane that sheds Wellington weather.",
+      "introB": "Fixed-price quotes, tidy work, and no mess left behind — most homes are finished in two working days.",
+      "features": [
+        {
+          "icon": "roofing",
+          "title": "All Roof Types",
+          "desc": "Corrugated iron, long-run steel, concrete & Decramastic tiles."
+        },
+        {
+          "icon": "build",
+          "title": "Rust Treatment",
+          "desc": "Rust converted and primed, loose screws and fixings re-secured."
+        },
+        {
+          "icon": "ac_unit",
+          "title": "Cool-Roof Coatings",
+          "desc": "Heat-reflective options to keep the home cooler in summer."
+        },
+        {
+          "icon": "schedule",
+          "title": "Fast Turnaround",
+          "desc": "Most roofs washed, prepped and coated within two days."
+        }
+      ],
+      "midEyebrow": "Done properly",
+      "midTitle": "Wash, treat, prime, coat.",
+      "midImage": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=900&q=80",
+      "midParas": [
+        "Skipping prep is why cheap roof jobs peel within a year. We never do. Every roof is cleaned back to a sound surface and primed before the colour coats go on."
+      ],
+      "midList": [
+        "Soft-wash & moss/lichen treatment",
+        "Rust conversion & spot-priming",
+        "Two coats of premium roof membrane"
+      ],
+      "beforeImg": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1200&q=80",
+      "afterImg": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80",
+        "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=600&q=80",
+        "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=600&q=80",
+        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80"
+      ],
+      "showcase": [
+        {
+          "title": "Whitby Family Home Roof",
+          "blurb": "Full roof restoration with weather-resistant coating.",
+          "img": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
+        },
+        {
+          "title": "Khandallah Roof Repaint",
+          "blurb": "Two-day roof repaint, no mess, fixed price.",
+          "img": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800&q=80"
+        },
+        {
+          "title": "Lower Hutt Roof Protection",
+          "blurb": "Rust treatment and re-coat on long-run steel.",
+          "img": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=80"
+        }
+      ],
+      "quote": "Quoted on Monday, finished by Wednesday. The roof looks brand new and the price didn't budge.",
+      "quoteName": "Rachel M.",
+      "quoteSub": "Roof Repaint, Whitby"
+    },
+    {
+      "slug": "stripping",
+      "name": "Paint Stripping",
+      "heroTitle": "Back to a sound, paintable surface.",
+      "heroSub": "Safe, thorough removal of old and failing coatings — heat, chemical and sanding methods — to create the perfect base for a flawless new finish.",
+      "heroImg": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&q=80",
+      "introTitle": "The right base makes the whole job last.",
+      "introA": "When paint is cracking, flaking or built up over decades, the only real fix is to strip it back. We remove failing layers safely and reveal the original detail underneath.",
+      "introB": "We handle older lead-based coatings with proper containment and care, keeping your family and our team safe throughout.",
+      "features": [
+        {
+          "icon": "cleaning_services",
+          "title": "Multiple Methods",
+          "desc": "Heat guns, safe chemical strippers and machine sanding as needed."
+        },
+        {
+          "icon": "health_and_safety",
+          "title": "Lead-Safe",
+          "desc": "Older lead paint removed with containment and safe disposal."
+        },
+        {
+          "icon": "auto_fix_high",
+          "title": "Detail Revealed",
+          "desc": "Ornate timber and mouldings brought back without damage."
+        },
+        {
+          "icon": "foundation",
+          "title": "Sound Substrate",
+          "desc": "Surfaces left clean, stable and ready to prime."
+        }
+      ],
+      "midEyebrow": "Careful work",
+      "midTitle": "Strip, repair, prime — ready for paint.",
+      "midImage": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=900&q=80",
+      "midParas": [
+        "Stripping is patient work. We take the time to remove coatings cleanly, fix what we find underneath, and prime the bare surface so the new system has something solid to grip."
+      ],
+      "midList": [
+        "Heat, chemical & sanding removal",
+        "Lead-safe containment & disposal",
+        "Full surface repair & priming"
+      ],
+      "beforeImg": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80",
+      "afterImg": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=1200&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&q=80",
+        "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80",
+        "https://images.unsplash.com/photo-1572883454114-1cf0031ede2a?w=600&q=80",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80"
+      ],
+      "showcase": [
+        {
+          "title": "Thorndon Heritage Strip",
+          "blurb": "Decades of failing layers removed back to bare timber.",
+          "img": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&q=80"
+        },
+        {
+          "title": "Mt Victoria Restoration",
+          "blurb": "Full strip and prep before a heritage repaint.",
+          "img": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80"
+        },
+        {
+          "title": "Kelburn Villa Facade",
+          "blurb": "Lead-safe removal on a 1910s street frontage.",
+          "img": "https://images.unsplash.com/photo-1572883454114-1cf0031ede2a?w=800&q=80"
+        }
+      ],
+      "quote": "They uncovered detailing we didn't know was there and prepped it perfectly for repainting. Meticulous.",
+      "quoteName": "Heritage homeowner",
+      "quoteSub": "Paint Stripping, Thorndon"
+    },
+    {
+      "slug": "plastering",
+      "name": "Plastering & GIB Stopping",
+      "heroTitle": "Walls and ceilings, flawlessly smooth.",
+      "heroSub": "GIB stopping, plaster repairs and Level 4–5 finishing — the smooth, seamless base every great paint finish needs.",
+      "heroImg": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=1600&q=80",
+      "introTitle": "The surface under the paint matters most.",
+      "introA": "Bumps, cracks and rough joints show through paint under raking light. Our plasterers stop, patch and skim to a true, flat finish so your walls look immaculate once coated.",
+      "introB": "New builds, renovations or tired old walls — we deliver a paint-ready surface to the level you need.",
+      "features": [
+        {
+          "icon": "layers",
+          "title": "GIB Stopping & Jointing",
+          "desc": "Crisp, invisible joints on new plasterboard."
+        },
+        {
+          "icon": "healing",
+          "title": "Plaster Repairs",
+          "desc": "Cracks, dings and water damage made good."
+        },
+        {
+          "icon": "grade",
+          "title": "Level 5 Finish",
+          "desc": "Full skim for flawless walls under critical lighting."
+        },
+        {
+          "icon": "brush",
+          "title": "Ready for Paint",
+          "desc": "Sanded, dust-managed and primed if required."
+        }
+      ],
+      "midEyebrow": "Flat and true",
+      "midTitle": "Stopped, skimmed and sanded.",
+      "midImage": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=900&q=80",
+      "midParas": [
+        "We work clean and check our surfaces under light as we go — because a Level 5 skim is only as good as the eye that inspects it. The result is wall you simply don't notice, in the best way."
+      ],
+      "midList": [
+        "GIB stopping & flush jointing",
+        "Crack & impact repair",
+        "Level 4–5 skim coats"
+      ],
+      "beforeImg": "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1200&q=80",
+      "afterImg": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=1200&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=600&q=80",
+        "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80",
+        "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=600&q=80",
+        "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80"
+      ],
+      "showcase": [
+        {
+          "title": "Lower Hutt New Build",
+          "blurb": "Full GIB stopping and skim, ready for paint.",
+          "img": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=800&q=80"
+        },
+        {
+          "title": "Kelburn Renovation",
+          "blurb": "Wall repairs and skim coat across the whole house.",
+          "img": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80"
+        },
+        {
+          "title": "Karori Ceiling Repair",
+          "blurb": "Artex removal and a fresh Level 5 ceiling.",
+          "img": "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=800&q=80"
+        }
+      ],
+      "quote": "The walls came up dead flat — you can see it the moment the light hits them. Faultless plastering.",
+      "quoteName": "Group home builder",
+      "quoteSub": "Plastering, Lower Hutt"
+    },
+    {
+      "slug": "wood",
+      "name": "Wood Staining",
+      "heroTitle": "Bring timber back to life.",
+      "heroSub": "Restore and protect cladding, decks, pergolas and cedar with premium stains that deepen the grain and shield against the elements.",
+      "heroImg": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+      "introTitle": "Natural beauty, properly protected.",
+      "introA": "Timber that's gone grey and dry can be brought back to a rich, warm finish. We clean, sand and prepare the surface, then apply premium oil-based stains that soak in and protect.",
+      "introB": "Cedar weatherboards, decks, fences and feature timber — we match the look you want and seal it for the long run.",
+      "features": [
+        {
+          "icon": "forest",
+          "title": "Cedar & Cladding",
+          "desc": "Specialist prep and staining for cedar weatherboards."
+        },
+        {
+          "icon": "deck",
+          "title": "Decks & Pergolas",
+          "desc": "Sanded back and re-stained for grip and protection."
+        },
+        {
+          "icon": "opacity",
+          "title": "Premium Oil Stains",
+          "desc": "Penetrating, UV-resistant stains that enrich the grain."
+        },
+        {
+          "icon": "shield",
+          "title": "Weather Sealed",
+          "desc": "Protected against moisture, sun and Wellington wind."
+        }
+      ],
+      "midEyebrow": "Grain first",
+      "midTitle": "Clean, sand, stain, seal.",
+      "midImage": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&q=80",
+      "midParas": [
+        "The secret to timber that looks great for years is preparation and the right product. We strip back the tired surface, feed the wood and lock in the colour with quality stains."
+      ],
+      "midList": [
+        "Clean & strip weathered timber",
+        "Sand back to fresh grain",
+        "Two coats penetrating oil stain"
+      ],
+      "beforeImg": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80",
+      "afterImg": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80",
+        "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80",
+        "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80",
+        "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=600&q=80"
+      ],
+      "showcase": [
+        {
+          "title": "Whitby Cedar Deck & Pergola",
+          "blurb": "Cedar staining with full surface prep.",
+          "img": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
+        },
+        {
+          "title": "Wairarapa Farmhouse Timber",
+          "blurb": "Exterior timber stain and protective seal.",
+          "img": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80"
+        },
+        {
+          "title": "Eastbourne Cedar Cladding",
+          "blurb": "Coastal cedar re-stained and weather-sealed.",
+          "img": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80"
+        }
+      ],
+      "quote": "Our grey, tired deck looks brand new — the colour is gorgeous and water just beads off it now.",
+      "quoteName": "Deborah K.",
+      "quoteSub": "Cedar Staining, Whitby"
+    },
+    {
+      "slug": "building",
+      "name": "Building Work",
+      "heroTitle": "More than paint — one trusted team.",
+      "heroSub": "Practical building and renovation work to repair, upgrade and maintain your home, handled alongside your painting by people you already trust.",
+      "heroImg": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=80",
+      "introTitle": "Fix it and finish it, all in one go.",
+      "introA": "Often a great repaint needs a little building work first — a rotten weatherboard, a tired deck, a door that won't close. We handle it, so you don't have to chase a second trade.",
+      "introB": "From small repairs to bathroom and kitchen renovations, our team brings the same care and tidiness you'd expect from our painting.",
+      "features": [
+        {
+          "icon": "handyman",
+          "title": "Repairs & Maintenance",
+          "desc": "Weatherboards, trims, door hinges and hardware sorted."
+        },
+        {
+          "icon": "bathroom",
+          "title": "Bathroom & Kitchen",
+          "desc": "Renovations and refits handled end to end."
+        },
+        {
+          "icon": "fence",
+          "title": "Fences & Decks",
+          "desc": "New builds and repairs, ready to stain or paint."
+        },
+        {
+          "icon": "roofing",
+          "title": "Roof Replacement",
+          "desc": "Full roof replacement where re-coating won't do."
+        }
+      ],
+      "midEyebrow": "One point of contact",
+      "midTitle": "Repairs that set up a perfect finish.",
+      "midImage": "https://images.unsplash.com/photo-1572883454114-1cf0031ede2a?w=900&q=80",
+      "midParas": [
+        "Because the same team does the building and the painting, nothing falls through the cracks — the repairs are done with the final finish already in mind."
+      ],
+      "midList": [
+        "Weatherboard & trim replacement",
+        "Decks, fences & exterior joinery",
+        "Bathroom & kitchen renovations"
+      ],
+      "beforeImg": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1200&q=80",
+      "afterImg": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=1200&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80",
+        "https://images.unsplash.com/photo-1572883454114-1cf0031ede2a?w=600&q=80",
+        "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=600&q=80",
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80"
+      ],
+      "showcase": [
+        {
+          "title": "Thorndon Carpentry Repairs",
+          "blurb": "Weatherboard replacement and trim repairs before paint.",
+          "img": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80"
+        },
+        {
+          "title": "Plimmerton Garage Prep",
+          "blurb": "Minor rebuild and patching before exterior repaint.",
+          "img": "https://images.unsplash.com/photo-1572883454114-1cf0031ede2a?w=800&q=80"
+        },
+        {
+          "title": "Karori Deck Rebuild",
+          "blurb": "New deck framing and boards, ready for stain.",
+          "img": "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&q=80"
+        }
+      ],
+      "quote": "They replaced rotten boards, rehung two doors and painted the lot — one team, one tidy job. Brilliant.",
+      "quoteName": "Paul & Lisa",
+      "quoteSub": "Repairs & Repaint, Karori"
+    },
+    {
+      "slug": "flooring",
+      "name": "Flooring",
+      "heroTitle": "Tired timber floors, reborn.",
+      "heroSub": "Professional sanding and a hard-wearing protective finish that brings worn floorboards back to a warm, durable shine.",
+      "heroImg": "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=1600&q=80",
+      "introTitle": "A finish you'll feel underfoot.",
+      "introA": "Decades of wear, scratches and old coatings come off with careful machine sanding. We then seal the timber with a tough, low-odour finish built for everyday family life.",
+      "introB": "Living rooms, hallways and whole homes — we contain the dust, work clean, and leave floors you'll want to show off.",
+      "features": [
+        {
+          "icon": "grid_on",
+          "title": "Floor Sanding",
+          "desc": "Multi-stage machine sanding back to fresh, smooth timber."
+        },
+        {
+          "icon": "water_drop",
+          "title": "Varnish & Seal",
+          "desc": "Hard-wearing polyurethane in matte, satin or gloss."
+        },
+        {
+          "icon": "air",
+          "title": "Dust-Managed",
+          "desc": "Dust-extraction sanding keeps your home liveable."
+        },
+        {
+          "icon": "auto_awesome",
+          "title": "Like-New Finish",
+          "desc": "Even colour and a durable, easy-clean surface."
+        }
+      ],
+      "midEyebrow": "Smooth & sealed",
+      "midTitle": "Sand back, build up, protect.",
+      "midImage": "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=900&q=80",
+      "midParas": [
+        "Great floors come down to even sanding and the right number of coats. We don't rush either — the result is a smooth, hard-wearing finish that lasts for years of foot traffic."
+      ],
+      "midList": [
+        "Multi-stage machine sanding",
+        "Gap-fill & board repair",
+        "Three coats protective varnish"
+      ],
+      "beforeImg": "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1200&q=80",
+      "afterImg": "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=1200&q=80",
+      "gallery": [
+        "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=600&q=80",
+        "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=600&q=80",
+        "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80",
+        "https://images.unsplash.com/photo-1567016432779-094069958ea5?w=600&q=80"
+      ],
+      "showcase": [
+        {
+          "title": "Karori Villa Timber Floors",
+          "blurb": "Full sand-back and three coats of polyurethane.",
+          "img": "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&q=80"
+        },
+        {
+          "title": "Lower Hutt Floor Refinish",
+          "blurb": "Sand and varnish across living room and hallway.",
+          "img": "https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=80"
+        },
+        {
+          "title": "Newtown Apartment Floors",
+          "blurb": "Worn boards revived with a satin finish.",
+          "img": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80"
+        }
+      ],
+      "quote": "I can't believe these are the same floors. Smooth, warm and so easy to keep clean now.",
+      "quoteName": "Megan R.",
+      "quoteSub": "Floor Refinish, Karori"
+    }
+  ],
   "projects": [
     {
       "id": "plimmerton-coastal",

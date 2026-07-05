@@ -11,6 +11,7 @@ import { BlogTable } from './sections/BlogTable';
 import { HeroEditor } from './sections/HeroEditor';
 import { HomeEditor } from './sections/HomeEditor';
 import { HomepageEditor } from './sections/HomepageEditor';
+import { ServiceDetailsEditor } from './sections/ServiceDetailsEditor';
 import { AreasEditor } from './sections/AreasEditor';
 import { ContactEditor } from './sections/ContactEditor';
 import { EditDrawer } from './EditDrawer';
@@ -24,6 +25,7 @@ const META: Record<AdminSection, [string, string]> = {
   blog: ['Blog', 'Write and publish articles'],
   home: ['Homepage', 'Edit every section of the landing page'],
   about: ['About Page', 'Edit the hero and every section of the about page'],
+  servicePages: ['Service Pages', 'Edit each service detail page'],
   areas: ['Service Areas', 'Suburbs and towns you cover'],
   contact: ['Contact & Social', 'Phone, email and social links'],
   settings: ['Settings', 'Your account and sign out'],
@@ -98,6 +100,7 @@ function AdminInner() {
               <HomepageEditor />
             </div>
           )}
+          {section === 'servicePages' && <ServiceDetailsEditor />}
           {section === 'areas' && (
             <AreasEditor areas={content.areas} newArea={store.state.newArea} onNewAreaChange={store.setNewArea} onAdd={store.addArea} onRemove={store.removeArea} />
           )}

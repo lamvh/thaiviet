@@ -41,9 +41,12 @@ lib/       types.ts
 ```
 
 ## Routes
-`/` Home (marketing landing) · `/about` (company story) · `/services` · `/services/interior` (bespoke) · `/services/:slug` (generic service detail) · `/projects` · `/projects/:id` (case study) · `/blog` · `/contact`
+`/` Home (marketing landing) · `/about` (company story) · `/services` · `/services/:slug` (service detail, all 8 services) · `/projects` · `/projects/:id` (case study) · `/blog` · `/contact`
 
-The landing page content lives under the `home` block in `data`/Supabase (admin → **Homepage**); the about page content lives under the `homepage` block (admin → **About Page** — key kept for content compatibility).
+Content blocks are admin-editable and stored in Supabase / bundled `site-content.json`:
+- `home` block → landing page (admin → **Homepage**)
+- `homepage` block → about page (admin → **About Page** — key kept for content compatibility)
+- `serviceDetails[]` → every `/services/:slug` page including Interior (admin → **Service Pages**)
 
 ## Where to wire real backends
 - `hooks/useChat.ts` — replace the mock `setTimeout` with `POST /api/chat`.

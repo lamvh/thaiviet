@@ -55,5 +55,17 @@ export function validateContent(c: SiteContent): string[] {
     });
   }
 
+  if (Array.isArray(c.serviceDetails)) {
+    c.serviceDetails.forEach((sd, i) => {
+      const name = sd.name || sd.slug || `#${i + 1}`;
+      if (!sd.slug?.trim()) errors.push(`Service page ${name} is missing a slug.`);
+      if (!sd.heroTitle?.trim()) errors.push(`Service page ${name} needs a hero title.`);
+      if (!isHttps(sd.heroImg)) errors.push(`Service page ${name} hero image must be an https:// URL.`);
+      if (!isHttps(sd.midImage)) errors.push(`Service page ${name} approach image must be an https:// URL.`);
+      if (!isHttps(sd.beforeImg)) errors.push(`Service page ${name} before image must be an https:// URL.`);
+      if (!isHttps(sd.afterImg)) errors.push(`Service page ${name} after image must be an https:// URL.`);
+    });
+  }
+
   return errors;
 }
