@@ -3,9 +3,11 @@ import { Icon } from '../components/ui/Icon';
 import { Container } from '../components/ui/Container';
 import { useSiteContent } from '../lib/site-content-context';
 import { PROJECT_DETAILS } from '../data/project-details';
+import { projectTemplates } from '../lib/templates/project-templates';
+import { ProjectTemplateRenderer } from '../components/templates/ProjectTemplateRenderer';
 
 export function ProjectDetailPage() {
-  const { projects: PROJECTS } = useSiteContent();
+  const { projects: PROJECTS, contact } = useSiteContent();
   const { id } = useParams<{ id: string }>();
   const project = PROJECTS.find((p) => p.id === id);
 
@@ -20,6 +22,14 @@ export function ProjectDetailPage() {
         </Link>
       </Container>
     );
+  }
+
+  // Templated project (created via the compose wizard) → render its template.
+  if (project.page) {
+    const def = projectTemplates[project.page.templateId];
+    if (def) {
+      return <ProjectTemplateRenderer meta={project.page.meta} values={project.page.values} sections={def.sections} contact={contact} />;
+    }
   }
 
   // Rich case-study content if available; otherwise fall back to base fields.
