@@ -1,7 +1,9 @@
 import { createContext, useContext, useEffect, useReducer, useRef, type ReactNode } from 'react';
 import type { Hero, Contact, Project, Post, Homepage, Home, ServiceDetail, ProjectCategory, ServiceStyleId, PrivacyPolicy } from '../../lib/types';
-import type { ProjectMeta, ProjectTemplateId, TemplateValue } from '../../lib/types';
+import type { ProjectMeta, ProjectTemplateId, TemplateValue, ServiceMeta, ServiceTemplateId } from '../../lib/types';
 import { projectTemplates } from '../../lib/templates/project-templates';
+import { serviceTemplates } from '../../lib/templates/service-templates';
+import { serviceMetaFromDetail } from '../../lib/templates/service-prefill';
 import { seedValues } from '../../lib/templates/seed';
 import type { SiteContent } from './useAdminContent';
 import { supabase, SITE_CONTENT_ID } from '../../lib/supabase';
@@ -216,6 +218,10 @@ interface StoreApi {
   updateHome: (updater: (h: Home) => Home) => void;
   updateServiceDetails: (updater: (arr: ServiceDetail[]) => ServiceDetail[]) => void;
   setServiceStyle: (id: ServiceStyleId) => void;
+  applyServiceTemplate: (index: number, templateId: ServiceTemplateId) => void;
+  clearServiceTemplate: (index: number) => void;
+  updateServicePageMeta: (index: number, key: keyof ServiceMeta, val: string) => void;
+  updateServicePageValue: (index: number, key: string, val: TemplateValue) => void;
   updateHomepage: (updater: (h: Homepage) => Homepage) => void;
   updateContact: (key: keyof Contact, val: string) => void;
   updatePrivacy: (updater: (p: PrivacyPolicy) => PrivacyPolicy) => void;
@@ -306,6 +312,16 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
     updateHome: (updater) => dispatch({ t: 'UPDATE_HOME', home: updater(state.content.home) }),
     updateServiceDetails: (updater) => dispatch({ t: 'UPDATE_SERVICE_DETAILS', serviceDetails: updater(state.content.serviceDetails) }),
     setServiceStyle: (id) => dispatch({ t: 'SET_SERVICE_STYLE', id }),
+    applyServiceTemplate: (index, templateId) => dispatch({ t: 'UPDATE_SERVICE_DETAILS', serviceDetails:
+      state.content.serviceDetails.map((sd, j) => j === index
+        ? { ...sd, page: { templateId, meta: serviceMetaFromDetail(sd, serviceTemplates[templateId]), values: seedValues(serviceTemplates[templateId].sections) } }
+        : sd) }),
+    clearServiceTemplate: (index) => dispatch({ t: 'UPDATE_SERVICE_DETAILS', serviceDetails:
+      state.content.serviceDetails.map((sd, j) => { if (j !== index || !sd.page) return sd; const copy = { ...sd }; delete copy.page; return copy; }) }),
+    updateServicePageMeta: (index, key, val) => dispatch({ t: 'UPDATE_SERVICE_DETAILS', serviceDetails:
+      state.content.serviceDetails.map((sd, j) => j === index && sd.page ? { ...sd, page: { ...sd.page, meta: { ...sd.page.meta, [key]: val } } } : sd) }),
+    updateServicePageValue: (index, key, val) => dispatch({ t: 'UPDATE_SERVICE_DETAILS', serviceDetails:
+      state.content.serviceDetails.map((sd, j) => j === index && sd.page ? { ...sd, page: { ...sd.page, values: { ...sd.page.values, [key]: val } } } : sd) }),
     updateHomepage: (updater) => dispatch({ t: 'UPDATE_HOMEPAGE', homepage: updater(state.content.homepage) }),
     updateContact: (key, val) => dispatch({ t: 'UPDATE_CONTACT', key, val }),
     updatePrivacy: (updater) => dispatch({ t: 'UPDATE_PRIVACY', privacy: updater(state.content.privacy) }),

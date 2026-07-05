@@ -68,6 +68,45 @@ export function SectionView({ section: s, value }: { section: SectionDef; value:
       </ul>
     );
   }
+  if (s.style === 'features') {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {items.map((it, i) => (
+          <div key={i} className="flex gap-4">
+            <Icon name={it.icon || 'check_circle'} className="text-primary text-2xl flex-none" />
+            <div>
+              <h4 className="font-headline font-bold">{it.title}</h4>
+              {it.desc && <p className="text-on-surface-variant text-sm leading-relaxed mt-1">{it.desc}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  if (s.style === 'showcase') {
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {items.map((it, i) => (
+          <figure key={i} className="rounded-xl overflow-hidden bg-surface-container-low">
+            {it.img && <img className="w-full aspect-[4/3] object-cover" src={it.img} alt={it.title || ''} loading="lazy" />}
+            <figcaption className="p-4">
+              <div className="font-headline font-bold text-sm">{it.title}</div>
+              {it.blurb && <p className="text-on-surface-variant text-sm mt-1">{it.blurb}</p>}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    );
+  }
+  if (s.style === 'approach') {
+    return (
+      <ul className="space-y-3 max-w-2xl">
+        {items.map((it, i) => (
+          <li key={i} className="flex items-center gap-3"><Icon name="check_circle" className="text-primary text-lg" /><span className="font-medium">{it.t}</span></li>
+        ))}
+      </ul>
+    );
+  }
   // steps
   return (
     <ol className="space-y-6 max-w-3xl">

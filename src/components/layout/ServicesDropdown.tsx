@@ -1,8 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '../ui/Icon';
 import { SERVICE_LINKS } from '../../data/nav';
+import { useSiteContent } from '../../lib/site-content-context';
+import { isServiceVisible, slugFromServicePath } from '../../lib/service-visibility';
 
 export function ServicesDropdown() {
+  const { serviceDetails } = useSiteContent();
+  const shown = (links: typeof SERVICE_LINKS.painting) =>
+    links.filter((s) => !('to' in s && s.to) || isServiceVisible(serviceDetails, slugFromServicePath(s.to)));
   return (
     <div className="relative group">
       <button className="flex items-center gap-0.5 text-slate-700 hover:text-primary transition-colors font-headline cursor-pointer bg-transparent border-none p-0 text-base">
@@ -12,7 +17,7 @@ export function ServicesDropdown() {
         <div className="grid grid-cols-2 gap-x-6 gap-y-1 mb-3">
           <div>
             <div className="px-3 pb-1 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant">Painting</div>
-            {SERVICE_LINKS.painting.map((s) => (
+            {shown(SERVICE_LINKS.painting).map((s) => (
               <Link key={s.label} to={('to' in s && s.to) || '/services'} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-red-50 hover:text-primary transition-colors font-headline">
                 <Icon name={s.icon} className="text-base" />{s.label}
               </Link>
@@ -20,7 +25,7 @@ export function ServicesDropdown() {
           </div>
           <div>
             <div className="px-3 pb-1 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant">Speciality Work</div>
-            {SERVICE_LINKS.speciality.map((s) => (
+            {shown(SERVICE_LINKS.speciality).map((s) => (
               <Link key={s.label} to={('to' in s && s.to) || '/services'} className="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-slate-700 hover:bg-red-50 hover:text-primary transition-colors font-headline">
                 <Icon name={s.icon} className="text-base" />{s.label}
               </Link>

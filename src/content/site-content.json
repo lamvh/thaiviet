@@ -388,7 +388,86 @@
           "blurb": "Full interior repaint between tenancies.",
           "img": "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=800&q=80"
         }
-      ]
+      ],
+      "page": {
+        "templateId": "serviceclassic",
+        "meta": {
+          "name": "Interior Painting",
+          "heroTitle": "A flawless finish, room by room.",
+          "heroSub": "From a single feature wall to a whole-home repaint, we deliver dust-free preparation and a smooth, hard-wearing finish that lifts every room — all backed by our 5-year workmanship guarantee.",
+          "heroImg": "https://lh3.googleusercontent.com/aida-public/AB6AXuBFIVxAWkyuyJKwXUYqIR3iz2ttS1KGU3GazGzibFfN2_DQ5cG7q7KOonVor3L5Z9mxdUbXGRt5AKcnSLwQcrbQCuo7JiqJRnNoOVE4Le-lr9-Au3ukfZiRer7Sa7iwCSajQlCIcJDk6BrlJ7SEvxfN0jOwvhxLvY_kZ8vXEgPdNcROW9I0b6Rok8Qan0cRJ9VKzryqsB7HkRZ2qiUEe2gDwhAN6qidWDYHs_Kf6yDLO_9-ZuEwGsbgN7J6I008N0bqTJwaVBsa22o",
+          "introTitle": "Every surface inside your home, beautifully finished.",
+          "intro": "Whether you're refreshing one tired room or repainting an entire house, our team treats your home like our own. We move and protect your furniture, mask every edge, and keep the site tidy from the first day to the last."
+        },
+        "values": {
+          "features": [
+            {
+              "icon": "format_paint",
+              "title": "Walls & Ceilings",
+              "desc": "Even, roller-perfect coverage with crisp, hand-cut lines where wall meets ceiling and trim."
+            },
+            {
+              "icon": "crop_16_9",
+              "title": "Trim, Skirting & Architraves",
+              "desc": "Glass-smooth enamel finishes on skirting boards, door frames and window reveals."
+            },
+            {
+              "icon": "door_front",
+              "title": "Doors & Cabinetry",
+              "desc": "Spray-smooth refinishing for interior doors, built-ins and kitchen cabinetry — a fresh look without a full renovation."
+            },
+            {
+              "icon": "wallpaper",
+              "title": "Feature & Accent Walls",
+              "desc": "Deep, true colour on statement walls — perfectly masked and bleed-free at every edge."
+            },
+            {
+              "icon": "layers",
+              "title": "Plaster & GIB Repair",
+              "desc": "Cracks, dings and patchy plaster made good and stopped to a Level 4–5 finish before paint."
+            },
+            {
+              "icon": "eco",
+              "title": "Low-VOC & Eco Options",
+              "desc": "As registered Eco-Decorators we offer low-odour, low-VOC paints that are kinder to your family and home."
+            }
+          ],
+          "approach": [
+            {
+              "t": "Furniture moved, floors & fittings protected"
+            },
+            {
+              "t": "Holes filled, cracks repaired, surfaces sanded"
+            },
+            {
+              "t": "Spotless, dust-free clean-up every evening"
+            }
+          ],
+          "ba": {
+            "before": "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200&q=80",
+            "after": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80"
+          },
+          "showcase": [
+            {
+              "title": "Modern Villa Refresh — Karori",
+              "blurb": "Precision interior detailing and feature wall.",
+              "img": "https://lh3.googleusercontent.com/aida-public/AB6AXuBFIVxAWkyuyJKwXUYqIR3iz2ttS1KGU3GazGzibFfN2_DQ5cG7q7KOonVor3L5Z9mxdUbXGRt5AKcnSLwQcrbQCuo7JiqJRnNoOVE4Le-lr9-Au3ukfZiRer7Sa7iwCSajQlCIcJDk6BrlJ7SEvxfN0jOwvhxLvY_kZ8vXEgPdNcROW9I0b6Rok8Qan0cRJ9VKzryqsB7HkRZ2qiUEe2gDwhAN6qidWDYHs_Kf6yDLO_9-ZuEwGsbgN7J6I008N0bqTJwaVBsa22o"
+            },
+            {
+              "title": "Wellington CBD Office",
+              "blurb": "High-traffic durable finishes for corporate HQ.",
+              "img": "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80"
+            },
+            {
+              "title": "Newtown Apartment Repaint",
+              "blurb": "Full interior repaint between tenancies.",
+              "img": "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=800&q=80"
+            }
+          ],
+          "quote": "",
+          "author": ""
+        }
+      }
     },
     {
       "slug": "exterior",
@@ -459,7 +538,76 @@
       ],
       "quote": "They prepped everything properly before a brush touched the house. Two winters on and it still looks freshly done.",
       "quoteName": "Andrew T.",
-      "quoteSub": "Exterior Repaint, Plimmerton"
+      "quoteSub": "Exterior Repaint, Plimmerton",
+      "page": {
+        "templateId": "serviceclassic",
+        "meta": {
+          "name": "Exterior Painting",
+          "heroTitle": "Protection that looks the part.",
+          "heroSub": "Weather-tight, UV- and salt-resistant finishes built for New Zealand's coastal and windy conditions — backed by our 5-year workmanship guarantee.",
+          "heroImg": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=1600&q=80",
+          "introTitle": "A finish that defends your home for years.",
+          "intro": "Wellington weather is hard on a house. We prepare every surface properly — wash, scrape, treat and prime — so the new coating bonds tight and stays looking sharp through wind, rain and salt air."
+        },
+        "values": {
+          "features": [
+            {
+              "icon": "home_work",
+              "title": "Weatherboard & Cladding",
+              "desc": "Timber, fibre-cement and brick — prepped and coated to suit the substrate."
+            },
+            {
+              "icon": "water_drop",
+              "title": "Wash & Treat",
+              "desc": "Soft-wash, mould treatment and rust spot-priming before any topcoat."
+            },
+            {
+              "icon": "wb_sunny",
+              "title": "UV & Salt Resistant",
+              "desc": "Premium exterior systems chosen for coastal exposure and harsh sun."
+            },
+            {
+              "icon": "verified",
+              "title": "5-Year Guarantee",
+              "desc": "Workmanship guaranteed in writing, so you can book with confidence."
+            }
+          ],
+          "approach": [
+            {
+              "t": "Full surface wash & preparation"
+            },
+            {
+              "t": "Gap-fill, caulk & flexible sealants"
+            },
+            {
+              "t": "Two-coat premium weatherproof system"
+            }
+          ],
+          "ba": {
+            "before": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1200&q=80",
+            "after": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=1200&q=80"
+          },
+          "showcase": [
+            {
+              "title": "Plimmerton Coastal Home",
+              "blurb": "Weatherboard restoration and protective coating.",
+              "img": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=80"
+            },
+            {
+              "title": "Kāpiti Beach House",
+              "blurb": "Coastal weatherboard repaint with full prep.",
+              "img": "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800&q=80"
+            },
+            {
+              "title": "Architectural Waterfront Estate",
+              "blurb": "Weather-resistant coatings for coastal exposure.",
+              "img": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
+            }
+          ],
+          "quote": "They prepped everything properly before a brush touched the house. Two winters on and it still looks freshly done.",
+          "author": "Andrew T."
+        }
+      }
     },
     {
       "slug": "roof",
@@ -1160,7 +1308,9 @@
     "sections": [
       {
         "heading": "Information We Collect",
-        "paragraphs": ["We may collect the following information:"],
+        "paragraphs": [
+          "We may collect the following information:"
+        ],
         "bullets": [
           "Your name",
           "Phone number",
@@ -1173,7 +1323,9 @@
       },
       {
         "heading": "How We Use Your Information",
-        "paragraphs": ["We use your information to:"],
+        "paragraphs": [
+          "We use your information to:"
+        ],
         "bullets": [
           "Respond to your enquiries",
           "Prepare quotations and estimates",
@@ -1193,17 +1345,23 @@
       },
       {
         "heading": "Data Security",
-        "paragraphs": ["We take reasonable steps to protect your personal information from unauthorised access, loss, misuse, or disclosure."],
+        "paragraphs": [
+          "We take reasonable steps to protect your personal information from unauthorised access, loss, misuse, or disclosure."
+        ],
         "bullets": []
       },
       {
         "heading": "Cookies",
-        "paragraphs": ["Our website may use cookies and analytics tools to improve your browsing experience and help us understand how visitors use our website. You can disable cookies through your browser settings if you prefer."],
+        "paragraphs": [
+          "Our website may use cookies and analytics tools to improve your browsing experience and help us understand how visitors use our website. You can disable cookies through your browser settings if you prefer."
+        ],
         "bullets": []
       },
       {
         "heading": "Your Rights",
-        "paragraphs": ["You may request access to the personal information we hold about you or ask us to correct any inaccurate information. Please contact us if you have any privacy-related questions or requests."],
+        "paragraphs": [
+          "You may request access to the personal information we hold about you or ask us to correct any inaccurate information. Please contact us if you have any privacy-related questions or requests."
+        ],
         "bullets": []
       }
     ],

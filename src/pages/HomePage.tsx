@@ -307,7 +307,13 @@ export function HomePage() {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.cards.map((s, i) => {
+            {services.cards
+              // Hide cards whose matching service page has been temporarily hidden.
+              .filter((s) => {
+                const d = serviceDetails.find((x) => x.name === s.title)
+                return !d || d.visible !== false
+              })
+              .map((s, i) => {
               // Link each card to its service detail page and show the same subtitle as the detail hero.
               const detail = serviceDetails.find((d) => d.name === s.title)
               const cardClass =

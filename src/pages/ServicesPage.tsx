@@ -4,6 +4,7 @@ import { Container } from "../components/ui/Container"
 import { ServiceCard } from "../components/cards/ServiceCard"
 import { SERVICES } from "../data/services"
 import { useSiteContent } from "../lib/site-content-context"
+import { isServiceVisible } from "../lib/service-visibility"
 
 const GALLERY = [
   {
@@ -52,7 +53,7 @@ export function ServicesPage() {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {SERVICES.map((s) => (
+            {SERVICES.filter((s) => isServiceVisible(serviceDetails, s.slug)).map((s) => (
               <ServiceCard
                 key={s.title}
                 service={s}

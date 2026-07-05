@@ -3,13 +3,17 @@ import { useAdminStore } from '../admin-content-store';
 import type { ServiceDetail } from '../../../lib/types';
 import { Card, Field, StringList, ItemCard, AddButton } from './homepage-editor-primitives';
 import { ServiceStyleEditor } from './ServiceStyleEditor';
+import { VisPill } from './ProjectsTable';
+import { Icon } from '../../../components/ui/Icon';
+import { serviceTemplateList, serviceTemplates } from '../../../lib/templates/service-templates';
+import { ServiceTemplateEditor } from './ServiceTemplateEditor';
 
 // Editor for the service detail pages (/services/<slug>). A selector picks one service;
 // its fields are edited below. Each control patches one service in the array by index
 // through the store's updateServiceDetails(updater) helper. Slugs are the route keys and
 // are shown read-only — services are not added/removed here (they mirror the nav + cards).
 export function ServiceDetailsEditor() {
-  const { state, updateServiceDetails } = useAdminStore();
+  const { state, updateServiceDetails, applyServiceTemplate, clearServiceTemplate } = useAdminStore();
   const list = state.content.serviceDetails;
   const [active, setActive] = useState(0);
   const i = Math.min(active, list.length - 1);
@@ -32,13 +36,48 @@ export function ServiceDetailsEditor() {
           <button
             key={sd.slug}
             onClick={() => setActive(j)}
-            className={'px-4 py-2 rounded-lg text-sm font-bold border transition-colors ' + (j === i ? 'bg-primary text-white border-primary' : 'bg-white border-[#e6e1d8] text-on-surface hover:bg-[#faf8f4]')}
+            className={'px-4 py-2 rounded-lg text-sm font-bold border transition-colors ' + (j === i ? 'bg-primary text-white border-primary' : 'bg-white border-[#e6e1d8] text-on-surface hover:bg-[#faf8f4]') + (sd.visible === false ? ' opacity-50' : '')}
           >
-            {sd.name}
+            {sd.name}{sd.visible === false ? ' · hidden' : ''}
           </button>
         ))}
       </div>
 
+      <div className="flex items-center justify-between bg-white border border-[#eae6df] rounded-2xl px-5 py-4">
+        <div>
+          <div className="font-headline font-bold text-sm">Page visibility</div>
+          <div className="text-xs text-[#8a8377]">Hidden services are removed from the services page, the menu and the homepage. The URL redirects to /services.</div>
+        </div>
+        <VisPill visible={s.visible !== false} onClick={() => patch({ visible: s.visible === false })} />
+      </div>
+
+      {/* Apply a template to this service, or edit the applied one. */}
+      {!s.page ? (
+        <div className="bg-white border border-[#eae6df] rounded-2xl p-6">
+          <h3 className="font-headline text-base font-bold mb-1">Use a template</h3>
+          <p className="text-xs text-[#8a8377] mb-4">Rebuild this service page from a template. The current hero/intro prefill in; edit everything after.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {serviceTemplateList.map((t) => (
+              <button key={t.id} onClick={() => applyServiceTemplate(i, t.id)} className="text-left p-4 rounded-xl border-2 border-[#eae6df] hover:border-primary transition-colors">
+                <div className="flex items-center gap-2"><Icon name={t.icon} className="text-primary text-xl" /><span className="font-bold text-sm">{t.name}</span></div>
+                <p className="text-xs text-[#8a8377] mt-1">{t.desc}</p>
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="flex items-center justify-between bg-white border border-[#eae6df] rounded-2xl px-5 py-4">
+          <div>
+            <div className="font-headline font-bold text-sm">Template: {serviceTemplates[s.page.templateId]?.name}</div>
+            <div className="text-xs text-[#8a8377]">This service renders from a template — edit the fields below. The classic fields are hidden while a template is applied.</div>
+          </div>
+          <button onClick={() => clearServiceTemplate(i)} className="text-sm font-bold text-primary border border-primary/40 rounded-lg px-3 py-2 hover:bg-primary/5 flex-none">Remove template</button>
+        </div>
+      )}
+
+      {s.page && <ServiceTemplateEditor index={i} page={s.page} />}
+
+      {!s.page && (<>
       <Card title={s.name} hint={`Editing /services/${s.slug}`}>
         <Field label="Service name" value={s.name} onChange={(v) => patch({ name: v })} />
         <Field label="Hero title" value={s.heroTitle} onChange={(v) => patch({ heroTitle: v })} />
@@ -102,6 +141,7 @@ export function ServiceDetailsEditor() {
           <Field label="Attribution" value={s.quoteSub ?? ''} onChange={(v) => patch({ quoteSub: v })} />
         </div>
       </Card>
+      </>)}
     </div>
   );
 }

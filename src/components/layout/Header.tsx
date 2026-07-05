@@ -5,6 +5,7 @@ import { ServicesDropdown } from './ServicesDropdown';
 import { FacebookIcon } from './FacebookIcon';
 import { NAV_ITEMS, SERVICE_LINKS } from '../../data/nav';
 import { useSiteContent } from '../../lib/site-content-context';
+import { isServiceVisible, slugFromServicePath } from '../../lib/service-visibility';
 
 const LOGO = 'https://project.vinapage.com/thaivietconz/images/logo.webp';
 
@@ -81,7 +82,10 @@ function MobileLink({ to, onClick, children }: { to: string; onClick: () => void
 // Mobile menu has no hover dropdown, so Services is an expandable group listing every service link.
 function MobileServices({ onNavigate }: { onNavigate: () => void }) {
   const [expanded, setExpanded] = useState(false);
-  const links = [...SERVICE_LINKS.painting, ...SERVICE_LINKS.speciality];
+  const { serviceDetails } = useSiteContent();
+  const links = [...SERVICE_LINKS.painting, ...SERVICE_LINKS.speciality].filter(
+    (s) => !('to' in s && s.to) || isServiceVisible(serviceDetails, slugFromServicePath(s.to)),
+  );
   return (
     <div className="border-b border-outline-variant/10">
       <button

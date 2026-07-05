@@ -1,5 +1,5 @@
-import type { ProjectPage } from './templates/types';
-export type { ProjectPage, ProjectMeta, ProjectTemplateId, ProjectTemplateDef, SectionDef, TemplateValue, ServiceStyleId, ProjectStyleId } from './templates/types';
+import type { ProjectPage, ServicePage } from './templates/types';
+export type { ProjectPage, ProjectMeta, ProjectTemplateId, ProjectTemplateDef, SectionDef, TemplateValue, ServiceStyleId, ProjectStyleId, ServiceMeta, ServicePage, ServiceTemplateId, ServiceTemplateDef } from './templates/types';
 
 export type ProjectCategory =
   | 'interior' | 'exterior' | 'roof' | 'stripping'
@@ -15,6 +15,8 @@ export interface ServiceShowcase { title: string; blurb: string; img: string; }
 export interface ServiceDetail {
   slug: string;
   name: string;
+  visible?: boolean; // false = temporarily hidden from the site, menu and homepage (defaults to visible)
+  page?: ServicePage; // templated detail content (present when a template is applied)
   heroTitle: string;
   heroSub: string;
   heroImg: string;
