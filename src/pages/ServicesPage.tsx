@@ -3,6 +3,7 @@ import { Icon } from '../components/ui/Icon';
 import { Container } from '../components/ui/Container';
 import { ServiceCard } from '../components/cards/ServiceCard';
 import { SERVICES } from '../data/services';
+import { useSiteContent } from '../lib/site-content-context';
 
 const GALLERY = [
   { span: 'md:col-span-8', title: 'Khandallah Modern Restoration', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBjp-mJO-OorLjQ6Sp3-95aiRBOIWGVuPrtxXKNrSDBWG-4pr7piJ3OqS9XjEM3ebCEcS-2mL5-_PlEEBpGyIiKcXnPANZBhYJ_-_5D7JTys6iQghsiHrF0XiXuxEO9GXY9p0TMmNkk7hO9S6t7SMjHI2xu1NTZGji2SQID_1LAe7_ylDgrtvsrpLDfNInPvvuWLPR49A5oloMlebHCCDVG7hwA7RB9sjOwMEcwY7vuy28PCXo9diH1nfUUs79CCWsNJgFGN6dMjZI' },
@@ -12,6 +13,7 @@ const GALLERY = [
 ];
 
 export function ServicesPage() {
+  const { serviceDetails } = useSiteContent();
   return (
     <>
       <section className="py-24 px-8 bg-surface-container-low">
@@ -24,7 +26,9 @@ export function ServicesPage() {
             <div className="flex items-center gap-2 text-primary font-bold whitespace-nowrap"><span>Expert NZ Standards</span><Icon name="verified" /></div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {SERVICES.map((s) => <ServiceCard key={s.title} service={s} />)}
+            {SERVICES.map((s) => (
+              <ServiceCard key={s.title} service={s} subtitle={serviceDetails.find((d) => d.slug === s.slug)?.heroSub} />
+            ))}
           </div>
         </Container>
       </section>

@@ -70,6 +70,8 @@ Publish-time validation for templated pages + `serviceStyle` lives in `src/lib/c
 - Routing uses `BrowserRouter`; for static hosting add an SPA fallback to `index.html`.
 
 ## Notes
+- Landing page section order: Hero → Trust → Intro → **See Our Work** (intro video) → **Customer Reviews + Video Reviews** → **Our Services** → Why Choose → Featured Projects → Process → Service Areas → CTA. Reviews sit directly under the video, above the services grid.
+- Service cards link to their detail page and share one subtitle source. On both the landing **Our Services** grid and the `/services` page, each card links to `/services/:slug` and shows the matching `serviceDetails[].heroSub` — the same subtitle rendered in the detail-page hero. Edit it once in admin → **Service Pages** and it updates the detail hero and every card (landing card matches by service name; `/services` card by slug; falls back to its own `desc` if no match). No separate CMS field — nothing new to wire.
 - All page content lives in `data/*` so you can swap copy/images without touching components.
 - `logo.webp` loads from `project.vinapage.com`; drop a local copy in `public/` and update the path in `Header.tsx` for production.
 - `ChatWidget` is a single floating **Messenger** button linking to `contact.messenger` (editable in admin → **Contact & Social**). The former support chat + its avatar were removed.

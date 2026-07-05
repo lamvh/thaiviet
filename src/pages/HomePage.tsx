@@ -11,7 +11,7 @@ function Star() {
 }
 
 export function HomePage() {
-  const { home, projects, contact } = useSiteContent();
+  const { home, projects, contact, serviceDetails } = useSiteContent();
   const { hero, trust, intro, video, services, whyChoose, featuredProjects, process, reviews, serviceAreas, cta } = home;
   const tel = 'tel:' + contact.phone.replace(/\s/g, '');
   const featured = projects.filter((p) => p.visible !== false).slice(0, 4);
@@ -109,6 +109,33 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* Customer Reviews */}
+      <section className="py-24 bg-surface">
+        <div className="max-w-7xl mx-auto px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div><span className="text-primary font-bold uppercase tracking-[0.2em] text-sm mb-3 block">{reviews.eyebrow}</span><h2 className="font-headline text-4xl font-bold mb-3">{reviews.title}</h2><div className="flex items-center gap-1 text-primary"><Star /><Star /><Star /><Star /><Star /><span className="ml-2 font-bold text-on-surface">{reviews.ratingLabel}</span></div></div>
+            <div className="flex gap-3"><button onClick={() => scrollReviews(-1)} aria-label="Previous review" className="w-12 h-12 rounded-full bg-surface-container-high hover:bg-primary hover:text-white text-on-surface flex items-center justify-center transition-colors active:scale-95"><Icon name="chevron_left" /></button><button onClick={() => scrollReviews(1)} aria-label="Next review" className="w-12 h-12 rounded-full bg-surface-container-high hover:bg-primary hover:text-white text-on-surface flex items-center justify-center transition-colors active:scale-95"><Icon name="chevron_right" /></button></div>
+          </div>
+        </div>
+        <div ref={reviewsRef} className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 px-8 max-w-7xl mx-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {reviews.items.map((r, i) => (
+            <div key={i} className="snap-start shrink-0 w-[88%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-surface-container-low p-8 rounded-2xl">
+              <div className="flex gap-1 text-primary mb-5"><Star /><Star /><Star /><Star /><Star /></div>
+              <p className="text-on-surface leading-relaxed mb-6">"{r.quote}"</p>
+              <div className="flex items-center gap-3 pt-6 border-t border-outline-variant/20"><div><p className="font-bold">{r.name}</p><p className="text-xs text-on-surface-variant">{r.meta}</p></div></div>
+            </div>
+          ))}
+        </div>
+        {REVIEWS.length > 0 && (
+          <div className="max-w-7xl mx-auto px-8 mt-12">
+            <div className="flex items-center gap-2 mb-6 text-primary"><Icon name="play_circle" filled /><span className="font-bold uppercase tracking-[0.2em] text-sm">Video Reviews</span></div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {REVIEWS.map((r) => <VlogCard key={r.src} reel={r} ratio="16/9" padding="p-6" />)}
+            </div>
+          </div>
+        )}
+      </section>
+
       {/* Featured Services Grid */}
       <section className="py-24 bg-surface-container-low">
         <div className="max-w-7xl mx-auto px-8">
@@ -117,12 +144,20 @@ export function HomePage() {
             <Link className="text-primary font-bold flex items-center gap-2 hover:underline" to="/services">Explore All Services <Icon name="east" /></Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.cards.map((s, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all group">
-                <div className="h-48 overflow-hidden"><img alt={s.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src={s.image} /></div>
-                <div className="p-6"><h3 className="font-headline text-lg font-bold mb-3">{s.title}</h3><p className="text-on-surface-variant text-sm leading-relaxed mb-4">{s.desc}</p><span className="px-3 py-1 bg-secondary-container text-on-secondary-container text-xs font-semibold rounded-full">{s.tag}</span></div>
-              </div>
-            ))}
+            {services.cards.map((s, i) => {
+              // Link each card to its service detail page and show the same subtitle as the detail hero.
+              const detail = serviceDetails.find((d) => d.name === s.title);
+              const cardClass = 'bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all group block';
+              const body = (
+                <>
+                  <div className="h-48 overflow-hidden"><img alt={s.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src={s.image} /></div>
+                  <div className="p-6"><h3 className="font-headline text-lg font-bold mb-3 group-hover:text-primary transition-colors">{s.title}</h3><p className="text-on-surface-variant text-sm leading-relaxed mb-4">{detail?.heroSub ?? s.desc}</p><span className="px-3 py-1 bg-secondary-container text-on-secondary-container text-xs font-semibold rounded-full">{s.tag}</span></div>
+                </>
+              );
+              return detail
+                ? <Link key={i} to={`/services/${detail.slug}`} className={cardClass}>{body}</Link>
+                : <div key={i} className={cardClass}>{body}</div>;
+            })}
             <div className="bg-primary p-8 rounded-2xl flex flex-col justify-center items-center text-center text-white"><h3 className="font-headline text-xl font-bold mb-3">{services.ctaTitle}</h3><p className="mb-6 opacity-90 text-sm">{services.ctaText}</p><Link to="/contact" className="bg-white text-primary px-6 py-2.5 rounded-lg font-bold hover:bg-surface transition-colors active:scale-95">{services.ctaLabel}</Link></div>
           </div>
         </div>
@@ -164,40 +199,23 @@ export function HomePage() {
           <div className="mb-16"><h2 className="font-headline text-4xl font-bold mb-4">{process.title}</h2><p className="text-on-surface-variant">{process.subtitle}</p></div>
           <div className="relative">
             <div className="hidden lg:block absolute top-6 left-0 w-full h-0.5 bg-outline-variant/30" />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+            <div className="flex flex-col md:grid md:grid-cols-2 lg:grid-cols-6 gap-8">
               {process.steps.map((step, i) => (
-                <div key={i} className="relative group"><div className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xl mb-6 relative z-10 group-hover:scale-110 transition-transform">{i + 1}</div><h5 className="font-headline font-bold mb-2">{step.title}</h5><p className="text-sm text-on-surface-variant">{step.desc}</p></div>
+                <div key={i} className="relative group flex md:block gap-5">
+                  {/* Vertical connector between steps — mobile timeline only */}
+                  {i < process.steps.length - 1 && (
+                    <div className="md:hidden absolute left-6 -translate-x-1/2 top-12 bottom-[-2rem] w-0.5 bg-outline-variant/30" aria-hidden />
+                  )}
+                  <div className="shrink-0 w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xl md:mb-6 relative z-10 group-hover:scale-110 transition-transform">{i + 1}</div>
+                  <div className="pt-2.5 md:pt-0">
+                    <h5 className="font-headline font-bold mb-2">{step.title}</h5>
+                    <p className="text-sm text-on-surface-variant">{step.desc}</p>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Customer Reviews */}
-      <section className="py-24 bg-surface">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div><span className="text-primary font-bold uppercase tracking-[0.2em] text-sm mb-3 block">{reviews.eyebrow}</span><h2 className="font-headline text-4xl font-bold mb-3">{reviews.title}</h2><div className="flex items-center gap-1 text-primary"><Star /><Star /><Star /><Star /><Star /><span className="ml-2 font-bold text-on-surface">{reviews.ratingLabel}</span></div></div>
-            <div className="flex gap-3"><button onClick={() => scrollReviews(-1)} aria-label="Previous review" className="w-12 h-12 rounded-full bg-surface-container-high hover:bg-primary hover:text-white text-on-surface flex items-center justify-center transition-colors active:scale-95"><Icon name="chevron_left" /></button><button onClick={() => scrollReviews(1)} aria-label="Next review" className="w-12 h-12 rounded-full bg-surface-container-high hover:bg-primary hover:text-white text-on-surface flex items-center justify-center transition-colors active:scale-95"><Icon name="chevron_right" /></button></div>
-          </div>
-        </div>
-        <div ref={reviewsRef} className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 px-8 max-w-7xl mx-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {reviews.items.map((r, i) => (
-            <div key={i} className="snap-start shrink-0 w-[88%] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-surface-container-low p-8 rounded-2xl">
-              <div className="flex gap-1 text-primary mb-5"><Star /><Star /><Star /><Star /><Star /></div>
-              <p className="text-on-surface leading-relaxed mb-6">"{r.quote}"</p>
-              <div className="flex items-center gap-3 pt-6 border-t border-outline-variant/20"><div><p className="font-bold">{r.name}</p><p className="text-xs text-on-surface-variant">{r.meta}</p></div></div>
-            </div>
-          ))}
-        </div>
-        {REVIEWS.length > 0 && (
-          <div className="max-w-7xl mx-auto px-8 mt-12">
-            <div className="flex items-center gap-2 mb-6 text-primary"><Icon name="play_circle" filled /><span className="font-bold uppercase tracking-[0.2em] text-sm">Video Reviews</span></div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {REVIEWS.map((r) => <VlogCard key={r.src} reel={r} ratio="16/9" padding="p-6" />)}
-            </div>
-          </div>
-        )}
       </section>
 
       {/* Service Areas */}

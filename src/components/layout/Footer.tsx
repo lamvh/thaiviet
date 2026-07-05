@@ -1,14 +1,8 @@
 import { Link } from "react-router-dom"
 import { Icon } from "../ui/Icon"
 import { useSiteContent } from "../../lib/site-content-context"
+import { SERVICES } from "../../data/services"
 
-const SERVICES = [
-  "Interior Painting",
-  "Exterior Painting",
-  "Roof Painting",
-  "Plastering & GIB Stopping",
-  "Wood Staining",
-]
 const COMPANY: { label: string; to: string }[] = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
@@ -56,12 +50,12 @@ export function Footer() {
           <h5 className="font-headline font-bold mb-6">Services</h5>
           <ul className="space-y-4">
             {SERVICES.map((s) => (
-              <li key={s}>
+              <li key={s.slug}>
                 <Link
-                  to="/services"
+                  to={`/services/${s.slug}`}
                   className="text-slate-600 hover:text-primary transition-colors text-sm"
                 >
-                  {s}
+                  {s.title}
                 </Link>
               </li>
             ))}
