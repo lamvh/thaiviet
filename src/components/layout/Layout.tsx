@@ -4,10 +4,32 @@ import { Header } from './Header';
 import { Footer } from './Footer';
 import { ChatWidget } from './ChatWidget';
 
-// Reset scroll to top whenever the route changes (e.g. opening a project detail).
+// Reset scroll to top on route change, or scroll to the hash target when the
+// URL carries one (e.g. footer "Process" link → /#process). The target section
+// may mount a frame after the route changes when arriving from another page, so
+// we retry briefly until it exists. `scroll-mt` on the section handles the
+// fixed-header offset.
 function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo(0, 0);
+      return;
+    }
+    const id = hash.slice(1);
+    let frames = 0;
+    let raf = 0;
+    const scrollToTarget = () => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else if (frames++ < 20) {
+        raf = requestAnimationFrame(scrollToTarget);
+      }
+    };
+    scrollToTarget();
+    return () => cancelAnimationFrame(raf);
+  }, [pathname, hash]);
   return null;
 }
 

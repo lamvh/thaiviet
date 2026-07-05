@@ -363,7 +363,7 @@ export function HomePage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 bg-surface">
+      <section id="why-choose-us" className="py-24 bg-surface scroll-mt-[72px]">
         <div className="max-w-7xl mx-auto px-8">
           <div className="text-center mb-12 max-w-3xl mx-auto">
             <h2 className="font-headline text-4xl font-bold mb-6">
@@ -436,7 +436,7 @@ export function HomePage() {
       </section>
 
       {/* Process */}
-      <section className="py-24 bg-surface-container-high overflow-hidden">
+      <section id="process" className="py-24 bg-surface-container-high overflow-hidden scroll-mt-[72px]">
         <div className="max-w-7xl mx-auto px-8">
           <div className="mb-16">
             <h2 className="font-headline text-4xl font-bold mb-4">

@@ -6,8 +6,9 @@ import { SERVICES } from "../../data/services"
 const COMPANY: { label: string; to: string }[] = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
-  { label: "Why Choose Us", to: "/services" },
-  { label: "Process", to: "/services" },
+  { label: "Services", to: "/services" },
+  { label: "Why Choose Us", to: "/#why-choose-us" },
+  { label: "Process", to: "/#process" },
   { label: "Projects", to: "/projects" },
 ]
 
@@ -90,7 +91,12 @@ export function Footer() {
             </li>
             <li className="flex items-start gap-3">
               <Icon name="mail" className="text-primary" />
-              <span>{contact.email}</span>
+              <a
+                className="hover:text-primary transition-colors"
+                href={"mailto:" + contact.email}
+              >
+                {contact.email}
+              </a>
             </li>
             <li className="pt-4">
               <Link
@@ -104,7 +110,7 @@ export function Footer() {
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-8 py-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 uppercase tracking-widest">
-        <p>© 2024 ThaiViet Ltd. All rights reserved.</p>
+        <p>© 2026 ThaiViet Ltd. All rights reserved.</p>
         <p>Designed for Quality & Durability</p>
       </div>
     </footer>
