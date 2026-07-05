@@ -55,3 +55,21 @@ describe('compose reducer', () => {
     expect(s.content.projects.some((x) => x.id === 'ignored')).toBe(false);
   });
 });
+
+describe('DELETE_ITEM', () => {
+  it('removes a project by id and marks the content dirty', () => {
+    let s = reducer(initState(), { t: 'COMPOSE_PICK', id: 'casestudy' });
+    s = reducer(s, { t: 'COMPOSE_PUBLISH', id: 'pDel' });
+    expect(s.content.projects.some((p) => p.id === 'pDel')).toBe(true);
+    const after = reducer(s, { t: 'DELETE_ITEM', kind: 'projects', id: 'pDel' });
+    expect(after.content.projects.some((p) => p.id === 'pDel')).toBe(false);
+    expect(after.dirty).toBe(true);
+  });
+
+  it('closes the edit drawer if the deleted item was open', () => {
+    const s = reducer(initState(), { t: 'ADD_ITEM', kind: 'projects', id: 'pOpen' });
+    expect(s.editing?.id).toBe('pOpen');
+    const after = reducer(s, { t: 'DELETE_ITEM', kind: 'projects', id: 'pOpen' });
+    expect(after.editing).toBeNull();
+  });
+});

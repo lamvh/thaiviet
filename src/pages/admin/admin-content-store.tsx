@@ -36,6 +36,7 @@ type Action =
   | { t: 'SAVE_EDIT' }
   | { t: 'CLOSE_EDIT' }
   | { t: 'ADD_ITEM'; kind: ItemKind; id: string }
+  | { t: 'DELETE_ITEM'; kind: ItemKind; id: string }
   | { t: 'UPDATE_HERO'; key: keyof Hero; val: string }
   | { t: 'UPDATE_HOME'; home: Home }
   | { t: 'UPDATE_SERVICE_DETAILS'; serviceDetails: ServiceDetail[] }
@@ -102,6 +103,12 @@ export function reducer(state: AdminState, a: Action): AdminState {
           : { id: a.id, category: 'General', title: 'New Post', excerpt: '', image: PLACEHOLDER_IMG, date: new Date().toLocaleString('en-US', { month: 'long', year: 'numeric' }), readTime: '3 min read', visible: true };
       const list = [item, ...(state.content[a.kind] as Array<Project | Post>)];
       return { ...state, content: { ...state.content, [a.kind]: list } as SiteContent, editing: { kind: a.kind, id: a.id, isNew: true }, draft: clone(item) as unknown as Record<string, string>, dirty: true };
+    }
+    case 'DELETE_ITEM': {
+      const list = (state.content[a.kind] as Array<Project | Post>).filter((x) => x.id !== a.id);
+      // If the deleted item was open in the edit drawer, close it to avoid a dangling editor.
+      const editing = state.editing?.kind === a.kind && state.editing.id === a.id ? null : state.editing;
+      return { ...state, content: { ...state.content, [a.kind]: list } as SiteContent, editing, dirty: true, toast: 'Deleted — click Save to publish' };
     }
     case 'UPDATE_HERO':
       return { ...state, content: { ...state.content, hero: { ...state.content.hero, [a.key]: a.val } }, dirty: true };
@@ -201,6 +208,7 @@ interface StoreApi {
   saveEdit: () => void;
   closeEdit: () => void;
   addItem: (kind: ItemKind) => void;
+  deleteItem: (kind: ItemKind, id: string) => void;
   updateHero: (key: keyof Hero, val: string) => void;
   updateHome: (updater: (h: Home) => Home) => void;
   updateServiceDetails: (updater: (arr: ServiceDetail[]) => ServiceDetail[]) => void;
@@ -289,6 +297,7 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
     },
     closeEdit: () => dispatch({ t: 'CLOSE_EDIT' }),
     addItem: (kind) => dispatch({ t: 'ADD_ITEM', kind, id: uniqueId(kind === 'projects' ? 'p' : 'b', state.content[kind].map((x) => x.id)) }),
+    deleteItem: (kind, id) => dispatch({ t: 'DELETE_ITEM', kind, id }),
     updateHero: (key, val) => dispatch({ t: 'UPDATE_HERO', key, val }),
     updateHome: (updater) => dispatch({ t: 'UPDATE_HOME', home: updater(state.content.home) }),
     updateServiceDetails: (updater) => dispatch({ t: 'UPDATE_SERVICE_DETAILS', serviceDetails: updater(state.content.serviceDetails) }),

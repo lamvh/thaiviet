@@ -96,6 +96,7 @@ function AdminInner() {
                 if (proj?.page) { store.editComposed(id); setSection('compose'); }
                 else store.openEdit('projects', id);
               }}
+              onDelete={(id) => store.deleteItem('projects', id)}
               onNew={() => store.addItem('projects')}
               onNewFromTemplate={() => { store.startCompose(); setSection('compose'); }}
             />

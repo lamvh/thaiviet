@@ -5,13 +5,14 @@ interface Props {
   projects: Project[];
   onToggle?: (id: string) => void;
   onEdit?: (id: string) => void;
+  onDelete?: (id: string) => void;
   onNew?: () => void;
   onNewFromTemplate?: () => void;
 }
 
-const COLS = 'grid grid-cols-[64px_minmax(150px,1fr)_180px_130px_96px] gap-3.5 min-w-[720px]';
+const COLS = 'grid grid-cols-[64px_minmax(150px,1fr)_180px_130px_112px] gap-3.5 min-w-[736px]';
 
-export function ProjectsTable({ projects, onToggle, onEdit, onNew, onNewFromTemplate }: Props) {
+export function ProjectsTable({ projects, onToggle, onEdit, onDelete, onNew, onNewFromTemplate }: Props) {
   return (
     <div className="bg-white border border-[#eae6df] rounded-2xl overflow-x-auto">
       <div className="flex items-center justify-between px-5 py-4 border-b border-[#eee9e1] gap-2">
@@ -35,7 +36,7 @@ export function ProjectsTable({ projects, onToggle, onEdit, onNew, onNewFromTemp
         </div>
       </div>
       <div className={COLS + ' px-5 py-2.5 text-[11px] font-bold uppercase tracking-wider text-[#9b9488] border-b border-[#eee9e1]'}>
-        <div /><div>Title</div><div>Category</div><div>Status</div><div className="text-right">Edit</div>
+        <div /><div>Title</div><div>Category</div><div>Status</div><div className="text-right">Actions</div>
       </div>
       {projects.map((p) => (
         <div key={p.id} className={COLS + ' px-5 py-3 items-center border-b border-[#f2eee7]'}>
@@ -49,7 +50,7 @@ export function ProjectsTable({ projects, onToggle, onEdit, onNew, onNewFromTemp
           <div>
             <VisPill visible={p.visible !== false} onClick={onToggle ? () => onToggle(p.id) : undefined} />
           </div>
-          <div className="text-right">
+          <div className="flex justify-end gap-2">
             <button
               onClick={onEdit ? () => onEdit(p.id) : undefined}
               disabled={!onEdit}
@@ -57,6 +58,14 @@ export function ProjectsTable({ projects, onToggle, onEdit, onNew, onNewFromTemp
               aria-label={'Edit ' + p.title}
             >
               <Icon name="edit" className="text-lg" />
+            </button>
+            <button
+              onClick={onDelete ? () => { if (window.confirm(`Delete "${p.title}"? It will be removed from the site when you publish.`)) onDelete(p.id); } : undefined}
+              disabled={!onDelete}
+              className="border border-[#e7c9c6] bg-white w-[34px] h-[34px] rounded-lg text-[#b94b40] hover:bg-[#f7ecea] disabled:opacity-50"
+              aria-label={'Delete ' + p.title}
+            >
+              <Icon name="delete" className="text-lg" />
             </button>
           </div>
         </div>
