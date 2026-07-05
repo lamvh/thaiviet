@@ -38,7 +38,7 @@ components/
   ProjectFilter
 
 pages/admin/sections/
-  compose/    ComposeWizard · TemplatePicker · TemplateForm · TemplatePreview · TemplatePreviewModal   (new-project wizard)
+  compose/    ComposeWizard · TemplatePicker · TemplateForm · TemplatePreview · TemplatePreviewPanel   (new-project wizard)
   ServiceStyleEditor   (global service-page layout picker)
 
 hooks/     useContactForm
@@ -60,7 +60,7 @@ Content blocks are admin-editable and stored in Supabase / bundled `site-content
 
 Two code-registered catalogs, both editable from `/admin`, both stored in the single `site-content.json` blob (no new tables):
 
-- **Project templates** — `src/lib/templates/project-templates.ts`. Each is data only: `id`, picker card (`name`/`icon`/`desc`/`includes`), `defaultMeta`, and `sections[]` (kinds `text` / `pair` / `repeat`). One generic renderer (`components/templates/ProjectTemplateRenderer`) walks `sections[]`; the same renderer powers the admin step-2 live preview and the picker's per-template **Preview** modal (Simple scaled overview / Full actual-size), rendered from each template's default content. **Add a template** = append one object to `projectTemplateList` — no renderer changes.
+- **Project templates** — `src/lib/templates/project-templates.ts`. Each is data only: `id`, picker card (`name`/`icon`/`desc`/`includes`), `defaultMeta`, and `sections[]` (kinds `text` / `pair` / `repeat`). One generic renderer (`components/templates/ProjectTemplateRenderer`) walks `sections[]`; the same renderer powers the admin step-2 live preview and the picker's per-template **Preview** panel — shown inline in the admin content area (sidebar stays visible), Simple scaled overview / Full actual-size, rendered from each template's default content. **Add a template** = append one object to `projectTemplateList` — no renderer changes.
 - **Service skins** — `src/components/services/service-skins.tsx`. Each skin is a layout component over the shared `ServiceDetail` data. **Add a skin** = create `ServiceSkin<X>.tsx`, map it in `serviceSkins`, and flip its `ready: true` in `SERVICE_STYLE_META`. Style A = the original layout; B = Cinematic/Dark.
 
 Publish-time validation for templated pages + `serviceStyle` lives in `src/lib/content-schema.ts` (delegates to `src/lib/templates/validate-page.ts`). Pure-logic helpers are unit-tested with Vitest (`npm test`).

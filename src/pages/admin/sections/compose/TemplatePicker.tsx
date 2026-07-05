@@ -2,11 +2,22 @@ import { useState } from 'react';
 import { Icon } from '../../../../components/ui/Icon';
 import { projectTemplateList } from '../../../../lib/templates/project-templates';
 import type { ProjectTemplateId } from '../../../../lib/types';
-import { TemplatePreviewModal } from './TemplatePreviewModal';
+import { TemplatePreviewPanel } from './TemplatePreviewPanel';
 
 export function TemplatePicker({ onPick }: { onPick: (id: ProjectTemplateId) => void }) {
   const [previewId, setPreviewId] = useState<ProjectTemplateId | null>(null);
   const previewDef = previewId ? projectTemplateList.find((t) => t.id === previewId) ?? null : null;
+
+  // Previewing → show the inline panel in the content area (sidebar stays visible).
+  if (previewDef) {
+    return (
+      <TemplatePreviewPanel
+        def={previewDef}
+        onBack={() => setPreviewId(null)}
+        onUse={() => { const id = previewDef.id; setPreviewId(null); onPick(id); }}
+      />
+    );
+  }
 
   return (
     <div>
@@ -34,13 +45,6 @@ export function TemplatePicker({ onPick }: { onPick: (id: ProjectTemplateId) => 
           </div>
         ))}
       </div>
-      {previewDef && (
-        <TemplatePreviewModal
-          def={previewDef}
-          onClose={() => setPreviewId(null)}
-          onUse={() => { const id = previewDef.id; setPreviewId(null); onPick(id); }}
-        />
-      )}
     </div>
   );
 }
