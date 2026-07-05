@@ -1,3 +1,6 @@
+import type { ProjectPage } from './templates/types';
+export type { ProjectPage, ProjectMeta, ProjectTemplateId, ProjectTemplateDef, SectionDef, TemplateValue, ServiceStyleId } from './templates/types';
+
 export type ProjectCategory =
   | 'interior' | 'exterior' | 'roof' | 'stripping'
   | 'plastering' | 'wood' | 'building' | 'flooring';
@@ -44,6 +47,7 @@ export interface Project {
   desc: string;
   image: string;
   visible?: boolean;
+  page?: ProjectPage; // templated detail content (present when created via the compose wizard)
 }
 
 export interface Hero { title: string; subtitle: string; image: string; }
