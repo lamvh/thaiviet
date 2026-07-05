@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { MemoryRouter } from 'react-router-dom';
 import { Icon } from '../../../../components/ui/Icon';
 import { useSiteContent } from '../../../../lib/site-content-context';
 import { ProjectTemplateRenderer } from '../../../../components/templates/ProjectTemplateRenderer';
@@ -31,10 +30,10 @@ export function TemplatePreviewModal({ def, onClose, onUse }: { def: ProjectTemp
         </button>
       </div>
       <div className="flex-1 overflow-auto bg-[#f4f2ee]">
-        <div className={full ? '' : 'origin-top-left scale-[0.5] w-[200%]'}>
-          <MemoryRouter>
-            <ProjectTemplateRenderer meta={def.defaultMeta} values={values} sections={def.sections} contact={contact} />
-          </MemoryRouter>
+        {/* No nested Router — the renderer's <Link>s use the app router. pointer-events-none
+            keeps the preview non-interactive so its links can't navigate the admin away. */}
+        <div className={(full ? '' : 'origin-top-left scale-[0.5] w-[200%] ') + 'pointer-events-none'}>
+          <ProjectTemplateRenderer meta={def.defaultMeta} values={values} sections={def.sections} contact={contact} />
         </div>
       </div>
     </div>
