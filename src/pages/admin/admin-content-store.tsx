@@ -69,7 +69,7 @@ const catFromLabel = (label: string): ProjectCategory => (CAT_OPTS.find((o) => o
 
 function clone<T>(v: T): T { return JSON.parse(JSON.stringify(v)) as T; }
 
-function reducer(state: AdminState, a: Action): AdminState {
+export function reducer(state: AdminState, a: Action): AdminState {
   switch (a.t) {
     case 'TOGGLE': {
       const list = state.content[a.kind].map((x) => (x.id === a.id ? { ...x, visible: x.visible === false } : x));
@@ -183,7 +183,7 @@ function reducer(state: AdminState, a: Action): AdminState {
   }
 }
 
-function initState(): AdminState {
+export function initState(): AdminState {
   // Bundled content is only the first paint; the live DB row replaces it via HYDRATE on mount.
   // The database is the single source of truth — no localStorage draft.
   const base = DEFAULT_CONTENT;
