@@ -1,4 +1,5 @@
 import type { SiteContent } from '../pages/admin/useAdminContent';
+import { validateProjectPage } from './templates/validate-page';
 
 const isHttps = (u: string | undefined) => /^https:\/\//i.test((u ?? '').trim());
 
@@ -20,6 +21,7 @@ export function validateContent(c: SiteContent): string[] {
     if (!p.title?.trim()) errors.push(`Project ${name} needs a title.`);
     if (!p.categoryLabel?.trim()) errors.push(`Project ${name} needs a category.`);
     if (!isHttps(p.image)) errors.push(`Project ${name} image must be an https:// URL.`);
+    if (p.page) errors.push(...validateProjectPage(p.page, name));
   });
 
   c.posts.forEach((p, i) => {
@@ -66,6 +68,8 @@ export function validateContent(c: SiteContent): string[] {
       if (!isHttps(sd.afterImg)) errors.push(`Service page ${name} after image must be an https:// URL.`);
     });
   }
+
+  if (!['A', 'B', 'C', 'D', 'E'].includes(c.serviceStyle)) errors.push('Service style must be one of A–E.');
 
   return errors;
 }
