@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { Icon } from '../ui/Icon';
 import { ServicesDropdown } from './ServicesDropdown';
 import { FacebookIcon } from './FacebookIcon';
-import { NAV_ITEMS } from '../../data/nav';
+import { NAV_ITEMS, SERVICE_LINKS } from '../../data/nav';
 import { useSiteContent } from '../../lib/site-content-context';
 
 const LOGO = 'https://project.vinapage.com/thaivietconz/images/logo.webp';
@@ -39,7 +39,9 @@ export function Header() {
       {open && (
         <div className="flex flex-col bg-surface border-t border-outline-variant/15 lg:hidden">
           <MobileLink to="/" onClick={() => setOpen(false)}>Home</MobileLink>
-          {NAV_ITEMS.map((n) => (
+          <MobileLink to="/about" onClick={() => setOpen(false)}>About</MobileLink>
+          <MobileServices onNavigate={() => setOpen(false)} />
+          {NAV_ITEMS.filter((n) => n.to !== '/about').map((n) => (
             <MobileLink key={n.to + n.label} to={n.to} onClick={() => setOpen(false)}>{n.label}</MobileLink>
           ))}
           <a className="mx-8 mt-4 mb-4 block bg-primary text-on-primary px-6 py-3 rounded-lg font-bold text-center shadow-lg shadow-primary/20" href={'tel:' + contact.phone.replace(/\s/g, '')}>Call {contact.phone}</a>
@@ -54,5 +56,45 @@ function MobileLink({ to, onClick, children }: { to: string; onClick: () => void
     <NavLink to={to} end={to === '/'} onClick={onClick} className="px-8 py-3 text-on-surface hover:bg-surface-container-low transition-colors font-headline border-b border-outline-variant/10">
       {children}
     </NavLink>
+  );
+}
+
+// Mobile menu has no hover dropdown, so Services is an expandable group listing every service link.
+function MobileServices({ onNavigate }: { onNavigate: () => void }) {
+  const [expanded, setExpanded] = useState(false);
+  const links = [...SERVICE_LINKS.painting, ...SERVICE_LINKS.speciality];
+  return (
+    <div className="border-b border-outline-variant/10">
+      <button
+        type="button"
+        onClick={() => setExpanded((v) => !v)}
+        aria-expanded={expanded}
+        className="w-full flex items-center justify-between px-8 py-3 text-on-surface hover:bg-surface-container-low transition-colors font-headline"
+      >
+        <span>Services</span>
+        <Icon name={expanded ? 'expand_less' : 'expand_more'} className="text-xl" />
+      </button>
+      {expanded && (
+        <div className="pb-2">
+          {links.map((s) => (
+            <NavLink
+              key={s.label}
+              to={('to' in s && s.to) || '/services'}
+              onClick={onNavigate}
+              className="flex items-center gap-2.5 pl-12 pr-8 py-2.5 text-sm text-slate-700 hover:bg-surface-container-low hover:text-primary transition-colors font-headline"
+            >
+              <Icon name={s.icon} className="text-base" />{s.label}
+            </NavLink>
+          ))}
+          <NavLink
+            to="/services"
+            onClick={onNavigate}
+            className="flex items-center gap-2.5 pl-12 pr-8 py-2.5 text-sm font-bold text-primary hover:bg-surface-container-low transition-colors font-headline"
+          >
+            <Icon name="grid_view" className="text-base" />All Services
+          </NavLink>
+        </div>
+      )}
+    </div>
   );
 }
