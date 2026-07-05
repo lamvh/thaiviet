@@ -16,7 +16,7 @@ export function Footer() {
   const { contact } = useSiteContent()
   return (
     <footer className="bg-surface-container-low border-t border-outline-variant/15">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 py-16 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 px-5 sm:px-8 py-16 max-w-7xl mx-auto">
         <div className="md:col-span-1">
           <div className="text-xl font-bold text-primary mb-6 font-headline">
             ThaiViet Ltd
@@ -109,7 +109,7 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-8 py-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 uppercase tracking-widest">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 py-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 uppercase tracking-widest">
         <p>© 2026 ThaiViet Ltd. All rights reserved.</p>
         <p>Designed for Quality & Durability</p>
       </div>

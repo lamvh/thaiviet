@@ -49,7 +49,7 @@ export function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-surface/90 via-surface/40 to-transparent" />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-8 w-full">
+        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 w-full">
           <div className="max-w-2xl">
             <span className="mt-4 inline-block px-3 py-1 bg-primary/10 text-primary font-bold text-xs uppercase tracking-widest rounded mb-6">
               {hero.badge}
@@ -100,7 +100,7 @@ export function HomePage() {
 
       {/* Trust Indicators */}
       <section className="bg-surface-container-low py-12">
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {trust.map((t, i) => (
               <div key={i} className="flex items-center gap-4 group">
@@ -118,7 +118,7 @@ export function HomePage() {
 
       {/* Intro */}
       <section className="py-24 bg-surface">
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
             <div className="lg:col-span-7">
               <div className="mb-4 text-primary font-bold uppercase tracking-[0.2em] text-sm">
@@ -179,7 +179,7 @@ export function HomePage() {
 
       {/* Intro Video */}
       <section className="bg-surface pb-24">
-        <div className="max-w-5xl mx-auto px-8">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8">
           <div className="text-center mb-10">
             <div className="inline-block mb-4 text-primary font-bold uppercase tracking-[0.2em] text-sm">
               {video.eyebrow}
@@ -205,7 +205,7 @@ export function HomePage() {
 
       {/* Customer Reviews */}
       <section className="py-24 bg-surface">
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
               <span className="text-primary font-bold uppercase tracking-[0.2em] text-sm mb-3 block">
@@ -245,7 +245,7 @@ export function HomePage() {
         </div>
         <div
           ref={reviewsRef}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 px-8 max-w-7xl mx-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 px-5 sm:px-5 sm:px-8 max-w-7xl mx-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {reviews.items.map((r, i) => (
             <div
@@ -272,7 +272,7 @@ export function HomePage() {
           ))}
         </div>
         {REVIEWS.length > 0 && (
-          <div className="max-w-7xl mx-auto px-8 mt-12">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8 mt-12">
             <div className="flex items-center gap-2 mb-6 text-primary">
               <Icon name="play_circle" filled />
               <span className="font-bold uppercase tracking-[0.2em] text-sm">
@@ -290,7 +290,7 @@ export function HomePage() {
 
       {/* Featured Services Grid */}
       <section className="py-24 bg-surface-container-low">
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div>
               <h2 className="font-headline text-4xl font-bold">
@@ -364,7 +364,7 @@ export function HomePage() {
 
       {/* Why Choose Us */}
       <section id="why-choose-us" className="py-24 bg-surface scroll-mt-[72px]">
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="text-center mb-12 max-w-3xl mx-auto">
             <h2 className="font-headline text-4xl font-bold mb-6">
               {whyChoose.title}
@@ -395,7 +395,7 @@ export function HomePage() {
 
       {/* Featured Projects */}
       <section className="py-24 bg-surface-container-low">
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>
               <span className="text-primary font-bold uppercase tracking-[0.2em] text-sm mb-3 block">
@@ -437,7 +437,7 @@ export function HomePage() {
 
       {/* Process */}
       <section id="process" className="py-24 bg-surface-container-high overflow-hidden scroll-mt-[72px]">
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="mb-16">
             <h2 className="font-headline text-4xl font-bold mb-4">
               {process.title}
@@ -476,7 +476,7 @@ export function HomePage() {
 
       {/* Service Areas */}
       <section className="py-24 bg-surface-container-low">
-        <div className="max-w-7xl mx-auto px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="font-headline text-4xl font-bold mb-6">
@@ -520,7 +520,7 @@ export function HomePage() {
 
       {/* Final CTA */}
       <section className="py-24 bg-primary relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-8 text-center relative z-10">
+        <div className="max-w-4xl mx-auto px-5 sm:px-8 text-center relative z-10">
           <h2 className="font-headline text-4xl md:text-5xl font-bold text-white mb-8">
             {cta.title}
           </h2>

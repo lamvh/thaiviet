@@ -32,7 +32,7 @@ export function ServicesPage() {
   const { serviceDetails } = useSiteContent()
   return (
     <>
-      <section className="py-24 px-8 bg-surface-container-low">
+      <section className="py-24 px-5 sm:px-8 bg-surface-container-low">
         <Container>
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
             <div className="max-w-2xl">
@@ -65,7 +65,7 @@ export function ServicesPage() {
         </Container>
       </section>
 
-      <section className="py-24 px-8 overflow-hidden">
+      <section className="py-24 px-5 sm:px-8 overflow-hidden">
         <Container>
           <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center font-headline">
             Transforming Homes
@@ -93,7 +93,7 @@ export function ServicesPage() {
         </Container>
       </section>
 
-      <section className="py-24 bg-surface-container-low px-8">
+      <section className="py-24 bg-surface-container-low px-5 sm:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <div className="text-primary mb-8">
             <Icon name="format_quote" className="text-5xl" filled />
@@ -115,7 +115,7 @@ export function ServicesPage() {
         </div>
       </section>
 
-      <section className="relative py-24 px-8 overflow-hidden">
+      <section className="relative py-24 px-5 sm:px-8 overflow-hidden">
         <div className="max-w-7xl mx-auto bg-primary rounded-3xl p-12 md:p-20 relative z-10 text-center flex flex-col items-center">
           <h2 className="text-4xl md:text-6xl font-extrabold text-on-primary mb-8 tracking-tight font-headline">
             Ready to Reimagine Your Home?

@@ -19,10 +19,10 @@ export function ServiceSkinB({ s, contact }: { s: ServiceDetail; contact: Contac
   return (
     <div style={{ backgroundColor: BG, color: INK }}>
       {/* Hero — full-bleed with dark gradient overlay */}
-      <section className="relative h-[640px] flex items-end overflow-hidden">
+      <section className="relative min-h-[640px] flex items-end overflow-hidden">
         <img className="absolute inset-0 w-full h-full object-cover" alt={s.name} src={s.heroImg} />
         <div className="absolute inset-0 bg-gradient-to-t from-[#141412] via-[#141412]/70 to-transparent" />
-        <div className="relative z-10 max-w-7xl mx-auto px-8 w-full pb-20">
+        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 w-full pb-20">
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 text-sm font-semibold mb-6" style={{ color: MUTED }}>
               <Link to="/services" className="hover:text-[#f4f1ea] transition-colors">Services</Link>
@@ -43,7 +43,7 @@ export function ServiceSkinB({ s, contact }: { s: ServiceDetail; contact: Contac
       </section>
 
       {/* What's included */}
-      <section className="py-28 px-8">
+      <section className="py-28 px-5 sm:px-8">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           <div className="lg:col-span-5">
             <span className="font-bold tracking-[0.25em] text-xs uppercase" style={{ color: GOLD }}>What's Included</span>
@@ -76,7 +76,7 @@ export function ServiceSkinB({ s, contact }: { s: ServiceDetail; contact: Contac
       </section>
 
       {/* Approach */}
-      <section className="py-28 px-8 border-t" style={{ borderColor: BORDER }}>
+      <section className="py-28 px-5 sm:px-8 border-t" style={{ borderColor: BORDER }}>
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="relative order-2 lg:order-1">
             <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl border" style={{ borderColor: BORDER }}>
@@ -111,7 +111,7 @@ export function ServiceSkinB({ s, contact }: { s: ServiceDetail; contact: Contac
       </section>
 
       {/* Before / After */}
-      <section className="py-28 px-8 border-t" style={{ borderColor: BORDER }}>
+      <section className="py-28 px-5 sm:px-8 border-t" style={{ borderColor: BORDER }}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <span className="font-bold tracking-[0.25em] text-xs uppercase" style={{ color: GOLD }}>The Difference</span>
@@ -130,7 +130,7 @@ export function ServiceSkinB({ s, contact }: { s: ServiceDetail; contact: Contac
       </section>
 
       {/* Showcase */}
-      <section className="py-28 px-8 border-t" style={{ borderColor: BORDER }}>
+      <section className="py-28 px-5 sm:px-8 border-t" style={{ borderColor: BORDER }}>
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div className="max-w-2xl">
@@ -160,7 +160,7 @@ export function ServiceSkinB({ s, contact }: { s: ServiceDetail; contact: Contac
 
       {/* Quote */}
       {s.quote && (
-        <section className="py-28 px-8 border-t" style={{ borderColor: BORDER }}>
+        <section className="py-28 px-5 sm:px-8 border-t" style={{ borderColor: BORDER }}>
           <div className="max-w-4xl mx-auto text-center">
             <div className="mb-8" style={{ color: GOLD }}><Icon name="format_quote" className="text-5xl" filled /></div>
             <p className="text-2xl md:text-3xl font-medium leading-relaxed mb-10">"{s.quote}"</p>
@@ -173,7 +173,7 @@ export function ServiceSkinB({ s, contact }: { s: ServiceDetail; contact: Contac
       )}
 
       {/* CTA */}
-      <section className="py-28 px-8 border-t" style={{ borderColor: BORDER }}>
+      <section className="py-28 px-5 sm:px-8 border-t" style={{ borderColor: BORDER }}>
         <div className="max-w-7xl mx-auto rounded-3xl p-12 md:p-20 text-center relative overflow-hidden border" style={{ backgroundColor: SURFACE, borderColor: BORDER }}>
           <div className="relative z-10 flex flex-col items-center">
             <h2 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight font-headline">Ready to get started?</h2>

@@ -20,11 +20,11 @@ export function ProjectsPage() {
 
   return (
     <>
-      <section className="pt-12 px-8 max-w-7xl mx-auto mb-12">
+      <section className="pt-12 px-5 sm:px-5 sm:px-8 max-w-7xl mx-auto mb-12">
         <ProjectFilter active={filter} onChange={setFilter} />
       </section>
 
-      <section className="px-8 max-w-7xl mx-auto mb-24">
+      <section className="px-5 sm:px-5 sm:px-8 max-w-7xl mx-auto mb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {visible.map((p) => (
             <ProjectCard key={p.id} project={p} />
@@ -88,7 +88,7 @@ export function ProjectsPage() {
         </Container>
       </section>
 
-      <section className="px-8 max-w-4xl mx-auto py-32 text-center">
+      <section className="px-5 sm:px-8 max-w-4xl mx-auto py-32 text-center">
         <h2 className="text-4xl md:text-6xl font-extrabold mb-6 font-headline">
           Ready to start your transformation?
         </h2>

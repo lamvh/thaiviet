@@ -10,7 +10,7 @@ export function OurWorkPage() {
   const { contact } = useSiteContent();
   return (
     <>
-      <section className="pt-20 pb-16 px-8 bg-gradient-to-br from-surface-container-low to-surface text-center">
+      <section className="pt-20 pb-16 px-5 sm:px-8 bg-gradient-to-br from-surface-container-low to-surface text-center">
         <div className="max-w-3xl mx-auto">
           <span className="text-primary font-bold uppercase tracking-[0.2em] text-sm mb-4 block">Our Work in Action</span>
           <h1 className="font-headline text-4xl md:text-5xl font-extrabold mb-6 text-on-surface">Service Videos &amp; Reels</h1>

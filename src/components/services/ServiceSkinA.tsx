@@ -11,10 +11,10 @@ export function ServiceSkinA({ s, contact }: { s: ServiceDetail; contact: Contac
   return (
     <>
       {/* Hero */}
-      <section className="relative h-[560px] flex items-center overflow-hidden">
+      <section className="relative min-h-[560px] flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/45 to-black/20 z-10" />
         <img className="absolute inset-0 w-full h-full object-cover" alt={s.name} src={s.heroImg} />
-        <div className="relative z-20 max-w-7xl mx-auto px-8 w-full">
+        <div className="relative z-20 max-w-7xl mx-auto px-5 sm:px-8 w-full">
           <div className="max-w-2xl">
             <div className="flex items-center gap-2 text-white/70 text-sm font-semibold mb-5"><Link to="/services" className="hover:text-white transition-colors">Services</Link><Icon name="chevron_right" className="text-base" /><span className="text-primary-fixed-dim">{s.name}</span></div>
             <span className="text-primary-fixed-dim font-bold tracking-[0.2em] text-sm uppercase mb-4 block">{s.name}</span>
@@ -29,7 +29,7 @@ export function ServiceSkinA({ s, contact }: { s: ServiceDetail; contact: Contac
       </section>
 
       {/* What's included */}
-      <section className="py-24 px-8 bg-surface">
+      <section className="py-24 px-5 sm:px-8 bg-surface">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           <div className="lg:col-span-5">
             <span className="text-primary font-bold tracking-widest text-sm uppercase">What's Included</span>
@@ -60,7 +60,7 @@ export function ServiceSkinA({ s, contact }: { s: ServiceDetail; contact: Contac
       </section>
 
       {/* Approach */}
-      <section className="py-24 px-8 bg-surface-container-low">
+      <section className="py-24 px-5 sm:px-8 bg-surface-container-low">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="relative order-2 lg:order-1">
             <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl"><img className="w-full h-full object-cover" alt={s.name} src={s.midImage} /></div>
@@ -90,7 +90,7 @@ export function ServiceSkinA({ s, contact }: { s: ServiceDetail; contact: Contac
       </section>
 
       {/* Before / After */}
-      <section className="py-24 px-8 bg-surface">
+      <section className="py-24 px-5 sm:px-8 bg-surface">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-primary font-bold tracking-widest text-sm uppercase">The Difference</span>
@@ -107,7 +107,7 @@ export function ServiceSkinA({ s, contact }: { s: ServiceDetail; contact: Contac
       </section>
 
       {/* Showcase */}
-      <section className="py-24 px-8 bg-surface-container-low">
+      <section className="py-24 px-5 sm:px-8 bg-surface-container-low">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div className="max-w-2xl"><span className="text-primary font-bold tracking-widest text-sm uppercase">Recent Work</span><h2 className="text-3xl md:text-4xl font-extrabold mt-4 font-headline">{s.name} across Wellington</h2></div>
@@ -132,7 +132,7 @@ export function ServiceSkinA({ s, contact }: { s: ServiceDetail; contact: Contac
 
       {/* Quote */}
       {s.quote && (
-        <section className="py-24 px-8 bg-surface">
+        <section className="py-24 px-5 sm:px-8 bg-surface">
           <div className="max-w-4xl mx-auto text-center">
             <div className="text-primary mb-8"><Icon name="format_quote" className="text-5xl" filled /></div>
             <p className="text-2xl md:text-3xl font-medium leading-relaxed mb-10 text-on-surface">"{s.quote}"</p>
@@ -142,7 +142,7 @@ export function ServiceSkinA({ s, contact }: { s: ServiceDetail; contact: Contac
       )}
 
       {/* CTA */}
-      <section className="py-24 px-8">
+      <section className="py-24 px-5 sm:px-8">
         <div className="max-w-7xl mx-auto bg-primary rounded-3xl p-12 md:p-20 text-center text-on-primary relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-container opacity-50" />
           <div className="relative z-10 flex flex-col items-center">

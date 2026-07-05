@@ -51,10 +51,10 @@ export function ProjectDetailPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative h-[460px] flex items-end overflow-hidden">
+      <section className="relative min-h-[460px] flex items-end overflow-hidden">
         <div className="absolute inset-0 bg-black/45 z-10" />
         <img className="absolute inset-0 w-full h-full object-cover" src={heroImage} alt={project.title} />
-        <div className="relative z-20 max-w-7xl mx-auto px-8 pb-12 w-full">
+        <div className="relative z-20 max-w-7xl mx-auto px-5 sm:px-8 pb-12 w-full">
           <Link to="/projects" className="inline-flex items-center gap-1 text-white/90 text-sm font-semibold mb-4 hover:text-white transition-colors">
             <Icon name="arrow_back" className="text-base" /> All Projects
           </Link>
@@ -64,7 +64,7 @@ export function ProjectDetailPage() {
       </section>
 
       {/* Facts + intro + story */}
-      <section className="max-w-7xl mx-auto px-8 py-16">
+      <section className="max-w-7xl mx-auto px-5 sm:px-5 sm:px-8 py-16">
         {facts && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pb-12 border-b border-outline-variant/30">
             {facts.map((f) => (
@@ -93,7 +93,7 @@ export function ProjectDetailPage() {
 
       {/* Gallery */}
       {d?.gallery && d.gallery.length > 0 && (
-        <section className="max-w-7xl mx-auto px-8 pt-3 pb-12">
+        <section className="max-w-7xl mx-auto px-5 sm:px-8 pt-3 pb-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {d.gallery.map((src, i) => (
               <div key={src} className="aspect-[4/3] rounded-xl overflow-hidden bg-surface-container-low">
@@ -106,7 +106,7 @@ export function ProjectDetailPage() {
 
       {/* Video walkthrough */}
       {d?.videoSrc && (
-        <section className="max-w-3xl mx-auto px-8 pt-3 pb-12">
+        <section className="max-w-3xl mx-auto px-5 sm:px-8 pt-3 pb-12">
           <div className="text-center mb-6">
             <span className="text-primary font-bold uppercase tracking-[0.2em] text-sm">On Site</span>
             <h2 className="font-headline text-3xl font-bold mt-2">Watch the Walkthrough</h2>
@@ -119,7 +119,7 @@ export function ProjectDetailPage() {
 
       {/* Testimonial */}
       {d?.testimonialQuote && (
-        <section className="bg-surface-container-low py-20 px-8">
+        <section className="bg-surface-container-low py-20 px-5 sm:px-8">
           <div className="max-w-2xl mx-auto text-center">
             <div className="text-primary mb-6"><Icon name="format_quote" className="text-5xl" filled /></div>
             <p className="text-2xl md:text-3xl font-medium leading-relaxed mb-8">"{d.testimonialQuote}"</p>
@@ -129,7 +129,7 @@ export function ProjectDetailPage() {
       )}
 
       {/* CTA */}
-      <section className="max-w-3xl mx-auto px-8 py-24 text-center">
+      <section className="max-w-3xl mx-auto px-5 sm:px-8 py-24 text-center">
         <h2 className="font-headline text-4xl md:text-5xl font-extrabold mb-6">Want a finish like this?</h2>
         <p className="text-lg text-on-surface-variant mb-10 max-w-2xl mx-auto">Tell us about your place and we'll give you an honest, no-obligation quote.</p>
         <div className="flex flex-col sm:flex-row justify-center gap-4">

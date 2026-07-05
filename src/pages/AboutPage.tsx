@@ -9,7 +9,7 @@ export function AboutPage() {
 
   return (
     <>
-      <section className="relative h-[614px] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[614px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-black/40 z-10" />
         <img className="absolute inset-0 w-full h-full object-cover" src={hero.image} alt="Modern Wellington living room" />
         <div className="relative z-20 text-center px-4">
@@ -18,7 +18,7 @@ export function AboutPage() {
         </div>
       </section>
 
-      <section className="py-24 px-8 bg-surface">
+      <section className="py-24 px-5 sm:px-8 bg-surface">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 items-center">
           <div className="md:col-span-7">
             <span className="text-primary font-bold tracking-widest text-sm uppercase">{heritage.eyebrow}</span>
@@ -34,7 +34,7 @@ export function AboutPage() {
         </div>
       </section>
 
-      <section className="py-24 px-8 bg-surface-container-low">
+      <section className="py-24 px-5 sm:px-8 bg-surface-container-low">
         <Container>
           <div className="mb-16 text-center">
             <h2 className="text-4xl font-bold font-headline">{mission.title}</h2>
@@ -52,7 +52,7 @@ export function AboutPage() {
         </Container>
       </section>
 
-      <section className="py-24 px-8 bg-surface">
+      <section className="py-24 px-5 sm:px-8 bg-surface">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-center">
           <div className="w-full lg:w-1/2 order-2 lg:order-1">
             <div className="grid grid-cols-2 gap-4">
@@ -70,7 +70,7 @@ export function AboutPage() {
         </div>
       </section>
 
-      <section className="py-24 px-8 bg-surface-container-high">
+      <section className="py-24 px-5 sm:px-8 bg-surface-container-high">
         <Container>
           <div className="bg-surface-container-lowest p-12 md:p-20 rounded shadow-lg flex flex-col md:flex-row gap-12 items-center">
             <div className="flex-1">
@@ -87,7 +87,7 @@ export function AboutPage() {
         </Container>
       </section>
 
-      <section className="py-24 px-8 bg-surface">
+      <section className="py-24 px-5 sm:px-8 bg-surface">
         <Container>
           <h2 className="text-4xl font-bold text-center mb-20 font-headline">{stats.title}</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-center">
@@ -102,7 +102,7 @@ export function AboutPage() {
         </Container>
       </section>
 
-      <section className="py-24 px-8">
+      <section className="py-24 px-5 sm:px-8">
         <div className="max-w-7xl mx-auto bg-primary rounded-2xl p-12 md:p-24 text-center text-on-primary relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-container opacity-50" />
           <div className="relative z-10">

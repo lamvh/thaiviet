@@ -20,7 +20,7 @@ export function ContactPage() {
         </div>
       )}
 
-      <section className="pt-20 pb-12 px-8 text-center bg-gradient-to-br from-surface-container-low to-surface">
+      <section className="pt-20 pb-12 px-5 sm:px-8 text-center bg-gradient-to-br from-surface-container-low to-surface">
         <div className="max-w-3xl mx-auto">
           <span className="text-primary font-bold uppercase tracking-[0.2em] text-sm mb-4 block">Get In Touch</span>
           <h1 className="font-headline text-4xl md:text-5xl font-extrabold mb-4 text-on-surface">Contact Us</h1>
@@ -96,7 +96,7 @@ export function ContactPage() {
       </Container>
 
       <section className="bg-surface py-20 border-t border-outline-variant/10">
-        <div className="max-w-7xl mx-auto px-8 flex flex-wrap justify-center gap-8 md:gap-16 opacity-50">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 flex flex-wrap justify-center gap-8 md:gap-16 opacity-50">
           {TRUST.map((t) => <div key={t} className="font-headline font-extrabold text-lg md:text-2xl tracking-tighter">{t}</div>)}
         </div>
       </section>

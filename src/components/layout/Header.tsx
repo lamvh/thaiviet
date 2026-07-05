@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Icon } from '../ui/Icon';
 import { ServicesDropdown } from './ServicesDropdown';
@@ -11,13 +11,32 @@ const LOGO = 'https://project.vinapage.com/thaivietconz/images/logo.webp';
 export function Header() {
   const { contact } = useSiteContent();
   const [open, setOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+
+  // While the mobile menu is open, dismiss it on a tap outside the header or on Escape.
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!headerRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('pointerdown', onPointerDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [open]);
+
   const linkBase = 'transition-colors font-headline';
   const navClass = ({ isActive }: { isActive: boolean }) =>
     linkBase + ' ' + (isActive ? 'text-primary font-bold' : 'text-slate-700 hover:text-primary');
 
   return (
-    <header className="fixed top-0 w-full z-50 glass-nav shadow-[0_12px_40px_rgba(28,28,25,0.06)]">
-      <nav className="max-w-full flex justify-between items-center px-8 py-4">
+    <header ref={headerRef} className="fixed top-0 w-full z-50 glass-nav shadow-[0_12px_40px_rgba(28,28,25,0.06)]">
+      <nav className="max-w-full flex justify-between items-center px-5 sm:px-8 py-4">
         <Link to="/"><img src={LOGO} alt="ThaiViet Ltd" className="h-12 w-auto" /></Link>
 
         <div className="hidden lg:flex items-center gap-7">
