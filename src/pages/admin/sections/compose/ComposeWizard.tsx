@@ -28,7 +28,7 @@ export function ComposeWizard() {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_460px] gap-6 items-start">
         <TemplateForm meta={c.meta} values={c.values} sections={def.sections} onMeta={store.updateComposeMeta} onValue={store.updateComposeValue} category={c.category} onCategory={store.updateComposeCategory} />
-        <TemplatePreview meta={c.meta} values={c.values} sections={def.sections} />
+        <TemplatePreview meta={c.meta} values={c.values} sections={def.sections} layout={def.layout} />
       </div>
     </div>
   );

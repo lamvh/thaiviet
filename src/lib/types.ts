@@ -1,5 +1,5 @@
 import type { ProjectPage } from './templates/types';
-export type { ProjectPage, ProjectMeta, ProjectTemplateId, ProjectTemplateDef, SectionDef, TemplateValue, ServiceStyleId } from './templates/types';
+export type { ProjectPage, ProjectMeta, ProjectTemplateId, ProjectTemplateDef, SectionDef, TemplateValue, ServiceStyleId, ProjectStyleId } from './templates/types';
 
 export type ProjectCategory =
   | 'interior' | 'exterior' | 'roof' | 'stripping'

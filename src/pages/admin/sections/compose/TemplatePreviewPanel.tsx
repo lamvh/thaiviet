@@ -35,7 +35,7 @@ export function TemplatePreviewPanel({ def, onBack, onUse }: { def: ProjectTempl
       </div>
       <div className="h-[68vh] overflow-auto bg-[#f4f2ee]">
         <div className={(full ? '' : 'origin-top-left scale-[0.5] w-[200%] ') + 'pointer-events-none'}>
-          <ProjectTemplateRenderer meta={def.defaultMeta} values={values} sections={def.sections} contact={contact} />
+          <ProjectTemplateRenderer layout={def.layout} meta={def.defaultMeta} values={values} sections={def.sections} contact={contact} />
         </div>
       </div>
     </div>

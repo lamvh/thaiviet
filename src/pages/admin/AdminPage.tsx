@@ -25,7 +25,7 @@ const META: Record<AdminSection, [string, string]> = {
   overview: ['Overview', 'A snapshot of your website content'],
   projects: ['Projects', 'Manage the project gallery shown on your site'],
   blog: ['Blog', 'Write and publish articles'],
-  compose: ['Create content', 'Pick a template and build a new project page'],
+  compose: ['Project Templates', 'Pick a template and build a new project page'],
   home: ['Homepage', 'Edit every section of the landing page'],
   about: ['About Page', 'Edit the hero and every section of the about page'],
   servicePages: ['Service Pages', 'Edit each service detail page'],

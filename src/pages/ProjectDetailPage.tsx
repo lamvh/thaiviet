@@ -28,7 +28,7 @@ export function ProjectDetailPage() {
   if (project.page) {
     const def = projectTemplates[project.page.templateId];
     if (def) {
-      return <ProjectTemplateRenderer meta={project.page.meta} values={project.page.values} sections={def.sections} contact={contact} />;
+      return <ProjectTemplateRenderer layout={def.layout} meta={project.page.meta} values={project.page.values} sections={def.sections} contact={contact} />;
     }
   }
 

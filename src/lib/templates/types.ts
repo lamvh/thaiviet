@@ -31,7 +31,9 @@ export interface ProjectMeta {
   duration: string; year: string; cover: string; intro: string;
 }
 
-export type ProjectTemplateId = 'casestudy' | 'beforeafter' | 'timeline' | 'photostory' | 'spotlight';
+export type ProjectTemplateId =
+  | 'casestudy' | 'beforeafter' | 'timeline' | 'photostory' | 'spotlight'
+  | 'sidebar' | 'beforeafterfocus' | 'bento' | 'minimal';
 
 export interface ProjectPage {
   templateId: ProjectTemplateId;
@@ -46,8 +48,14 @@ export interface ProjectTemplateDef {
   desc: string;
   includes: string[];    // picker card chips
   categoryValue: ProjectCategory; // gallery-filter enum for projects made from this template
+  layout?: ProjectStyleId; // detail-page layout skin for this template (defaults to 'A' / classic)
   defaultMeta: ProjectMeta;
   sections: SectionDef[];
 }
 
 export type ServiceStyleId = 'A' | 'B' | 'C' | 'D' | 'E';
+
+// Global layout style for templated project-detail pages. A is the classic full-width
+// layout; the others re-lay-out the same project content (facts, intro, sections) in a
+// different arrangement — mirrors the ServiceStyleId picker.
+export type ProjectStyleId = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
