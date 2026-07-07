@@ -23,9 +23,9 @@ export function HomeEditor() {
           <Field label="Title (accent)" value={hm.hero.titleAccent} onChange={(v) => patch('hero', { titleAccent: v })} />
         </div>
         <Field label="Subtitle" area value={hm.hero.subtitle} onChange={(v) => patch('hero', { subtitle: v })} />
-        <Field label="Background image URL" value={hm.hero.image} onChange={(v) => patch('hero', { image: v })} />
+        <Field label="Background image URL" upload="image" value={hm.hero.image} onChange={(v) => patch('hero', { image: v })} />
         <Field label="Certifications label" value={hm.hero.certLabel} onChange={(v) => patch('hero', { certLabel: v })} />
-        <StringList label="Certification image URLs" items={hm.hero.certs} onChange={(certs) => patch('hero', { certs })} />
+        <StringList label="Certification image URLs" upload="image" items={hm.hero.certs} onChange={(certs) => patch('hero', { certs })} />
       </Card>
 
       <Card title="Trust indicators" hint="The four badges shown under the hero.">
@@ -52,7 +52,7 @@ export function HomeEditor() {
         <Field label="Certifications label" value={hm.intro.certLabel} onChange={(v) => patch('intro', { certLabel: v })} />
         <StringList label="Certification image URLs" items={hm.intro.certs} onChange={(certs) => patch('intro', { certs })} />
         */}
-        <Field label="Image URL" value={hm.intro.image} onChange={(v) => patch('intro', { image: v })} />
+        <Field label="Image URL" upload="image" value={hm.intro.image} onChange={(v) => patch('intro', { image: v })} />
         <Field label="Testimonial quote" area value={hm.intro.testimonialQuote} onChange={(v) => patch('intro', { testimonialQuote: v })} />
         <Field label="Testimonial attribution" value={hm.intro.testimonialBy} onChange={(v) => patch('intro', { testimonialBy: v })} />
       </Card>
@@ -60,8 +60,8 @@ export function HomeEditor() {
       <Card title="Intro video">
         <Field label="Eyebrow" value={hm.video.eyebrow} onChange={(v) => patch('video', { eyebrow: v })} />
         <Field label="Title" value={hm.video.title} onChange={(v) => patch('video', { title: v })} />
-        <Field label="Poster image URL" value={hm.video.poster} onChange={(v) => patch('video', { poster: v })} />
-        <Field label="Video URL (mp4)" value={hm.video.src} onChange={(v) => patch('video', { src: v })} />
+        <Field label="Poster image URL" upload="image" value={hm.video.poster} onChange={(v) => patch('video', { poster: v })} />
+        <Field label="Video URL (mp4)" upload="video" value={hm.video.src} onChange={(v) => patch('video', { src: v })} />
       </Card>
 
       <Card title="Featured services" hint="The service cards grid.">
@@ -74,7 +74,7 @@ export function HomeEditor() {
         <label className="block text-xs font-bold uppercase tracking-wider text-[#8a8377]">Service cards</label>
         {hm.services.cards.map((c, i) => (
           <ItemCard key={i} onRemove={() => patch('services', { cards: hm.services.cards.filter((_, j) => j !== i) })}>
-            <Field label="Image URL" value={c.image} onChange={(v) => patch('services', { cards: hm.services.cards.map((x, j) => (j === i ? { ...x, image: v } : x)) })} />
+            <Field label="Image URL" upload="image" value={c.image} onChange={(v) => patch('services', { cards: hm.services.cards.map((x, j) => (j === i ? { ...x, image: v } : x)) })} />
             <div className="grid grid-cols-2 gap-3">
               <Field label="Title" value={c.title} onChange={(v) => patch('services', { cards: hm.services.cards.map((x, j) => (j === i ? { ...x, title: v } : x)) })} />
               <Field label="Tag" value={c.tag} onChange={(v) => patch('services', { cards: hm.services.cards.map((x, j) => (j === i ? { ...x, tag: v } : x)) })} />
@@ -134,7 +134,7 @@ export function HomeEditor() {
         <Field label="Title" value={hm.serviceAreas.title} onChange={(v) => patch('serviceAreas', { title: v })} />
         <Field label="Intro" area value={hm.serviceAreas.intro} onChange={(v) => patch('serviceAreas', { intro: v })} />
         <StringList label="Areas" items={hm.serviceAreas.areas} onChange={(areas) => patch('serviceAreas', { areas })} />
-        <Field label="Map image URL" value={hm.serviceAreas.mapImage} onChange={(v) => patch('serviceAreas', { mapImage: v })} />
+        <Field label="Map image URL" upload="image" value={hm.serviceAreas.mapImage} onChange={(v) => patch('serviceAreas', { mapImage: v })} />
         <Field label="Map label" value={hm.serviceAreas.mapLabel} onChange={(v) => patch('serviceAreas', { mapLabel: v })} />
       </Card>
 

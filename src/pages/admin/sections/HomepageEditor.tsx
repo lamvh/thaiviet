@@ -22,7 +22,7 @@ export function HomepageEditor() {
           <Field label="Title (accent)" value={hp.heritage.titleAccent} onChange={(v) => patch('heritage', { titleAccent: v })} />
         </div>
         <StringList label="Paragraphs" items={hp.heritage.paragraphs} area onChange={(paragraphs) => patch('heritage', { paragraphs })} />
-        <Field label="Image URL" value={hp.heritage.image} onChange={(v) => patch('heritage', { image: v })} />
+        <Field label="Image URL" upload="image" value={hp.heritage.image} onChange={(v) => patch('heritage', { image: v })} />
         <Field label="Quote badge" value={hp.heritage.quote} onChange={(v) => patch('heritage', { quote: v })} />
       </Card>
 
@@ -45,8 +45,8 @@ export function HomepageEditor() {
         <Field label="Title" value={hp.people.title} onChange={(v) => patch('people', { title: v })} />
         <StringList label="Paragraphs" items={hp.people.paragraphs} area onChange={(paragraphs) => patch('people', { paragraphs })} />
         <div className="grid grid-cols-2 gap-4">
-          <Field label="Image URL (left)" value={hp.people.imageA} onChange={(v) => patch('people', { imageA: v })} />
-          <Field label="Image URL (right)" value={hp.people.imageB} onChange={(v) => patch('people', { imageB: v })} />
+          <Field label="Image URL (left)" upload="image" value={hp.people.imageA} onChange={(v) => patch('people', { imageA: v })} />
+          <Field label="Image URL (right)" upload="image" value={hp.people.imageB} onChange={(v) => patch('people', { imageB: v })} />
         </div>
       </Card>
 
@@ -54,7 +54,7 @@ export function HomepageEditor() {
         <Field label="Title" value={hp.preparation.title} onChange={(v) => patch('preparation', { title: v })} />
         <Field label="Intro" area value={hp.preparation.intro} onChange={(v) => patch('preparation', { intro: v })} />
         <StringList label="Checklist bullets" items={hp.preparation.bullets} onChange={(bullets) => patch('preparation', { bullets })} />
-        <Field label="Image URL" value={hp.preparation.image} onChange={(v) => patch('preparation', { image: v })} />
+        <Field label="Image URL" upload="image" value={hp.preparation.image} onChange={(v) => patch('preparation', { image: v })} />
       </Card>
 
       <Card title="Stats — “Why Wellington Trusts Us”">

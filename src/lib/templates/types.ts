@@ -1,10 +1,14 @@
 // Shared template-registry types. Field-kind model extracted from the dashboard design's
 // composeTemplatesData(): a template is meta + an ordered list of typed sections.
 import type { ProjectCategory } from '../types';
+import type { MediaKind } from '../storage';
 
 export type TemplateValue = string | Record<string, string> | Array<Record<string, string>>;
 
-export interface FieldDef { key: string; label: string; area?: boolean }
+// `media` opts a sub-field into the Supabase Storage upload control. When omitted,
+// the admin form infers it from the label/key (see guessMediaKind), so existing
+// image/video fields get an Upload button without touching every template.
+export interface FieldDef { key: string; label: string; area?: boolean; media?: MediaKind }
 
 export type SectionKind = 'text' | 'pair' | 'repeat';
 export type SectionStyle =

@@ -1,6 +1,11 @@
 import { Card, Field, ItemCard, AddButton, labelCls, fieldCls } from '../homepage-editor-primitives';
 import type { ProjectCategory, ProjectMeta, SectionDef, TemplateValue } from '../../../../lib/types';
+import type { FieldDef } from '../../../../lib/templates/types';
+import { guessMediaKind } from '../../../../lib/storage';
 import { PROJECT_FILTERS } from '../../../../data/projects';
+
+// Explicit `media` flag wins; otherwise infer image/video from the field's label + key.
+const fieldMedia = (f: FieldDef) => f.media ?? guessMediaKind(f.label, f.key);
 
 const CATEGORY_OPTIONS = PROJECT_FILTERS.filter((f) => f.value !== 'all');
 
@@ -12,7 +17,7 @@ function RepeatEditor({ section: s, value, onChange }: { section: SectionDef; va
     <div className="flex flex-col gap-3">
       {value.map((it, i) => (
         <ItemCard key={i} onRemove={() => remove(i)}>
-          {(s.fields ?? []).map((f) => <Field key={f.key} label={f.label} value={it[f.key] ?? ''} onChange={(v) => set(i, f.key, v)} area={f.area} />)}
+          {(s.fields ?? []).map((f) => <Field key={f.key} label={f.label} value={it[f.key] ?? ''} onChange={(v) => set(i, f.key, v)} area={f.area} upload={fieldMedia(f)} />)}
         </ItemCard>
       ))}
       <AddButton label={s.addLabel ?? 'Add'} onClick={add} />
@@ -40,7 +45,7 @@ export function TemplateForm({
         <Field label="Location" value={meta.location} onChange={(v) => onMeta('location', v)} />
         <Field label="Duration" value={meta.duration} onChange={(v) => onMeta('duration', v)} />
         <Field label="Year" value={meta.year} onChange={(v) => onMeta('year', v)} />
-        <Field label="Cover image URL" value={meta.cover} onChange={(v) => onMeta('cover', v)} />
+        <Field label="Cover image URL" upload="image" value={meta.cover} onChange={(v) => onMeta('cover', v)} />
         <Field label="Intro" value={meta.intro} onChange={(v) => onMeta('intro', v)} area />
       </Card>
 
@@ -50,7 +55,7 @@ export function TemplateForm({
           <Card key={s.key} title={s.title}>
             {s.kind === 'text' && <Field label={s.label ?? s.title} value={typeof v === 'string' ? v : ''} onChange={(val) => onValue(s.key, val)} area={s.area} />}
             {s.kind === 'pair' && (s.fields ?? []).map((f) => (
-              <Field key={f.key} label={f.label} value={(v as Record<string, string>)[f.key] ?? ''} onChange={(val) => onValue(s.key, { ...(v as Record<string, string>), [f.key]: val })} />
+              <Field key={f.key} label={f.label} value={(v as Record<string, string>)[f.key] ?? ''} onChange={(val) => onValue(s.key, { ...(v as Record<string, string>), [f.key]: val })} upload={fieldMedia(f)} />
             ))}
             {s.kind === 'repeat' && <RepeatEditor section={s} value={v as Array<Record<string, string>>} onChange={(val) => onValue(s.key, val)} />}
           </Card>

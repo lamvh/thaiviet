@@ -36,7 +36,7 @@ export function ServiceTemplateEditor({ index, page }: { index: number; page: Se
         <Field label="Service name" value={meta.name} onChange={(v) => setMeta('name', v)} />
         <Field label="Hero title" value={meta.heroTitle} onChange={(v) => setMeta('heroTitle', v)} />
         <Field label="Hero subtitle" area value={meta.heroSub} onChange={(v) => setMeta('heroSub', v)} />
-        <Field label="Hero image URL" value={meta.heroImg} onChange={(v) => setMeta('heroImg', v)} />
+        <Field label="Hero image URL" upload="image" value={meta.heroImg} onChange={(v) => setMeta('heroImg', v)} />
         <Field label="Intro title" value={meta.introTitle} onChange={(v) => setMeta('introTitle', v)} />
         <Field label="Intro" area value={meta.intro} onChange={(v) => setMeta('intro', v)} />
       </Card>

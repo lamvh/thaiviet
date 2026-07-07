@@ -68,6 +68,14 @@ Two code-registered catalogs, both editable from `/admin`, both stored in the si
 
 Publish-time validation for templated pages + `serviceStyle` lives in `src/lib/content-schema.ts` (delegates to `src/lib/templates/validate-page.ts`). Pure-logic helpers are unit-tested with Vitest (`npm test`).
 
+## Media uploads (Supabase Storage)
+
+Admin image/video fields accept a pasted `https://` URL **or** an in-place **Upload** button that pushes the file to a Supabase Storage bucket and drops the returned public URL back into the field. Uploads go through `src/lib/storage.ts` (`uploadMedia(file, kind)` → public URL); the upload control + thumbnail preview live in `homepage-editor-primitives.tsx` (`UploadButton`, `MediaPreview`) and are opted into per field via the `Field`/`StringList` `upload="image" | "video"` prop. `EditDrawer` (project/post images) and `HeroEditor` wire the same controls inline; the Project/Service **template** compose form auto-detects image/video sub-fields via `guessMediaKind(label, key)` (override with a `media` flag on a template `FieldDef`).
+
+Because uploaded URLs are `https://`, they already satisfy the existing content validation — no new content key, type, or admin section was added, so the usual CMS wiring (types/store/sidebar) does **not** apply here; it's an input method on existing fields.
+
+**One-time setup (Supabase dashboard):** create a **public** bucket named exactly `media` (Storage → New bucket → Public). Set a file-size limit (client guards: 8 MB images / 100 MB video). Since the admin login is a temporary client-side password (not Supabase Auth), add a Storage policy allowing the `anon` role to `INSERT` into the `media` bucket so browser uploads succeed. This means anyone with the public anon key could upload — acceptable short-term; tighten by wiring real Supabase Auth and restricting the policy to `authenticated`. No new env vars: uploads reuse `VITE_SUPABASE_URL` + `VITE_SUPABASE_PUBLISHABLE_KEY`.
+
 ## Where to wire real backends
 - `hooks/useContactForm.ts` — replace the mock submit with your form endpoint.
 - Routing uses `BrowserRouter`; for static hosting add an SPA fallback to `index.html`.

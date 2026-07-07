@@ -82,7 +82,7 @@ export function ServiceDetailsEditor() {
         <Field label="Service name" value={s.name} onChange={(v) => patch({ name: v })} />
         <Field label="Hero title" value={s.heroTitle} onChange={(v) => patch({ heroTitle: v })} />
         <Field label="Hero subtitle" area value={s.heroSub} onChange={(v) => patch({ heroSub: v })} />
-        <Field label="Hero image URL" value={s.heroImg} onChange={(v) => patch({ heroImg: v })} />
+        <Field label="Hero image URL" upload="image" value={s.heroImg} onChange={(v) => patch({ heroImg: v })} />
       </Card>
 
       <Card title="Intro — “What's Included”">
@@ -109,7 +109,7 @@ export function ServiceDetailsEditor() {
           <Field label="Eyebrow" value={s.midEyebrow} onChange={(v) => patch({ midEyebrow: v })} />
           <Field label="Title" value={s.midTitle} onChange={(v) => patch({ midTitle: v })} />
         </div>
-        <Field label="Image URL" value={s.midImage} onChange={(v) => patch({ midImage: v })} />
+        <Field label="Image URL" upload="image" value={s.midImage} onChange={(v) => patch({ midImage: v })} />
         <StringList label="Paragraphs" items={s.midParas} area onChange={(midParas) => patch({ midParas })} />
         <StringList label="Checklist (Our promise)" items={s.midList} onChange={(midList) => patch({ midList })} />
         <StringList label="Paint partners (badges — optional)" items={s.paintPartners ?? []} onChange={(paintPartners) => patch({ paintPartners })} />
@@ -117,10 +117,10 @@ export function ServiceDetailsEditor() {
 
       <Card title="Before / After">
         <div className="grid grid-cols-2 gap-4">
-          <Field label="Before image URL" value={s.beforeImg} onChange={(v) => patch({ beforeImg: v })} />
-          <Field label="After image URL" value={s.afterImg} onChange={(v) => patch({ afterImg: v })} />
+          <Field label="Before image URL" upload="image" value={s.beforeImg} onChange={(v) => patch({ beforeImg: v })} />
+          <Field label="After image URL" upload="image" value={s.afterImg} onChange={(v) => patch({ afterImg: v })} />
         </div>
-        <StringList label="Gallery image URLs" items={s.gallery} onChange={(gallery) => patch({ gallery })} />
+        <StringList label="Gallery image URLs" upload="image" items={s.gallery} onChange={(gallery) => patch({ gallery })} />
       </Card>
 
       <Card title="Project showcase" hint="Cards link to the Projects page.">
@@ -128,7 +128,7 @@ export function ServiceDetailsEditor() {
           <ItemCard key={k} onRemove={() => patch({ showcase: s.showcase.filter((_, m) => m !== k) })}>
             <Field label="Title" value={c.title} onChange={(v) => patch({ showcase: s.showcase.map((x, m) => (m === k ? { ...x, title: v } : x)) })} />
             <Field label="Blurb" area value={c.blurb} onChange={(v) => patch({ showcase: s.showcase.map((x, m) => (m === k ? { ...x, blurb: v } : x)) })} />
-            <Field label="Image URL" value={c.img} onChange={(v) => patch({ showcase: s.showcase.map((x, m) => (m === k ? { ...x, img: v } : x)) })} />
+            <Field label="Image URL" upload="image" value={c.img} onChange={(v) => patch({ showcase: s.showcase.map((x, m) => (m === k ? { ...x, img: v } : x)) })} />
           </ItemCard>
         ))}
         <AddButton label="Add showcase card" onClick={() => patch({ showcase: [...s.showcase, { title: 'New project', blurb: '', img: '' }] })} />

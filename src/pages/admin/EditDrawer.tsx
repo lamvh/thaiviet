@@ -1,6 +1,7 @@
 import { Icon } from '../../components/ui/Icon';
 import { PROJECT_FILTERS } from '../../data/projects';
 import { useAdminStore, isHttpsUrl } from './admin-content-store';
+import { UploadButton, MediaPreview } from './sections/homepage-editor-primitives';
 
 interface FieldDef { key: string; label: string; area?: boolean; url?: boolean; categorySelect?: boolean; }
 
@@ -50,7 +51,10 @@ export function EditDrawer() {
             const invalid = f.url && val !== '' && !isHttpsUrl(val);
             return (
               <div key={f.key}>
-                <label className="block text-xs font-bold uppercase tracking-wider text-[#8a8377] mb-1.5">{f.label}</label>
+                <div className="flex items-center justify-between gap-2 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#8a8377]">{f.label}</label>
+                  {f.url && <UploadButton kind="image" onUploaded={(url) => updateDraft(f.key, url)} />}
+                </div>
                 {f.categorySelect ? (
                   <select
                     className={inputCls}
@@ -70,6 +74,7 @@ export function EditDrawer() {
                   <input className={inputCls + (invalid ? ' border-primary' : '')} value={val} onChange={(e) => updateDraft(f.key, e.target.value)} />
                 )}
                 {invalid && <p className="text-xs text-primary mt-1">Must start with https://</p>}
+                {f.url && <MediaPreview url={val} kind="image" />}
               </div>
             );
           })}
