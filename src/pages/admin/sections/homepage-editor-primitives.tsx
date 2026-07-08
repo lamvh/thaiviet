@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Icon } from '../../../components/ui/Icon';
 import { uploadMedia, acceptFor, type MediaKind } from '../../../lib/storage';
+import { MediaPickerButton } from './media-picker';
 
 // Textarea that grows to fit its content (no inner scrollbar, no fixed row count) so
 // long paragraphs stay fully visible while editing.
@@ -98,7 +99,12 @@ export function Field({ label, value, onChange, area, upload }: { label: string;
     <div>
       <div className="flex items-center justify-between gap-2 mb-1.5">
         <label className={labelCls.replace('mb-1.5', '')}>{label}</label>
-        {upload && <UploadButton kind={upload} onUploaded={onChange} />}
+        {upload && (
+          <span className="inline-flex items-center gap-2">
+            <MediaPickerButton kind={upload} onPicked={onChange} />
+            <UploadButton kind={upload} onUploaded={onChange} />
+          </span>
+        )}
       </div>
       {area ? (
         <AutoTextarea value={value} onChange={onChange} className={fieldCls + ' resize-none overflow-hidden min-h-[88px]'} />
@@ -131,6 +137,7 @@ export function StringList({ label, items, onChange, area, upload }: { label: st
         ))}
         <div className="flex items-center gap-2">
           <AddButton label="Add" onClick={() => onChange([...items, ''])} />
+          {upload && <MediaPickerButton kind={upload} onPicked={(url) => onChange([...items, url])} />}
           {upload && <UploadButton kind={upload} onUploaded={(url) => onChange([...items, url])} />}
         </div>
       </div>

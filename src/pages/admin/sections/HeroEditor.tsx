@@ -1,5 +1,6 @@
 import type { Hero } from '../../../lib/types';
 import { UploadButton, MediaPreview } from './homepage-editor-primitives';
+import { MediaPickerButton } from './media-picker';
 
 interface Props {
   hero: Hero;
@@ -27,7 +28,12 @@ export function HeroEditor({ hero, onChange, onSave }: Props) {
             <div key={f.key}>
               <div className="flex items-center justify-between gap-2 mb-1.5">
                 <label className={label.replace('mb-1.5', '')}>{f.label}</label>
-                {f.key === 'image' && onChange && <UploadButton kind="image" onUploaded={(url) => onChange('image', url)} />}
+                {f.key === 'image' && onChange && (
+                  <span className="inline-flex items-center gap-2">
+                    <MediaPickerButton kind="image" onPicked={(url) => onChange('image', url)} />
+                    <UploadButton kind="image" onUploaded={(url) => onChange('image', url)} />
+                  </span>
+                )}
               </div>
               {f.area ? (
                 <textarea rows={3} className={field + ' resize-none'} value={hero[f.key]} disabled={ro}
