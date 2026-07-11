@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Icon } from '../../ui/Icon';
+import { SectionView } from '../template-sections';
 import type { Contact } from '../../../lib/types';
 import type { ServiceMeta, SectionDef, TemplateValue } from '../../../lib/templates/types';
 
@@ -39,4 +40,22 @@ export function ServiceCta({ contact }: { contact: Contact }) {
       </div>
     </section>
   );
+}
+
+// Narrow an arbitrary section value to an array of records so a non-array value (e.g. a
+// legacy string) can't blow up a `.filter`/`.map` in the layouts that iterate a section.
+export const asArray = (v: TemplateValue): Array<Record<string, string>> =>
+  Array.isArray(v) ? v : [];
+
+// Shared lookup helpers so each layout can pull an individual section's value/definition
+// out of the flat `sections`/`values` pair without repeating the fallback-to-default logic.
+export const sectionByKey = (sections: SectionDef[], key: string) => sections.find((s) => s.key === key);
+export const valueOf = (values: Record<string, TemplateValue>, sections: SectionDef[], key: string): TemplateValue => {
+  const s = sectionByKey(sections, key);
+  return values[key] ?? (s ? s.default : '');
+};
+export function RenderSection({ sections, values, k }: { sections: SectionDef[]; values: Record<string, TemplateValue>; k: string }) {
+  const s = sectionByKey(sections, k);
+  if (!s) return null;
+  return <SectionView section={s} value={values[k] ?? s.default} />;
 }

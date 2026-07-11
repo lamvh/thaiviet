@@ -307,53 +307,32 @@ export function HomePage() {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.cards
-              // Hide cards whose matching service page has been temporarily hidden.
-              .filter((s) => {
-                const d = serviceDetails.find((x) => x.name === s.title)
-                return !d || d.visible !== false
-              })
-              .map((s, i) => {
-              // Link each card to its service detail page and show the same subtitle as the detail hero.
-              const detail = serviceDetails.find((d) => d.name === s.title)
-              const cardClass =
-                "bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all group block"
-              const body = (
-                <>
+            {serviceDetails
+              .filter((s) => s.visible !== false)
+              .slice(0, 6)
+              .map((s) => (
+                <Link
+                  key={s.slug}
+                  to={`/services/${s.slug}`}
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all group block"
+                >
                   <div className="h-48 overflow-hidden">
                     <img
-                      alt={s.title}
+                      alt={s.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       src={s.image}
                     />
                   </div>
                   <div className="p-6">
                     <h3 className="font-headline text-lg font-bold mb-3 group-hover:text-primary transition-colors">
-                      {s.title}
+                      {s.name}
                     </h3>
-                    <p className="text-on-surface-variant text-sm leading-relaxed mb-4">
-                      {detail?.heroSub ?? s.desc}
+                    <p className="text-on-surface-variant text-sm leading-relaxed">
+                      {s.desc}
                     </p>
-                    <span className="px-3 py-1 bg-secondary-container text-on-secondary-container text-xs font-semibold rounded-full">
-                      {s.tag}
-                    </span>
                   </div>
-                </>
-              )
-              return detail ? (
-                <Link
-                  key={i}
-                  to={`/services/${detail.slug}`}
-                  className={cardClass}
-                >
-                  {body}
                 </Link>
-              ) : (
-                <div key={i} className={cardClass}>
-                  {body}
-                </div>
-              )
-            })}
+              ))}
             <div className="bg-primary p-8 rounded-2xl flex flex-col justify-center items-center text-center text-white">
               <h3 className="font-headline text-xl font-bold mb-3">
                 {services.ctaTitle}

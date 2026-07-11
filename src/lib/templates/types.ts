@@ -58,7 +58,7 @@ export interface ProjectTemplateDef {
   sections: SectionDef[];
 }
 
-export type ServiceStyleId = 'A' | 'B' | 'C' | 'D' | 'E';
+export type ServiceStyleId = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
 
 // Global layout style for templated project-detail pages. A is the classic full-width
 // layout; the others re-lay-out the same project content (facts, intro, sections) in a
@@ -68,11 +68,14 @@ export type ProjectStyleId = 'A' | 'B' | 'C' | 'D' | 'E' | 'F';
 // ---- Service templates (mirror the project-template model for /services/:slug) ----
 
 export interface ServiceMeta {
-  name: string; heroTitle: string; heroSub: string;
+  slug: string; icon: string; name: string;
+  heroTitle: string; heroSub: string;
   heroImg: string; introTitle: string; intro: string;
 }
 
-export type ServiceTemplateId = 'serviceclassic';
+export type ServiceTemplateId =
+  | 'serviceclassic' | 'servicesidebar' | 'servicecinematic'
+  | 'servicetimeline' | 'servicebento' | 'serviceminimal';
 
 export interface ServicePage {
   templateId: ServiceTemplateId;

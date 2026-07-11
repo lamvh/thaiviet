@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom"
 import { Icon } from "../ui/Icon"
 import { useSiteContent } from "../../lib/site-content-context"
-import { SERVICES } from "../../data/services"
 
 const COMPANY: { label: string; to: string }[] = [
   { label: "Home", to: "/" },
@@ -13,7 +12,7 @@ const COMPANY: { label: string; to: string }[] = [
 ]
 
 export function Footer() {
-  const { contact } = useSiteContent()
+  const { contact, serviceDetails } = useSiteContent()
   return (
     <footer className="bg-surface-container-low border-t border-outline-variant/15">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-12 px-5 sm:px-8 py-16 max-w-7xl mx-auto">
@@ -50,16 +49,18 @@ export function Footer() {
         <div>
           <h5 className="font-headline font-bold mb-6">Services</h5>
           <ul className="space-y-4">
-            {SERVICES.map((s) => (
-              <li key={s.slug}>
-                <Link
-                  to={`/services/${s.slug}`}
-                  className="text-slate-600 hover:text-primary transition-colors text-sm"
-                >
-                  {s.title}
-                </Link>
-              </li>
-            ))}
+            {serviceDetails
+              .filter((s) => s.visible !== false)
+              .map((s) => (
+                <li key={s.slug}>
+                  <Link
+                    to={`/services/${s.slug}`}
+                    className="text-slate-600 hover:text-primary transition-colors text-sm"
+                  >
+                    {s.name}
+                  </Link>
+                </li>
+              ))}
           </ul>
         </div>
         <div>

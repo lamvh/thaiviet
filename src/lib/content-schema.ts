@@ -52,25 +52,20 @@ export function validateContent(c: SiteContent): string[] {
     if (!isHttps(hm.hero?.image)) errors.push('Homepage hero image must be an https:// URL.');
     if (!isHttps(hm.intro?.image)) errors.push('Homepage intro image must be an https:// URL.');
     if (!isHttps(hm.serviceAreas?.mapImage)) errors.push('Homepage service-areas map image must be an https:// URL.');
-    (hm.services?.cards ?? []).forEach((card, i) => {
-      if (!isHttps(card.image)) errors.push(`Homepage service card ${card.title || `#${i + 1}`} image must be an https:// URL.`);
-    });
   }
 
   if (Array.isArray(c.serviceDetails)) {
+    const slugs = new Set<string>();
     c.serviceDetails.forEach((sd, i) => {
       const name = sd.name || sd.slug || `#${i + 1}`;
-      if (!sd.slug?.trim()) errors.push(`Service page ${name} is missing a slug.`);
-      if (!sd.heroTitle?.trim()) errors.push(`Service page ${name} needs a hero title.`);
-      if (!isHttps(sd.heroImg)) errors.push(`Service page ${name} hero image must be an https:// URL.`);
-      if (!isHttps(sd.midImage)) errors.push(`Service page ${name} approach image must be an https:// URL.`);
-      if (!isHttps(sd.beforeImg)) errors.push(`Service page ${name} before image must be an https:// URL.`);
-      if (!isHttps(sd.afterImg)) errors.push(`Service page ${name} after image must be an https:// URL.`);
-      if (sd.page) errors.push(...validateServicePage(sd.page, name));
+      if (!sd.slug?.trim()) errors.push(`Service ${name} is missing a slug.`);
+      else if (!/^[a-z0-9-]+$/.test(sd.slug)) errors.push(`Service ${name} slug must be lowercase letters, numbers and hyphens.`);
+      else if (slugs.has(sd.slug)) errors.push(`Duplicate service slug "${sd.slug}".`);
+      else slugs.add(sd.slug);
+      if (!sd.page) errors.push(`Service ${name} must be built from a template.`);
+      else errors.push(...validateServicePage(sd.page, name));
     });
   }
-
-  if (!['A', 'B', 'C', 'D', 'E'].includes(c.serviceStyle)) errors.push('Service style must be one of A–E.');
 
   const pv = c.privacy;
   if (pv) {

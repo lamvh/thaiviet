@@ -1,5 +1,4 @@
 {
-  "serviceStyle": "A",
   "hero": {
     "title": "About ThaiViet Ltd",
     "subtitle": "Mastering the art of surface finish across the Wellington region.",
@@ -63,57 +62,7 @@
       "title": "Our Services",
       "ctaTitle": "Need Something Else?",
       "ctaText": "Contact our team to discuss your specific project needs.",
-      "ctaLabel": "Get in Touch",
-      "cards": [
-        {
-          "image": "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800&q=80",
-          "title": "Interior Painting",
-          "desc": "Premium interior wall and ceiling painting for every room of the house.",
-          "tag": "Indoor"
-        },
-        {
-          "image": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=800&q=80",
-          "title": "Exterior Painting",
-          "desc": "Long-lasting exterior coatings built to handle New Zealand weather.",
-          "tag": "Outdoor"
-        },
-        {
-          "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
-          "title": "Roof Maintenance",
-          "desc": "Re-roofing, roof repairs and brand-new roofs for every roof type.",
-          "tag": "Roof"
-        },
-        {
-          "image": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&q=80",
-          "title": "Paint Stripping",
-          "desc": "Strip old layers down to a clean, paint-ready surface.",
-          "tag": "Prep"
-        },
-        {
-          "image": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80",
-          "title": "Plastering & GIB Stopping",
-          "desc": "Smooth, level walls and crisp GIB stopping ready for a flawless finish.",
-          "tag": "Skimming"
-        },
-        {
-          "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80",
-          "title": "Wood Staining",
-          "desc": "Bring out the natural grain of timber while protecting it from the elements.",
-          "tag": "Protection"
-        },
-        {
-          "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80",
-          "title": "Building Work",
-          "desc": "Minor carpentry, repairs, and prep work to get your project ready for paint.",
-          "tag": "Carpentry"
-        },
-        {
-          "image": "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&q=80",
-          "title": "Flooring",
-          "desc": "Floor sanding and varnishing to bring tired timber floors back to a smooth, durable finish.",
-          "tag": "Sanding & Varnish"
-        }
-      ]
+      "ctaLabel": "Get in Touch"
     },
     "whyChoose": {
       "title": "Why Choose Our Painters in Wellington?",

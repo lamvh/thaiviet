@@ -64,25 +64,13 @@ export function HomeEditor() {
         <Field label="Video URL (mp4)" upload="video" value={hm.video.src} onChange={(v) => patch('video', { src: v })} />
       </Card>
 
-      <Card title="Featured services" hint="The service cards grid.">
+      <Card title="Featured services" hint="Cards are sourced from the Services list — edit them there.">
         <Field label="Section title" value={hm.services.title} onChange={(v) => patch('services', { title: v })} />
         <div className="grid grid-cols-2 gap-4">
           <Field label="CTA card title" value={hm.services.ctaTitle} onChange={(v) => patch('services', { ctaTitle: v })} />
           <Field label="CTA button label" value={hm.services.ctaLabel} onChange={(v) => patch('services', { ctaLabel: v })} />
         </div>
         <Field label="CTA card text" area value={hm.services.ctaText} onChange={(v) => patch('services', { ctaText: v })} />
-        <label className="block text-xs font-bold uppercase tracking-wider text-[#8a8377]">Service cards</label>
-        {hm.services.cards.map((c, i) => (
-          <ItemCard key={i} onRemove={() => patch('services', { cards: hm.services.cards.filter((_, j) => j !== i) })}>
-            <Field label="Image URL" upload="image" value={c.image} onChange={(v) => patch('services', { cards: hm.services.cards.map((x, j) => (j === i ? { ...x, image: v } : x)) })} />
-            <div className="grid grid-cols-2 gap-3">
-              <Field label="Title" value={c.title} onChange={(v) => patch('services', { cards: hm.services.cards.map((x, j) => (j === i ? { ...x, title: v } : x)) })} />
-              <Field label="Tag" value={c.tag} onChange={(v) => patch('services', { cards: hm.services.cards.map((x, j) => (j === i ? { ...x, tag: v } : x)) })} />
-            </div>
-            <Field label="Description" area value={c.desc} onChange={(v) => patch('services', { cards: hm.services.cards.map((x, j) => (j === i ? { ...x, desc: v } : x)) })} />
-          </ItemCard>
-        ))}
-        <AddButton label="Add service card" onClick={() => patch('services', { cards: [...hm.services.cards, { image: '', title: 'New service', desc: '', tag: '' }] })} />
       </Card>
 
       <Card title="Why choose us">

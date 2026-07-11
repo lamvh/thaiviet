@@ -7,38 +7,17 @@ export type ProjectCategory =
 
 export interface NavItem { label: string; to: string; }
 
-export interface Service { icon: string; title: string; desc: string; features: string[]; slug: string; }
-
-export interface ServiceFeature { icon: string; title: string; desc: string; }
-export interface ServiceShowcase { title: string; blurb: string; img: string; }
-
+// A service is a CRUD-able CMS item: card fields (icon/desc/image derived from its
+// template meta) plus a required templated detail page. The public grid, menu, footer
+// and homepage cards all derive from this list.
 export interface ServiceDetail {
   slug: string;
   name: string;
+  icon: string;   // card + menu icon (Material Symbol)
+  desc: string;   // card blurb (= page hero subtitle)
+  image: string;  // card image (= page hero image)
   visible?: boolean; // false = temporarily hidden from the site, menu and homepage (defaults to visible)
-  page?: ServicePage; // templated detail content (present when a template is applied)
-  heroTitle: string;
-  heroSub: string;
-  heroImg: string;
-  introTitle: string;
-  introA: string;
-  introB: string;
-  features: ServiceFeature[];
-  midEyebrow: string;
-  midTitle: string;
-  midImage: string;
-  midParas: string[];
-  midList: string[];
-  beforeImg: string;
-  afterImg: string;
-  gallery: string[];
-  showcase: ServiceShowcase[];
-  // Optional badge list for the approach section (e.g. Interior's paint brand partners).
-  paintPartners?: string[];
-  // Testimonial is optional — not every service page carries one.
-  quote?: string;
-  quoteName?: string;
-  quoteSub?: string;
+  page: ServicePage; // templated detail content (/services/<slug>)
 }
 
 export interface Project {
@@ -138,8 +117,7 @@ export interface HomeIntro {
   testimonialBy: string;
 }
 export interface HomeVideo { eyebrow: string; title: string; poster: string; src: string; }
-export interface HomeServiceCard { image: string; title: string; desc: string; tag: string; }
-export interface HomeServices { title: string; ctaTitle: string; ctaText: string; ctaLabel: string; cards: HomeServiceCard[]; }
+export interface HomeServices { title: string; ctaTitle: string; ctaText: string; ctaLabel: string; }
 export interface HomeWhyChoose { title: string; intro: string; subtitle: string; bullets: string[]; closing: string; }
 export interface HomeFeaturedProjects { eyebrow: string; title: string; }
 export interface ProcessStep { title: string; desc: string; }

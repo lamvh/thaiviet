@@ -12,7 +12,8 @@ import { ComposeWizard } from './sections/compose/ComposeWizard';
 import { HeroEditor } from './sections/HeroEditor';
 import { HomeEditor } from './sections/HomeEditor';
 import { HomepageEditor } from './sections/HomepageEditor';
-import { ServiceDetailsEditor } from './sections/ServiceDetailsEditor';
+import { ServicesTable } from './sections/ServicesTable';
+import { ServiceComposeWizard } from './sections/service-compose/ServiceComposeWizard';
 import { AreasEditor } from './sections/AreasEditor';
 import { ContactEditor } from './sections/ContactEditor';
 import { PrivacyEditor } from './sections/PrivacyEditor';
@@ -29,7 +30,8 @@ const META: Record<AdminSection, [string, string]> = {
   compose: ['Project Templates', 'Pick a template and build a new project page'],
   home: ['Homepage', 'Edit every section of the landing page'],
   about: ['About Page', 'Edit the hero and every section of the about page'],
-  servicePages: ['Service Pages', 'Edit each service detail page'],
+  services: ['Services', 'Manage the services shown on your site'],
+  serviceCompose: ['Service Templates', 'Pick a template and build a service page'],
   areas: ['Service Areas', 'Suburbs and towns you cover'],
   contact: ['Contact & Social', 'Phone, email and social links'],
   privacy: ['Privacy Policy', 'Edit the privacy policy page'],
@@ -120,7 +122,16 @@ function AdminInner() {
               <HomepageEditor />
             </div>
           )}
-          {section === 'servicePages' && <ServiceDetailsEditor />}
+          {section === 'services' && (
+            <ServicesTable
+              services={content.serviceDetails}
+              onToggle={(slug) => store.toggleService(slug)}
+              onEdit={(slug) => { store.editServiceComposed(slug); setSection('serviceCompose'); }}
+              onDelete={(slug) => store.deleteService(slug)}
+              onNewFromTemplate={() => { store.startServiceCompose(); setSection('serviceCompose'); }}
+            />
+          )}
+          {section === 'serviceCompose' && <ServiceComposeWizard />}
           {section === 'areas' && (
             <AreasEditor areas={content.areas} newArea={store.state.newArea} onNewAreaChange={store.setNewArea} onAdd={store.addArea} onRemove={store.removeArea} />
           )}

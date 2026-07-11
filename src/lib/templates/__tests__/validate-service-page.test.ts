@@ -4,7 +4,7 @@ import type { ServicePage } from '../types';
 
 const base: ServicePage = {
   templateId: 'serviceclassic',
-  meta: { name: 'Interior', heroTitle: 'Interior Painting', heroSub: 'x',
+  meta: { slug: 'interior', icon: 'format_paint', name: 'Interior', heroTitle: 'Interior Painting', heroSub: 'x',
     heroImg: 'https://x/y.jpg', introTitle: "What's included", intro: 'hi' },
   values: {},
 };

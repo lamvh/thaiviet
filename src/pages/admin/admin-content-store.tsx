@@ -1,9 +1,8 @@
 import { createContext, useContext, useEffect, useReducer, useRef, type ReactNode } from 'react';
-import type { Hero, Contact, Project, Post, Homepage, Home, ServiceDetail, ProjectCategory, ServiceStyleId, PrivacyPolicy } from '../../lib/types';
+import type { Hero, Contact, Project, Post, Homepage, Home, ServiceDetail, ProjectCategory, PrivacyPolicy } from '../../lib/types';
 import type { ProjectMeta, ProjectTemplateId, TemplateValue, ServiceMeta, ServiceTemplateId } from '../../lib/types';
 import { projectTemplates } from '../../lib/templates/project-templates';
 import { serviceTemplates } from '../../lib/templates/service-templates';
-import { serviceMetaFromDetail } from '../../lib/templates/service-prefill';
 import { seedValues } from '../../lib/templates/seed';
 import type { SiteContent } from './useAdminContent';
 import { supabase, SITE_CONTENT_ID } from '../../lib/supabase';
@@ -29,6 +28,7 @@ interface AdminState {
   publishMsg: string;
   commitUrl: string;
   compose: { step: 'pick' | 'build'; templateId: ProjectTemplateId | null; meta: ProjectMeta | null; values: Record<string, TemplateValue> | null; category: ProjectCategory; editingId: string | null };
+  serviceCompose: { step: 'pick' | 'build'; templateId: ServiceTemplateId | null; meta: ServiceMeta | null; values: Record<string, TemplateValue> | null; editingId: string | null };
 }
 
 type Action =
@@ -41,8 +41,15 @@ type Action =
   | { t: 'DELETE_ITEM'; kind: ItemKind; id: string }
   | { t: 'UPDATE_HERO'; key: keyof Hero; val: string }
   | { t: 'UPDATE_HOME'; home: Home }
-  | { t: 'UPDATE_SERVICE_DETAILS'; serviceDetails: ServiceDetail[] }
-  | { t: 'SET_SERVICE_STYLE'; id: ServiceStyleId }
+  | { t: 'TOGGLE_SERVICE'; slug: string }
+  | { t: 'DELETE_SERVICE'; slug: string }
+  | { t: 'SVC_COMPOSE_START' }
+  | { t: 'SVC_COMPOSE_PICK'; id: ServiceTemplateId }
+  | { t: 'SVC_COMPOSE_BACK' }
+  | { t: 'SVC_COMPOSE_META'; key: keyof ServiceMeta; val: string }
+  | { t: 'SVC_COMPOSE_VALUE'; key: string; val: TemplateValue }
+  | { t: 'SVC_COMPOSE_EDIT'; slug: string }
+  | { t: 'SVC_COMPOSE_PUBLISH' }
   | { t: 'UPDATE_HOMEPAGE'; homepage: Homepage }
   | { t: 'UPDATE_CONTACT'; key: keyof Contact; val: string }
   | { t: 'UPDATE_PRIVACY'; privacy: PrivacyPolicy }
@@ -117,10 +124,43 @@ export function reducer(state: AdminState, a: Action): AdminState {
       return { ...state, content: { ...state.content, hero: { ...state.content.hero, [a.key]: a.val } }, dirty: true };
     case 'UPDATE_HOME':
       return { ...state, content: { ...state.content, home: a.home }, dirty: true };
-    case 'UPDATE_SERVICE_DETAILS':
-      return { ...state, content: { ...state.content, serviceDetails: a.serviceDetails }, dirty: true };
-    case 'SET_SERVICE_STYLE':
-      return { ...state, content: { ...state.content, serviceStyle: a.id }, dirty: true, toast: 'Layout style updated — click Save to publish' };
+    case 'TOGGLE_SERVICE':
+      return { ...state, content: { ...state.content, serviceDetails: state.content.serviceDetails.map((x) => x.slug === a.slug ? { ...x, visible: x.visible === false } : x) }, dirty: true, toast: 'Visibility updated' };
+    case 'DELETE_SERVICE':
+      return { ...state, content: { ...state.content, serviceDetails: state.content.serviceDetails.filter((x) => x.slug !== a.slug) }, dirty: true, toast: 'Deleted — click Save to publish' };
+    case 'SVC_COMPOSE_START':
+      return { ...state, serviceCompose: { step: 'pick', templateId: null, meta: null, values: null, editingId: null } };
+    case 'SVC_COMPOSE_PICK': {
+      const def = serviceTemplates[a.id];
+      return { ...state, serviceCompose: { step: 'build', templateId: a.id, meta: { ...def.defaultMeta }, values: seedValues(def.sections), editingId: null } };
+    }
+    case 'SVC_COMPOSE_BACK':
+      return { ...state, serviceCompose: { step: 'pick', templateId: null, meta: null, values: null, editingId: null } };
+    case 'SVC_COMPOSE_META':
+      return state.serviceCompose.meta ? { ...state, serviceCompose: { ...state.serviceCompose, meta: { ...state.serviceCompose.meta, [a.key]: a.val } } } : state;
+    case 'SVC_COMPOSE_VALUE':
+      return state.serviceCompose.values ? { ...state, serviceCompose: { ...state.serviceCompose, values: { ...state.serviceCompose.values, [a.key]: a.val } } } : state;
+    case 'SVC_COMPOSE_EDIT': {
+      const svc = state.content.serviceDetails.find((x) => x.slug === a.slug);
+      if (!svc?.page) return state;
+      return { ...state, serviceCompose: { step: 'build', templateId: svc.page.templateId, meta: { ...svc.page.meta }, values: clone(svc.page.values), editingId: svc.slug } };
+    }
+    case 'SVC_COMPOSE_PUBLISH': {
+      const c = state.serviceCompose;
+      if (!c.templateId || !c.meta || !c.values) return state;
+      const page = { templateId: c.templateId, meta: c.meta, values: c.values };
+      // Card fields derive from the template meta so the /services card, menu and detail
+      // page never drift apart.
+      const fields = { slug: c.meta.slug, name: c.meta.name, icon: c.meta.icon, desc: c.meta.heroSub, image: c.meta.heroImg };
+      const reset = { step: 'pick' as const, templateId: null, meta: null, values: null, editingId: null };
+      if (c.editingId) {
+        const id = c.editingId;
+        const serviceDetails = state.content.serviceDetails.map((x) => (x.slug === id ? { ...x, ...fields, page } : x));
+        return { ...state, content: { ...state.content, serviceDetails }, dirty: true, serviceCompose: reset, toast: 'Service updated — click Save to publish' };
+      }
+      const item: ServiceDetail = { ...fields, visible: true, page };
+      return { ...state, content: { ...state.content, serviceDetails: [item, ...state.content.serviceDetails] }, dirty: true, serviceCompose: reset, toast: 'Service added — click Save to publish' };
+    }
     case 'UPDATE_HOMEPAGE':
       return { ...state, content: { ...state.content, homepage: a.homepage }, dirty: true };
     case 'UPDATE_CONTACT':
@@ -202,6 +242,7 @@ export function initState(): AdminState {
     content: clone(base), base: clone(base), dirty: false, editing: null, draft: {}, newArea: '', toast: '',
     publishStatus: 'idle', publishMsg: '', commitUrl: '',
     compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior', editingId: null },
+    serviceCompose: { step: 'pick', templateId: null, meta: null, values: null, editingId: null },
   };
 }
 
@@ -216,12 +257,15 @@ interface StoreApi {
   deleteItem: (kind: ItemKind, id: string) => void;
   updateHero: (key: keyof Hero, val: string) => void;
   updateHome: (updater: (h: Home) => Home) => void;
-  updateServiceDetails: (updater: (arr: ServiceDetail[]) => ServiceDetail[]) => void;
-  setServiceStyle: (id: ServiceStyleId) => void;
-  applyServiceTemplate: (index: number, templateId: ServiceTemplateId) => void;
-  clearServiceTemplate: (index: number) => void;
-  updateServicePageMeta: (index: number, key: keyof ServiceMeta, val: string) => void;
-  updateServicePageValue: (index: number, key: string, val: TemplateValue) => void;
+  toggleService: (slug: string) => void;
+  deleteService: (slug: string) => void;
+  startServiceCompose: () => void;
+  pickServiceTemplate: (id: ServiceTemplateId) => void;
+  backServiceTemplates: () => void;
+  updateServiceComposeMeta: (key: keyof ServiceMeta, val: string) => void;
+  updateServiceComposeValue: (key: string, val: TemplateValue) => void;
+  editServiceComposed: (slug: string) => void;
+  publishServiceComposed: () => void;
   updateHomepage: (updater: (h: Homepage) => Homepage) => void;
   updateContact: (key: keyof Contact, val: string) => void;
   updatePrivacy: (updater: (p: PrivacyPolicy) => PrivacyPolicy) => void;
@@ -310,18 +354,15 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
     deleteItem: (kind, id) => dispatch({ t: 'DELETE_ITEM', kind, id }),
     updateHero: (key, val) => dispatch({ t: 'UPDATE_HERO', key, val }),
     updateHome: (updater) => dispatch({ t: 'UPDATE_HOME', home: updater(state.content.home) }),
-    updateServiceDetails: (updater) => dispatch({ t: 'UPDATE_SERVICE_DETAILS', serviceDetails: updater(state.content.serviceDetails) }),
-    setServiceStyle: (id) => dispatch({ t: 'SET_SERVICE_STYLE', id }),
-    applyServiceTemplate: (index, templateId) => dispatch({ t: 'UPDATE_SERVICE_DETAILS', serviceDetails:
-      state.content.serviceDetails.map((sd, j) => j === index
-        ? { ...sd, page: { templateId, meta: serviceMetaFromDetail(sd, serviceTemplates[templateId]), values: seedValues(serviceTemplates[templateId].sections) } }
-        : sd) }),
-    clearServiceTemplate: (index) => dispatch({ t: 'UPDATE_SERVICE_DETAILS', serviceDetails:
-      state.content.serviceDetails.map((sd, j) => { if (j !== index || !sd.page) return sd; const copy = { ...sd }; delete copy.page; return copy; }) }),
-    updateServicePageMeta: (index, key, val) => dispatch({ t: 'UPDATE_SERVICE_DETAILS', serviceDetails:
-      state.content.serviceDetails.map((sd, j) => j === index && sd.page ? { ...sd, page: { ...sd.page, meta: { ...sd.page.meta, [key]: val } } } : sd) }),
-    updateServicePageValue: (index, key, val) => dispatch({ t: 'UPDATE_SERVICE_DETAILS', serviceDetails:
-      state.content.serviceDetails.map((sd, j) => j === index && sd.page ? { ...sd, page: { ...sd.page, values: { ...sd.page.values, [key]: val } } } : sd) }),
+    toggleService: (slug) => dispatch({ t: 'TOGGLE_SERVICE', slug }),
+    deleteService: (slug) => dispatch({ t: 'DELETE_SERVICE', slug }),
+    startServiceCompose: () => dispatch({ t: 'SVC_COMPOSE_START' }),
+    pickServiceTemplate: (id) => dispatch({ t: 'SVC_COMPOSE_PICK', id }),
+    backServiceTemplates: () => dispatch({ t: 'SVC_COMPOSE_BACK' }),
+    updateServiceComposeMeta: (key, val) => dispatch({ t: 'SVC_COMPOSE_META', key, val }),
+    updateServiceComposeValue: (key, val) => dispatch({ t: 'SVC_COMPOSE_VALUE', key, val }),
+    editServiceComposed: (slug) => dispatch({ t: 'SVC_COMPOSE_EDIT', slug }),
+    publishServiceComposed: () => dispatch({ t: 'SVC_COMPOSE_PUBLISH' }),
     updateHomepage: (updater) => dispatch({ t: 'UPDATE_HOMEPAGE', homepage: updater(state.content.homepage) }),
     updateContact: (key, val) => dispatch({ t: 'UPDATE_CONTACT', key, val }),
     updatePrivacy: (updater) => dispatch({ t: 'UPDATE_PRIVACY', privacy: updater(state.content.privacy) }),

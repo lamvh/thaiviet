@@ -3,9 +3,8 @@ import { Link, NavLink } from 'react-router-dom';
 import { Icon } from '../ui/Icon';
 import { ServicesDropdown } from './ServicesDropdown';
 import { FacebookIcon } from './FacebookIcon';
-import { NAV_ITEMS, SERVICE_LINKS } from '../../data/nav';
+import { NAV_ITEMS } from '../../data/nav';
 import { useSiteContent } from '../../lib/site-content-context';
-import { isServiceVisible, slugFromServicePath } from '../../lib/service-visibility';
 
 const LOGO = 'https://project.vinapage.com/thaivietconz/images/logo.webp';
 
@@ -83,9 +82,7 @@ function MobileLink({ to, onClick, children }: { to: string; onClick: () => void
 function MobileServices({ onNavigate }: { onNavigate: () => void }) {
   const [expanded, setExpanded] = useState(false);
   const { serviceDetails } = useSiteContent();
-  const links = [...SERVICE_LINKS.painting, ...SERVICE_LINKS.speciality].filter(
-    (s) => !('to' in s && s.to) || isServiceVisible(serviceDetails, slugFromServicePath(s.to)),
-  );
+  const links = serviceDetails.filter((s) => s.visible !== false);
   return (
     <div className="border-b border-outline-variant/10">
       <button
@@ -101,12 +98,12 @@ function MobileServices({ onNavigate }: { onNavigate: () => void }) {
         <div className="pb-2">
           {links.map((s) => (
             <NavLink
-              key={s.label}
-              to={('to' in s && s.to) || '/services'}
+              key={s.slug}
+              to={`/services/${s.slug}`}
               onClick={onNavigate}
               className="flex items-center gap-2.5 pl-12 pr-8 py-2.5 text-sm text-slate-700 hover:bg-surface-container-low hover:text-primary transition-colors font-headline"
             >
-              <Icon name={s.icon} className="text-base" />{s.label}
+              <Icon name={s.icon || 'design_services'} className="text-base" />{s.name}
             </NavLink>
           ))}
           <NavLink
