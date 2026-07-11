@@ -58,14 +58,21 @@ export interface ProjectDetail {
   solution: string;
   result: string;
   gallery: string[];
+  // `videoSrc` is either a direct video file (uploaded — plays natively) or a
+  // third-party embed page (Facebook/YouTube/etc. — plays in an iframe); see
+  // `lib/media-embed.ts`. `videoPoster` is only used for the native-video path.
   videoSrc?: string;
+  videoPoster?: string;
   testimonialQuote?: string;
   testimonialBy?: string;
 }
 
 export interface Post { id: string; category: string; title: string; excerpt: string; image: string; date: string; readTime: string; visible?: boolean; }
 
-export interface Reel { src: string; label: string; title?: string; }
+// `src` is either a direct video file (an uploaded Storage URL — plays natively) or a
+// third-party embed page (Facebook/YouTube/Vimeo/TikTok — plays in an iframe); see
+// `lib/media-embed.ts`. `poster` is only used for the native-video path.
+export interface Reel { src: string; label: string; title?: string; poster?: string; }
 
 // ---- Homepage content blocks (all editable from the admin "Homepage" section) ----
 

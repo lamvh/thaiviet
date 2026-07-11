@@ -54,24 +54,24 @@ export function HomePage() {
             <span className="mt-4 inline-block px-3 py-1 bg-primary/10 text-primary font-bold text-xs uppercase tracking-widest rounded mb-6">
               {hero.badge}
             </span>
-            <h1 className="font-headline text-5xl md:text-7xl font-extrabold text-on-surface leading-[1.1] mb-6">
+            <h1 className="font-headline text-4xl sm:text-5xl md:text-7xl font-extrabold text-on-surface leading-[1.1] mb-6">
               {hero.titleLead}
               <br />
               <span className="text-primary">{hero.titleAccent}</span>
             </h1>
-            <p className="font-body text-xl text-on-surface-variant leading-relaxed mb-10 max-w-lg">
+            <p className="font-body text-lg sm:text-xl text-on-surface-variant leading-relaxed mb-10 max-w-lg">
               {hero.subtitle}
             </p>
-            <div className="flex flex-wrap gap-4 mb-10">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 mb-10">
               <a
                 href={tel}
-                className="bg-primary text-on-primary px-8 py-4 rounded-lg font-bold text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center gap-3"
+                className="bg-primary text-on-primary px-8 py-4 rounded-lg font-bold text-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3"
               >
                 <Icon name="call" /> Call Now: {contact.phone}
               </a>
               <Link
                 to="/contact"
-                className="bg-surface-container-highest text-on-surface px-8 py-4 rounded-lg font-bold text-lg hover:bg-surface-container-high active:scale-95 transition-all flex items-center gap-3"
+                className="bg-surface-container-highest text-on-surface px-8 py-4 rounded-lg font-bold text-lg hover:bg-surface-container-high active:scale-95 transition-all flex items-center justify-center gap-3"
               >
                 Get a Free Quote <Icon name="arrow_forward" />
               </Link>
@@ -119,7 +119,7 @@ export function HomePage() {
       {/* Intro */}
       <section className="py-24 bg-surface">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             <div className="lg:col-span-7">
               <div className="mb-4 text-primary font-bold uppercase tracking-[0.2em] text-sm">
                 {intro.eyebrow}
@@ -127,7 +127,7 @@ export function HomePage() {
               <h2 className="font-headline text-4xl md:text-5xl font-bold mb-8 leading-tight">
                 {intro.title}
               </h2>
-              <p className="text-xl text-on-surface-variant leading-relaxed mb-8">
+              <p className="text-lg lg:text-xl text-on-surface-variant leading-relaxed mb-8">
                 {intro.body}
               </p>
               <div className="mb-8">
@@ -227,7 +227,7 @@ export function HomePage() {
                 </span>
               </div>
             </div>
-            <div className="flex gap-3">
+            <div className="flex justify-end gap-3">
               <button
                 onClick={() => scrollReviews(-1)}
                 aria-label="Previous review"
@@ -247,7 +247,7 @@ export function HomePage() {
         </div>
         <div
           ref={reviewsRef}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 px-5 sm:px-5 sm:px-8 max-w-7xl mx-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 px-5 sm:px-8 max-w-7xl mx-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {reviews.items.map((r, i) => (
             <div
@@ -464,7 +464,7 @@ export function HomePage() {
       {/* Service Areas */}
       <section className="py-24 bg-surface-container-low">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div>
               <h2 className="font-headline text-4xl font-bold mb-6">
                 {serviceAreas.title}
@@ -472,7 +472,7 @@ export function HomePage() {
               <p className="text-on-surface-variant mb-10">
                 {serviceAreas.intro}
               </p>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {serviceAreas.areas.map((a, i) => (
                   <div key={i} className="flex items-center gap-3">
                     <Icon name="location_on" className="text-primary" />
@@ -481,7 +481,7 @@ export function HomePage() {
                 ))}
               </div>
             </div>
-            <div className="h-[400px] rounded-2xl overflow-hidden shadow-xl border-4 border-white">
+            <div className="h-[280px] sm:h-[400px] rounded-2xl overflow-hidden shadow-xl border-4 border-white">
               <div className="w-full h-full bg-surface-container-high relative flex items-center justify-center overflow-hidden">
                 <img
                   alt="Greater Wellington service area map"
@@ -511,7 +511,7 @@ export function HomePage() {
           <h2 className="font-headline text-4xl md:text-5xl font-bold text-white mb-8">
             {cta.title}
           </h2>
-          <p className="text-white/80 text-xl mb-12">{cta.subtitle}</p>
+          <p className="text-white/80 text-lg sm:text-xl mb-12">{cta.subtitle}</p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link
               to="/contact"

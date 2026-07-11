@@ -5,6 +5,7 @@ import { useSiteContent } from '../lib/site-content-context';
 import { PROJECT_DETAILS } from '../data/project-details';
 import { projectTemplates } from '../lib/templates/project-templates';
 import { ProjectTemplateRenderer } from '../components/templates/ProjectTemplateRenderer';
+import { isEmbedVideoUrl } from '../lib/media-embed';
 
 export function ProjectDetailPage() {
   const { projects: PROJECTS, contact } = useSiteContent();
@@ -112,7 +113,11 @@ export function ProjectDetailPage() {
             <h2 className="font-headline text-3xl font-bold mt-2">Watch the Walkthrough</h2>
           </div>
           <div className="aspect-[9/16] max-w-sm mx-auto bg-black rounded-xl overflow-hidden relative shadow-lg">
-            <iframe className="absolute inset-0 w-full h-full border-none" src={d.videoSrc} scrolling="no" allowFullScreen allow="autoplay; encrypted-media; picture-in-picture" loading="lazy" title={'Walkthrough — ' + project.title} />
+            {isEmbedVideoUrl(d.videoSrc) ? (
+              <iframe className="absolute inset-0 w-full h-full border-none" src={d.videoSrc} scrolling="no" allowFullScreen allow="autoplay; encrypted-media; picture-in-picture" loading="lazy" title={'Walkthrough — ' + project.title} />
+            ) : (
+              <video className="absolute inset-0 w-full h-full object-cover" src={d.videoSrc} poster={d.videoPoster} controls playsInline preload="metadata" aria-label={'Walkthrough — ' + project.title} />
+            )}
           </div>
         </section>
       )}
