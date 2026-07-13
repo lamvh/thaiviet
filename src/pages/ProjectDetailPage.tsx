@@ -54,7 +54,7 @@ export function ProjectDetailPage() {
       {/* Hero */}
       <section className="relative min-h-[460px] flex items-end overflow-hidden">
         <div className="absolute inset-0 bg-black/45 z-10" />
-        <img className="absolute inset-0 w-full h-full object-cover" src={heroImage} alt={project.title} />
+        {heroImage && <img className="absolute inset-0 w-full h-full object-cover" src={heroImage} alt={project.title} />}
         <div className="relative z-20 max-w-7xl mx-auto px-5 sm:px-8 pb-12 w-full">
           <Link to="/projects" className="inline-flex items-center gap-1 text-white/90 text-sm font-semibold mb-4 hover:text-white transition-colors">
             <Icon name="arrow_back" className="text-base" /> All Projects

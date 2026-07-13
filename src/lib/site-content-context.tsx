@@ -24,7 +24,13 @@ export function SiteContentProvider({ children }: { children: ReactNode }) {
           console.warn('[site-content] using bundled fallback:', error.message);
           return;
         }
-        if (data?.data) setContent(withContentDefaults(data.data));
+        // A malformed row that makes withContentDefaults throw must not strand the site
+        // silently — log it and keep the bundled fallback already in state.
+        try {
+          if (data?.data) setContent(withContentDefaults(data.data));
+        } catch (e) {
+          console.error('[site-content] failed to apply remote content:', e);
+        }
       });
     return () => { active = false; };
   }, []);

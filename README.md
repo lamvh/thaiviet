@@ -40,14 +40,17 @@ pages/admin/sections/
   compose/          ComposeWizard · TemplatePicker · TemplateForm · TemplatePreview · TemplatePreviewPanel   (new-project wizard)
   service-compose/  ServiceComposeWizard · ServiceTemplatePicker · ServiceTemplateForm · ServiceTemplatePreview   (new-service wizard)
   ServicesTable   (services CRUD list)
+  ContactSubmissions   (read-only Leads viewer — contact-form quote requests)
 
-hooks/     useContactForm
+hooks/     useContactForm   (posts to Supabase `contact_submissions`)
 data/      nav · projects · project-details · posts · reels · areas
-lib/       types.ts · migrate-services.ts · templates/ (registry: types · project-templates · service-templates · service-prefill · seed · validate-page)
+lib/       types.ts · migrate-services.ts · content-defaults.ts (deepMerge) · find-media-references.ts · templates/ (registry: types · project-templates · service-templates · service-prefill · seed · validate-page)
 ```
 
 ## Routes
-`/` Home (marketing landing) · `/about` (company story) · `/services` · `/services/:slug` (service detail — template-only, one page per CMS service) · `/projects` · `/projects/:id` (case study) · `/our-work` (service videos & reels) · `/blog` · `/contact` · `/privacy` (privacy policy)
+`/` Home (marketing landing) · `/about` (company story) · `/services` · `/services/:slug` (service detail — template-only, one page per CMS service) · `/projects` · `/projects/:id` (case study) · `/our-work` (service videos & reels) · `/blog` · `/contact` · `/privacy` (privacy policy). Any unmatched URL renders `NotFoundPage` (`pages/NotFoundPage.tsx`) — a real 404 screen, not the homepage.
+
+`/admin/*` is the CMS, gated by Supabase Auth (see **Admin auth** below). Sidebar sections: Overview · Projects · Blog · Project Templates · Homepage · About Page · Services · Service Templates · Service Areas · Contact & Social · **Leads** (read-only quote requests) · Privacy Policy · Media Library · Settings.
 
 Content blocks are admin-editable and stored in Supabase / bundled `site-content.json`:
 - `home` block → landing page (admin → **Homepage**)
@@ -78,11 +81,23 @@ Because uploaded URLs are `https://`, they already satisfy the existing content 
 
 A dedicated admin section (`sections/MediaLibrary.tsx`, sidebar **Media Library**) that browses the whole bucket as a grid and manages files directly on Storage: **view** all images/videos, **upload** new files, **replace** a file's contents, **delete**, and **copy URL** (to paste into any content field). It talks to Storage via `src/lib/storage.ts` — `listMedia()`, `deleteMedia(paths)`, `replaceMedia(item, file)`. Because these act on Storage (not the content row) they take effect immediately and are **not** gated by Publish. **Replace** overwrites the object in place (`upsert`), so the public URL is unchanged and every page using it updates automatically — the only caveat is that already-cached browsers may show the old file until their cache expires (the grid preview is cache-busted so the admin sees it immediately). **Delete** removes the URL, so a file still referenced by a page will break until re-pointed — the UI warns first. The library needs the `anon` Storage policy to allow `SELECT` (list), `UPDATE` (replace/upsert) and `DELETE`, in addition to `INSERT` for uploads.
 
-**One-time setup (Supabase dashboard):** create a **public** bucket whose name matches `VITE_SUPABASE_MEDIA_BUCKET` (defaults to `media`; Storage → New bucket → Public). Set a file-size limit (client guards: 8 MB images / 100 MB video). Since the admin login is a temporary client-side password (not Supabase Auth), add a Storage policy allowing the `anon` role to `INSERT` into the bucket so browser uploads succeed. This means anyone with the public anon key could upload — acceptable short-term; tighten by wiring real Supabase Auth and restricting the policy to `authenticated`. Uploads reuse `VITE_SUPABASE_URL` + `VITE_SUPABASE_PUBLISHABLE_KEY`; the bucket name is the only optional extra var.
+**One-time setup (Supabase dashboard):** create a **public** bucket whose name matches `VITE_SUPABASE_MEDIA_BUCKET` (defaults to `media`; Storage → New bucket → Public). Set a file-size limit (client guards: 8 MB images / 100 MB video). Storage writes are gated by Supabase Auth: the policies in `supabase/migrations/20260712000002_media_bucket_policy.sql` let `anon` only `SELECT` (public read) while `INSERT`/`UPDATE`/`DELETE` require an `authenticated` session — so only a signed-in admin can upload/replace/delete. Uploads reuse `VITE_SUPABASE_URL` + `VITE_SUPABASE_PUBLISHABLE_KEY`; the bucket name is the only optional extra var.
+
+## Admin auth (Supabase Auth)
+
+`/admin` is gated by `AdminAuthGate` (`pages/admin/AdminAuthGate.tsx`), which signs in through **Supabase Auth** (`signInWithPassword`) against a single admin account you create in the dashboard (Authentication → Users → Add user). supabase-js persists the session and attaches its JWT to every request, so the row-level-security policies distinguish a signed-in admin from an anonymous visitor — content and media writes are impossible without a session. There are **no credentials in the client bundle**. Sign out from admin → **Settings**.
+
+## Database migrations (`supabase/migrations/`)
+
+SQL that must be applied to the Supabase project (dashboard SQL Editor, or `supabase db push` once the CLI is linked):
+- `…_site_content_rls.sql` — RLS on `site_content`: public read, `authenticated`-only write.
+- `…_media_bucket_policy.sql` — Storage policies on the `media` bucket: public read, `authenticated`-only write/delete.
+- `…_contact_submissions.sql` — `contact_submissions` table: `anon` may `INSERT` (the public form), only `authenticated` may `SELECT` (the Leads viewer).
 
 ## Where to wire real backends
-- `hooks/useContactForm.ts` — replace the mock submit with your form endpoint.
+- `hooks/useContactForm.ts` — submits to Supabase `contact_submissions` (RLS: anon insert, admin read); leads show in admin → **Leads**. No email notification yet — poll the Leads section or add a DB trigger/webhook if you want alerts.
 - Routing uses `BrowserRouter`; for static hosting add an SPA fallback to `index.html`.
+- Video embeds: `frame-src` in `index.html`, `vite.config.ts` and `vercel.json` must list every provider host in `lib/media-embed.ts` (Facebook/YouTube/Vimeo/TikTok) or the players are CSP-blocked in production.
 
 ## Notes
 - Landing page section order: Hero → Trust → Intro → **See Our Work** (intro video) → **Customer Reviews + Video Reviews** → **Our Services** → Why Choose → Featured Projects → Process → Service Areas → CTA. Reviews sit directly under the video, above the services grid.
@@ -94,5 +109,6 @@ A dedicated admin section (`sections/MediaLibrary.tsx`, sidebar **Media Library*
 - Footer nav (`Footer.tsx`, static `COMPANY` array, not CMS-backed): the **Company** column links Home · About · **Services** (`/services`) · **Why Choose Us** (`/#why-choose-us`) · **Process** (`/#process`) · Projects. The two `/#…` links are in-page anchors to the matching homepage sections (each `<section>` carries a matching `id` + `scroll-mt-[72px]`). Hash scrolling is handled by `ScrollToTop` in `Layout.tsx`, which `scrollIntoView`s the target (retrying via `requestAnimationFrame` when navigating in from another page so the section has time to mount).
 - Header nav: desktop (`lg`+) shows a hover `ServicesDropdown`; the mobile menu (`<lg`) renders an expandable **Services** group (`MobileServices` in `Header.tsx`) plus an **All Services** link to `/services`. Both derive their flat list from the visible `serviceDetails` (CMS-backed), so the menu, footer and grid never drift.
 - Every video player (`VlogCard` — homepage Customer Reviews `REVIEWS` + the **Our Work** page `REELS`, both `data/reels.ts`; and `ProjectDetailPage`'s case-study walkthrough, `data/project-details.ts` `videoSrc`) auto-detects its source via `lib/media-embed.ts`'s `isEmbedVideoUrl()`: a known third-party embed host (Facebook/YouTube/Vimeo/TikTok) renders in an `<iframe>` as before; anything else — in particular a Storage **video upload** URL — renders through a native `<video controls>` element (optional `poster`/`videoPoster`). New reel/walkthrough entries should use the admin video-upload feature (native playback, no external host page needed); existing Facebook-embedded reels keep working unchanged. Reels/case-study data stays static in `data/reels.ts`/`data/project-details.ts` (not CMS-backed) — only the playback mechanism changed.
+  - **Mobile embeds:** Facebook's iframe player (`plugins/video.php`) is 302-redirected on iOS to a player-less mobile page (black screen), so on phone-width viewports (`useIsMobile`, <768px) `VlogCard` renders a tap-to-open facade — a play button that opens the real video on Facebook via `getEmbedWatchUrl()` (native app / watch page). Desktop keeps inline iframe playback; native `<video>` uploads play inline everywhere. Self-hosting the video files (admin upload) is the only way to get inline playback on iOS.
 - The Projects filter is pure client state (`useState` + `useMemo`) in `ProjectsPage.tsx`.
 - Project cards link to `/projects/:id`. `ProjectDetailPage` renders, in priority order: (1) a `page` template (if the project was created via the compose wizard) through the project-template registry — laid out by that template's own `layout` skin (see Templates § "Project detail layouts") — else (2) a rich case study from `data/project-details.ts` (keyed by project id), else (3) the base project fields (image, title, category, desc). The layout skin applies only to the templated path (1); the legacy case-study/base paths keep their own fixed layout.

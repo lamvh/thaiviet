@@ -10,6 +10,7 @@ import { BlogPage } from './pages/BlogPage';
 import { OurWorkPage } from './pages/OurWorkPage';
 import { ContactPage } from './pages/ContactPage';
 import { PrivacyPage } from './pages/PrivacyPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 import { AdminPage } from './pages/admin/AdminPage';
 
 function PublicSite() {
@@ -26,7 +27,7 @@ function PublicSite() {
         <Route path="/our-work" element={<OurWorkPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
-        <Route path="*" element={<HomePage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Layout>
   );

@@ -24,6 +24,16 @@ describe('migrateServices', () => {
     expect(m.image).toBe('https://x/h.jpg');   // = heroImg
     expect(m.page?.meta.slug).toBe('interior');
   });
+  it('does not throw when an existing page has no meta — heals slug + icon', () => {
+    // A malformed/legacy row: page present but meta entirely absent. Before the guard
+    // this dereferenced sd.page.meta.slug and threw, stranding the whole content load.
+    const noMeta = { ...legacy, page: { templateId: 'serviceclassic', values: {} } } as unknown as ServiceDetail;
+    let m: ServiceDetail | undefined;
+    expect(() => { [m] = migrateServices([noMeta]); }).not.toThrow();
+    expect(m?.page?.meta.slug).toBe('interior'); // filled from sd.slug
+    expect(m?.page?.meta.icon).toBe('format_paint');
+  });
+
   it('is idempotent — keeps an existing page', () => {
     const withPage = { ...legacy, page: { templateId: 'servicebento', meta: {} as ServiceMeta, values: {} } } as unknown as ServiceDetail;
     const [m] = migrateServices([withPage]);

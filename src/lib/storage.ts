@@ -65,7 +65,10 @@ async function processForUpload(file: File, kind: MediaKind): Promise<{ blob: Fi
 export async function uploadMedia(file: File, kind: MediaKind = 'media'): Promise<string> {
   const { blob, isVideo } = await processForUpload(file, kind);
 
-  const ext = (blob.name.split('.').pop() || (isVideo ? 'mp4' : 'jpg')).toLowerCase();
+  // Only treat a trailing segment as an extension when the name actually contains a
+  // dot — otherwise `split('.').pop()` returns the whole filename as the "extension".
+  const dot = blob.name.lastIndexOf('.');
+  const ext = (dot > 0 ? blob.name.slice(dot + 1) : (isVideo ? 'mp4' : 'jpg')).toLowerCase();
   const base = slug(blob.name.replace(/\.[^.]+$/, '')) || 'file';
   const folder = isVideo ? 'videos' : 'images';
   const path = `${folder}/${base}-${crypto.randomUUID()}.${ext}`;

@@ -12,7 +12,7 @@ export interface SiteContent {
   privacy: PrivacyPolicy; // privacy policy page ("/privacy") content
 }
 
-export type AdminSection = 'overview' | 'projects' | 'blog' | 'compose' | 'home' | 'about' | 'services' | 'serviceCompose' | 'areas' | 'contact' | 'privacy' | 'media' | 'settings';
+export type AdminSection = 'overview' | 'projects' | 'blog' | 'compose' | 'home' | 'about' | 'services' | 'serviceCompose' | 'areas' | 'contact' | 'leads' | 'privacy' | 'media' | 'settings';
 
 // The editable content store lives in admin-content-store.tsx (context + reducer with
 // localStorage autosave). This module now only owns the shared shape types.

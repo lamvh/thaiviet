@@ -16,6 +16,7 @@ import { ServicesTable } from './sections/ServicesTable';
 import { ServiceComposeWizard } from './sections/service-compose/ServiceComposeWizard';
 import { AreasEditor } from './sections/AreasEditor';
 import { ContactEditor } from './sections/ContactEditor';
+import { ContactSubmissions } from './sections/ContactSubmissions';
 import { PrivacyEditor } from './sections/PrivacyEditor';
 import { MediaLibrary } from './sections/MediaLibrary';
 import { EditDrawer } from './EditDrawer';
@@ -34,6 +35,7 @@ const META: Record<AdminSection, [string, string]> = {
   serviceCompose: ['Service Templates', 'Pick a template and build a service page'],
   areas: ['Service Areas', 'Suburbs and towns you cover'],
   contact: ['Contact & Social', 'Phone, email and social links'],
+  leads: ['Leads', 'Quote requests submitted through the contact form'],
   privacy: ['Privacy Policy', 'Edit the privacy policy page'],
   media: ['Media Library', 'Browse, upload, rename and delete all stored media'],
   settings: ['Settings', 'Your account and sign out'],
@@ -138,6 +140,7 @@ function AdminInner() {
           {section === 'contact' && (
             <ContactEditor contact={content.contact} onChange={store.updateContact} onSave={() => store.toast('Contact details saved')} />
           )}
+          {section === 'leads' && <ContactSubmissions />}
           {section === 'privacy' && <PrivacyEditor />}
           {section === 'media' && <MediaLibrary />}
           {section === 'settings' && <SettingsPanel />}

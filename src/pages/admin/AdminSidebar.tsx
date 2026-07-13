@@ -16,6 +16,7 @@ export function AdminSidebar({ section, onSelect, content }: { section: AdminSec
     { key: 'serviceCompose', label: 'Service Templates', icon: 'dashboard_customize' },
     { key: 'areas', label: 'Service Areas', icon: 'location_on', count: content.areas.length },
     { key: 'contact', label: 'Contact & Social', icon: 'call' },
+    { key: 'leads', label: 'Leads', icon: 'inbox' },
     { key: 'privacy', label: 'Privacy Policy', icon: 'privacy_tip' },
     { key: 'media', label: 'Media Library', icon: 'perm_media' },
     { key: 'settings', label: 'Settings', icon: 'settings' },

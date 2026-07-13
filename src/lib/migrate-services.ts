@@ -74,8 +74,11 @@ export function migrateServices(list: LegacyServiceDetail[]): ServiceDetail[] {
     const image = sd.image || sd.heroImg || '';
     if (sd.page) {
       // Heal older pages whose meta predates slug/icon so the compose editor round-trips
-      // the correct URL slug + card icon instead of blanking them on save.
-      const meta = { ...sd.page.meta, slug: sd.page.meta.slug || sd.slug, icon: sd.page.meta.icon || icon };
+      // the correct URL slug + card icon instead of blanking them on save. `meta` may be
+      // absent on malformed/legacy rows — default it so this never throws (a throw here
+      // is swallowed by the content load and leaves the whole site on the bundled fallback).
+      const m = sd.page.meta ?? ({} as ServiceDetail['page']['meta']);
+      const meta = { ...m, slug: m.slug || sd.slug, icon: m.icon || icon };
       return { slug: sd.slug, name: sd.name, visible: sd.visible, icon, desc, image, page: { ...sd.page, meta } };
     }
     const def = serviceTemplates.serviceclassic;

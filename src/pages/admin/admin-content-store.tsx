@@ -18,8 +18,9 @@ interface EditState { kind: ItemKind; id: string; isNew?: boolean; }
 
 interface AdminState {
   content: SiteContent;
-  base: SiteContent; // snapshot loaded from repo bundle — Phase 4 conflict detection compares against this
+  base: SiteContent; // last-published snapshot; dirty is content !== base
   dirty: boolean;
+  remoteUpdatedAt: string | null; // updated_at of the DB row we loaded/last wrote — for concurrent-edit detection
   editing: EditState | null;
   draft: Record<string, string>;
   newArea: string;
@@ -61,8 +62,8 @@ type Action =
   | { t: 'PUBLISH_DONE'; commitUrl: string }
   | { t: 'PUBLISH_ERROR'; msg: string }
   | { t: 'CLEAR_PUBLISH' }
-  | { t: 'MARK_PUBLISHED'; content: SiteContent }
-  | { t: 'HYDRATE'; remote: SiteContent }
+  | { t: 'MARK_PUBLISHED'; content: SiteContent; updatedAt: string | null }
+  | { t: 'HYDRATE'; remote: SiteContent; updatedAt: string | null }
   | { t: 'COMPOSE_START' }
   | { t: 'COMPOSE_PICK'; id: ProjectTemplateId }
   | { t: 'COMPOSE_BACK' }
@@ -78,6 +79,7 @@ const CAT_OPTS = PROJECT_FILTERS.filter((f) => f.value !== 'all');
 const catLabel = (v: string): string => CAT_OPTS.find((o) => o.value === v)?.label ?? v;
 
 function clone<T>(v: T): T { return JSON.parse(JSON.stringify(v)) as T; }
+function sameContent(a: SiteContent, b: SiteContent): boolean { return JSON.stringify(a) === JSON.stringify(b); }
 
 export function reducer(state: AdminState, a: Action): AdminState {
   switch (a.t) {
@@ -186,13 +188,18 @@ export function reducer(state: AdminState, a: Action): AdminState {
       return { ...state, publishStatus: 'error', publishMsg: a.msg };
     case 'CLEAR_PUBLISH':
       return { ...state, publishStatus: 'idle', publishMsg: '' };
-    case 'MARK_PUBLISHED':
-      return { ...state, base: clone(a.content), content: clone(a.content), dirty: false };
+    case 'MARK_PUBLISHED': {
+      // Advance the published baseline to what we actually wrote, but DO NOT clobber
+      // the live working copy — the user may have edited while the save was in flight.
+      // Recompute dirty against the new baseline so those in-flight edits survive.
+      const base = clone(a.content);
+      return { ...state, base, remoteUpdatedAt: a.updatedAt, dirty: !sameContent(base, state.content) };
+    }
     case 'HYDRATE':
       // Refresh the published-state snapshot; adopt remote as the working copy only when there's no local draft.
       return state.dirty
-        ? { ...state, base: clone(a.remote) }
-        : { ...state, base: clone(a.remote), content: clone(a.remote) };
+        ? { ...state, base: clone(a.remote), remoteUpdatedAt: a.updatedAt }
+        : { ...state, base: clone(a.remote), content: clone(a.remote), remoteUpdatedAt: a.updatedAt, dirty: false };
     case 'COMPOSE_START':
       return { ...state, compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior', editingId: null } };
     case 'COMPOSE_PICK': {
@@ -239,7 +246,7 @@ export function initState(): AdminState {
   // The database is the single source of truth — no localStorage draft.
   const base = DEFAULT_CONTENT;
   return {
-    content: clone(base), base: clone(base), dirty: false, editing: null, draft: {}, newArea: '', toast: '',
+    content: clone(base), base: clone(base), dirty: false, remoteUpdatedAt: null, editing: null, draft: {}, newArea: '', toast: '',
     publishStatus: 'idle', publishMsg: '', commitUrl: '',
     compose: { step: 'pick', templateId: null, meta: null, values: null, category: 'interior', editingId: null },
     serviceCompose: { step: 'pick', templateId: null, meta: null, values: null, editingId: null },
@@ -301,6 +308,10 @@ export function isHttpsUrl(v: string): boolean {
 
 export function AdminContentProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, undefined, initState);
+  // Always-fresh mirror of state so the async publish() reads the latest content/
+  // updated_at at await points instead of the snapshot frozen in its render closure.
+  const stateRef = useRef(state);
+  stateRef.current = state;
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // One-time cleanup: drop any draft left behind by the old localStorage-backed version.
@@ -313,12 +324,12 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
     let active = true;
     supabase
       .from('site_content')
-      .select('data')
+      .select('data, updated_at')
       .eq('id', SITE_CONTENT_ID)
       .single()
       .then(({ data, error }) => {
         if (!active || error || !data?.data) return;
-        dispatch({ t: 'HYDRATE', remote: withContentDefaults(data.data) });
+        dispatch({ t: 'HYDRATE', remote: withContentDefaults(data.data), updatedAt: data.updated_at ?? null });
       });
     return () => { active = false; };
   }, []);
@@ -370,23 +381,40 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
     addArea: () => dispatch({ t: 'ADD_AREA' }),
     removeArea: (index) => dispatch({ t: 'REMOVE_AREA', index }),
     toast: (msg) => dispatch({ t: 'TOAST', msg }),
-    markPublished: (content) => dispatch({ t: 'MARK_PUBLISHED', content }),
+    markPublished: (content) => dispatch({ t: 'MARK_PUBLISHED', content, updatedAt: state.remoteUpdatedAt }),
     clearPublish: () => dispatch({ t: 'CLEAR_PUBLISH' }),
     publish: async () => {
-      const errors = validateContent(state.content);
+      // Snapshot the freshest content (not the render-closure copy) so what we write
+      // and what becomes the new baseline both reflect any last-moment edits.
+      const snapshot = clone(stateRef.current.content);
+      const loadedUpdatedAt = stateRef.current.remoteUpdatedAt;
+      const errors = validateContent(snapshot);
       if (errors.length) { dispatch({ t: 'TOAST', msg: errors[0] }); return; }
       dispatch({ t: 'PUBLISH_START' });
       try {
+        // Concurrent-edit guard: if the row moved since we loaded it, another admin
+        // saved in the meantime — abort rather than blindly overwriting their work.
+        if (loadedUpdatedAt) {
+          const { data: cur } = await supabase
+            .from('site_content')
+            .select('updated_at')
+            .eq('id', SITE_CONTENT_ID)
+            .maybeSingle();
+          if (cur && cur.updated_at && cur.updated_at !== loadedUpdatedAt) {
+            throw new Error('This content was changed elsewhere. Reload before saving to avoid overwriting those edits.');
+          }
+        }
         // upsert (not update): creates row 1 if the seed never ran, instead of
         // silently affecting 0 rows. .select() returns the written row so we can
         // confirm the write actually landed rather than trusting a null error.
+        const nextUpdatedAt = new Date().toISOString();
         const { data, error } = await supabase
           .from('site_content')
-          .upsert({ id: SITE_CONTENT_ID, data: state.content, updated_at: new Date().toISOString() })
-          .select('id');
+          .upsert({ id: SITE_CONTENT_ID, data: snapshot, updated_at: nextUpdatedAt })
+          .select('id, updated_at');
         if (error) throw new Error(error.message);
         if (!data || data.length === 0) throw new Error('Write blocked — no row updated (check Supabase RLS policy)');
-        dispatch({ t: 'MARK_PUBLISHED', content: state.content });
+        dispatch({ t: 'MARK_PUBLISHED', content: snapshot, updatedAt: data[0].updated_at ?? nextUpdatedAt });
         dispatch({ t: 'PUBLISH_DONE', commitUrl: '' });
         dispatch({ t: 'TOAST', msg: 'Saved to database ✓' });
       } catch (e) {

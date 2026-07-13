@@ -51,6 +51,10 @@ export function validateContent(c: SiteContent): string[] {
     if (!hm.hero?.titleLead?.trim() && !hm.hero?.titleAccent?.trim()) errors.push('Homepage hero headline is required.');
     if (!isHttps(hm.hero?.image)) errors.push('Homepage hero image must be an https:// URL.');
     if (!isHttps(hm.intro?.image)) errors.push('Homepage intro image must be an https:// URL.');
+    // Video is optional (empty = no video section), but any set URL — direct file or
+    // third-party embed — must be https:// or it is mixed-content-blocked in production.
+    if (hm.video?.src?.trim() && !isHttps(hm.video.src)) errors.push('Homepage video URL must be an https:// URL.');
+    if (hm.video?.poster?.trim() && !isHttps(hm.video.poster)) errors.push('Homepage video poster must be an https:// URL.');
     if (!isHttps(hm.serviceAreas?.mapImage)) errors.push('Homepage service-areas map image must be an https:// URL.');
   }
 

@@ -20,9 +20,15 @@ function isPlainObject(v: unknown): v is Record<string, unknown> {
 // Recursive merge: objects merge key-by-key; arrays and primitives from `over` replace
 // `base` wholesale (we never want to splice default array items into edited lists).
 function deepMerge<T>(base: T, over: unknown): T {
-  if (!isPlainObject(base) || !isPlainObject(over)) return (over === undefined ? base : (over as T));
+  // null/undefined never override a default — fall back so consumers never receive a
+  // null where the bundled shape has a real value (which would crash .map/.replace).
+  // An empty string / empty array is a real, intentional value and still overrides.
+  if (over === undefined || over === null) return base;
+  if (!isPlainObject(base) || !isPlainObject(over)) return over as T;
   const out: Record<string, unknown> = { ...base };
-  for (const key of Object.keys(base as Record<string, unknown>)) {
+  // Union of keys so a field saved in the DB but absent from the bundled default
+  // (a newer schema field) is preserved instead of silently dropped on every load.
+  for (const key of new Set([...Object.keys(base as Record<string, unknown>), ...Object.keys(over)])) {
     out[key] = deepMerge((base as Record<string, unknown>)[key], over[key]);
   }
   return out as T;

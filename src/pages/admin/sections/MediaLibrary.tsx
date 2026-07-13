@@ -3,12 +3,14 @@ import { Icon } from '../../../components/ui/Icon';
 import { UploadButton } from './homepage-editor-primitives';
 import { useAdminStore } from '../admin-content-store';
 import { listMedia, deleteMedia, replaceMedia, acceptFor, formatBytes, type MediaItem } from '../../../lib/storage';
+import { findMediaReferences } from '../../../lib/find-media-references';
 
 // Browse / add / replace / delete every file in the Supabase Storage bucket.
 // Operates directly on Storage (not the content row), so its changes are live
 // immediately and don't go through Publish.
 export function MediaLibrary() {
-  const { toast } = useAdminStore();
+  const store = useAdminStore();
+  const { toast } = store;
   const [items, setItems] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -47,7 +49,13 @@ export function MediaLibrary() {
   };
 
   const remove = async (item: MediaItem) => {
-    if (!window.confirm(`Delete "${item.name}"?\n\nAny page still using this file will show a broken image until you re-point it.`)) return;
+    // Warn concretely if the file is still referenced in the (unpublished) content —
+    // deleting it would 404 those spots until they are re-pointed.
+    const refs = findMediaReferences(store.state.content, item.url);
+    const warn = refs.length
+      ? `Delete "${item.name}"?\n\n⚠ Still used in ${refs.length} place${refs.length === 1 ? '' : 's'}:\n${refs.slice(0, 8).join('\n')}${refs.length > 8 ? `\n…and ${refs.length - 8} more` : ''}\n\nThose spots will show a broken image until re-pointed.`
+      : `Delete "${item.name}"?\n\nAny page still using this file will show a broken image until you re-point it.`;
+    if (!window.confirm(warn)) return;
     setBusy(item.path);
     try {
       await deleteMedia([item.path]);

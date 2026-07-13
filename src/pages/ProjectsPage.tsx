@@ -11,7 +11,6 @@ const SPOTLIGHT =
 
 export function ProjectsPage() {
   const { projects: PROJECTS } = useSiteContent()
-  console.log(">>>> ~ ProjectsPage ~ projects:", PROJECTS)
   const [filter, setFilter] = useState("all")
   const visible = useMemo(() => {
     const shown = PROJECTS.filter((p) => p.visible !== false)
@@ -80,9 +79,12 @@ export function ProjectsPage() {
                   </li>
                 ))}
               </ul>
-              <button className="bg-primary text-on-primary px-8 py-4 rounded-lg font-bold flex items-center gap-2 hover:scale-95 transition-all">
+              <Link
+                to="/our-work"
+                className="inline-flex bg-primary text-on-primary px-8 py-4 rounded-lg font-bold items-center gap-2 hover:scale-95 transition-all"
+              >
                 View Case Study <Icon name="arrow_forward" />
-              </button>
+              </Link>
             </div>
           </div>
         </Container>
