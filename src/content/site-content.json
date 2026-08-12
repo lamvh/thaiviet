@@ -10,7 +10,7 @@
       "titleLead": "Your Home.",
       "titleAccent": "Our Care.",
       "subtitle": "Quality interior & exterior painting, plastering, wallpapering, cedar staining and decorating — backed by a 5-year workmanship guarantee. Proudly serving Wellington, Lower Hutt, Upper Hutt, Porirua, Kāpiti Coast & Wairarapa since 2008.",
-      "image": "https://project.vinapage.com/thaivietconz/images/banner.png",
+      "image": "/images/hero-banner.webp",
       "certLabel": "Certified by:",
       "certs": [
         "https://project.vinapage.com/thaivietconz/images/cert-1.png",
@@ -55,7 +55,7 @@
     "video": {
       "eyebrow": "See Our Work",
       "title": "A Closer Look at ThaiViet",
-      "poster": "https://project.vinapage.com/thaivietconz/images/banner.png",
+      "poster": "/images/hero-banner.webp",
       "src": "https://project.vinapage.com/thaivietconz/videos/intro.mp4"
     },
     "services": {
@@ -259,7 +259,7 @@
       "name": "Interior Painting",
       "heroTitle": "A flawless finish, room by room.",
       "heroSub": "From a single feature wall to a whole-home repaint, we deliver dust-free preparation and a smooth, hard-wearing finish that lifts every room — all backed by our 5-year workmanship guarantee.",
-      "heroImg": "https://lh3.googleusercontent.com/aida-public/AB6AXuBFIVxAWkyuyJKwXUYqIR3iz2ttS1KGU3GazGzibFfN2_DQ5cG7q7KOonVor3L5Z9mxdUbXGRt5AKcnSLwQcrbQCuo7JiqJRnNoOVE4Le-lr9-Au3ukfZiRer7Sa7iwCSajQlCIcJDk6BrlJ7SEvxfN0jOwvhxLvY_kZ8vXEgPdNcROW9I0b6Rok8Qan0cRJ9VKzryqsB7HkRZ2qiUEe2gDwhAN6qidWDYHs_Kf6yDLO_9-ZuEwGsbgN7J6I008N0bqTJwaVBsa22o",
+      "heroImg": "/images/interior-painting.webp",
       "introTitle": "Every surface inside your home, beautifully finished.",
       "introA": "Whether you're refreshing one tired room or repainting an entire house, our team treats your home like our own. We move and protect your furniture, mask every edge, and keep the site tidy from the first day to the last.",
       "introB": "A great finish is 90% preparation — so we fill, sand and prime properly before a single drop of colour goes on.",
@@ -344,7 +344,7 @@
           "name": "Interior Painting",
           "heroTitle": "A flawless finish, room by room.",
           "heroSub": "From a single feature wall to a whole-home repaint, we deliver dust-free preparation and a smooth, hard-wearing finish that lifts every room — all backed by our 5-year workmanship guarantee.",
-          "heroImg": "https://lh3.googleusercontent.com/aida-public/AB6AXuBFIVxAWkyuyJKwXUYqIR3iz2ttS1KGU3GazGzibFfN2_DQ5cG7q7KOonVor3L5Z9mxdUbXGRt5AKcnSLwQcrbQCuo7JiqJRnNoOVE4Le-lr9-Au3ukfZiRer7Sa7iwCSajQlCIcJDk6BrlJ7SEvxfN0jOwvhxLvY_kZ8vXEgPdNcROW9I0b6Rok8Qan0cRJ9VKzryqsB7HkRZ2qiUEe2gDwhAN6qidWDYHs_Kf6yDLO_9-ZuEwGsbgN7J6I008N0bqTJwaVBsa22o",
+          "heroImg": "/images/interior-painting.webp",
           "introTitle": "Every surface inside your home, beautifully finished.",
           "intro": "Whether you're refreshing one tired room or repainting an entire house, our team treats your home like our own. We move and protect your furniture, mask every edge, and keep the site tidy from the first day to the last."
         },
@@ -423,7 +423,7 @@
       "name": "Exterior Painting",
       "heroTitle": "Protection that looks the part.",
       "heroSub": "Weather-tight, UV- and salt-resistant finishes built for New Zealand's coastal and windy conditions — backed by our 5-year workmanship guarantee.",
-      "heroImg": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=1600&q=80",
+      "heroImg": "/images/exterior-painting.webp",
       "introTitle": "A finish that defends your home for years.",
       "introA": "Wellington weather is hard on a house. We prepare every surface properly — wash, scrape, treat and prime — so the new coating bonds tight and stays looking sharp through wind, rain and salt air.",
       "introB": "From weatherboard villas to modern cladding, we colour-match, protect your gardens and leave the site spotless every evening.",
@@ -494,7 +494,7 @@
           "name": "Exterior Painting",
           "heroTitle": "Protection that looks the part.",
           "heroSub": "Weather-tight, UV- and salt-resistant finishes built for New Zealand's coastal and windy conditions — backed by our 5-year workmanship guarantee.",
-          "heroImg": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=1600&q=80",
+          "heroImg": "/images/exterior-painting.webp",
           "introTitle": "A finish that defends your home for years.",
           "intro": "Wellington weather is hard on a house. We prepare every surface properly — wash, scrape, treat and prime — so the new coating bonds tight and stays looking sharp through wind, rain and salt air."
         },
@@ -563,7 +563,7 @@
       "name": "Roof Maintenance",
       "heroTitle": "Re-roof, repair, or build new.",
       "heroSub": "From patching a leak to a full re-roof or a brand-new roof — we fix, replace and install roofs of every type across Wellington, built to last.",
-      "heroImg": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80",
+      "heroImg": "/images/roof-maintenance.webp",
       "introTitle": "The right fix — repair, re-roof, or new build.",
       "introA": "Whether your roof needs a quick repair, a full re-roof, or a brand-new build, we handle it end to end. We inspect the structure, sort flashings and fixings, and replace what's past saving — no shortcuts, no mess left behind.",
       "introB": "Fixed-price quotes and honest advice: we'll tell you when a repair will do and when re-roofing is the smarter spend.",

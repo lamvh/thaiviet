@@ -19,7 +19,7 @@ describe('validateServicePage', () => {
   });
   it('flags a non-https hero image', () => {
     const p = { ...base, meta: { ...base.meta, heroImg: 'http://x/y.jpg' } };
-    expect(validateServicePage(p, 'Interior')).toContain('Service Interior hero image must be an https:// URL.');
+    expect(validateServicePage(p, 'Interior')).toContain('Service Interior hero image must be an https:// URL or a site path like /images/photo.webp.');
   });
   it('flags an unknown template', () => {
     const p = { ...base, templateId: 'nope' as ServicePage['templateId'] };

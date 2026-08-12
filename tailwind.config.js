@@ -8,6 +8,14 @@ export default {
         'on-primary': '#ffffff', 'surface-variant': '#e5e2dd', 'secondary-container': '#e2e3e1',
         'surface-container-high': '#ebe8e3', 'inverse-primary': '#ffb4ab', primary: '#ba0013',
         'on-surface': '#1c1c19', 'surface-container': '#f0ede9', background: '#fcf9f4',
+        // Base surface — same cream as `background` (and the body rule in index.css).
+        // The whole app already writes bg-surface / from-surface/NN; without this key
+        // Tailwind emits nothing for them, so scrims and panels silently disappear.
+        surface: '#fcf9f4',
+        // Brand red lightened for use on dark backgrounds. The base #ba0013 is too
+        // dark to read against a photo scrim (~1.5:1); this clears 4.5:1 on charcoal
+        // while still reading as the same red. Display/heading use only.
+        'primary-bright': '#ff3b30',
         'primary-fixed': '#ffdad6', 'primary-container': '#e31e24', 'outline-variant': '#e7bdb8',
         'on-secondary-fixed-variant': '#454746', 'surface-container-highest': '#e5e2dd',
         'on-surface-variant': '#5d3f3c', 'surface-container-low': '#f6f3ee',

@@ -15,7 +15,7 @@ describe('validateContent — homepage video URL scheme', () => {
   it('rejects a non-https homepage video poster', () => {
     const c = clone();
     c.home.video.poster = 'http://insecure.example/poster.jpg';
-    expect(validateContent(c)).toContain('Homepage video poster must be an https:// URL.');
+    expect(validateContent(c)).toContain('Homepage video poster must be an https:// URL or a site path like /images/photo.webp.');
   });
 
   it('allows an empty video (no video section) and an https embed URL', () => {

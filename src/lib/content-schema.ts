@@ -1,6 +1,8 @@
 import type { SiteContent } from '../pages/admin/useAdminContent';
 import { validateProjectPage, validateServicePage } from './templates/validate-page';
+import { isRenderableImageUrl, IMAGE_URL_HINT } from './image-url';
 
+// Video/embed URLs stay https-only: they are third-party players, never bundled assets.
 const isHttps = (u: string | undefined) => /^https:\/\//i.test((u ?? '').trim());
 
 // Validates the working copy before it is committed. tsc cannot catch these because
@@ -10,7 +12,7 @@ export function validateContent(c: SiteContent): string[] {
 
   if (!c.hero?.title?.trim()) errors.push('Hero headline is required.');
   if (!c.hero?.subtitle?.trim()) errors.push('Hero sub-headline is required.');
-  if (!isHttps(c.hero?.image)) errors.push('Hero image must be an https:// URL.');
+  if (!isRenderableImageUrl(c.hero?.image)) errors.push('Hero image ' + IMAGE_URL_HINT);
 
   const seen = new Set<string>();
   c.projects.forEach((p, i) => {
@@ -20,7 +22,7 @@ export function validateContent(c: SiteContent): string[] {
     else seen.add('p:' + p.id);
     if (!p.title?.trim()) errors.push(`Project ${name} needs a title.`);
     if (!p.categoryLabel?.trim()) errors.push(`Project ${name} needs a category.`);
-    if (!isHttps(p.image)) errors.push(`Project ${name} image must be an https:// URL.`);
+    if (!isRenderableImageUrl(p.image)) errors.push(`Project ${name} image ` + IMAGE_URL_HINT);
     if (p.page) errors.push(...validateProjectPage(p.page, name));
   });
 
@@ -31,7 +33,7 @@ export function validateContent(c: SiteContent): string[] {
     else seen.add('b:' + p.id);
     if (!p.title?.trim()) errors.push(`Post ${name} needs a title.`);
     if (!p.readTime?.trim()) errors.push(`Post ${name} needs a read time.`);
-    if (!isHttps(p.image)) errors.push(`Post ${name} image must be an https:// URL.`);
+    if (!isRenderableImageUrl(p.image)) errors.push(`Post ${name} image ` + IMAGE_URL_HINT);
   });
 
   if (!c.contact?.phone?.trim()) errors.push('Contact phone is required.');
@@ -40,22 +42,24 @@ export function validateContent(c: SiteContent): string[] {
 
   const hp = c.homepage;
   if (hp) {
-    if (!isHttps(hp.heritage?.image)) errors.push('Heritage section image must be an https:// URL.');
-    if (!isHttps(hp.people?.imageA)) errors.push('People section image (left) must be an https:// URL.');
-    if (!isHttps(hp.people?.imageB)) errors.push('People section image (right) must be an https:// URL.');
-    if (!isHttps(hp.preparation?.image)) errors.push('Preparation section image must be an https:// URL.');
+    if (!isRenderableImageUrl(hp.heritage?.image)) errors.push('Heritage section image ' + IMAGE_URL_HINT);
+    if (!isRenderableImageUrl(hp.people?.imageA)) errors.push('People section image (left) ' + IMAGE_URL_HINT);
+    if (!isRenderableImageUrl(hp.people?.imageB)) errors.push('People section image (right) ' + IMAGE_URL_HINT);
+    if (!isRenderableImageUrl(hp.preparation?.image)) errors.push('Preparation section image ' + IMAGE_URL_HINT);
   }
 
   const hm = c.home;
   if (hm) {
     if (!hm.hero?.titleLead?.trim() && !hm.hero?.titleAccent?.trim()) errors.push('Homepage hero headline is required.');
-    if (!isHttps(hm.hero?.image)) errors.push('Homepage hero image must be an https:// URL.');
-    if (!isHttps(hm.intro?.image)) errors.push('Homepage intro image must be an https:// URL.');
+    if (!isRenderableImageUrl(hm.hero?.image)) errors.push('Homepage hero image ' + IMAGE_URL_HINT);
+    if (!isRenderableImageUrl(hm.intro?.image)) errors.push('Homepage intro image ' + IMAGE_URL_HINT);
     // Video is optional (empty = no video section), but any set URL — direct file or
     // third-party embed — must be https:// or it is mixed-content-blocked in production.
     if (hm.video?.src?.trim() && !isHttps(hm.video.src)) errors.push('Homepage video URL must be an https:// URL.');
-    if (hm.video?.poster?.trim() && !isHttps(hm.video.poster)) errors.push('Homepage video poster must be an https:// URL.');
-    if (!isHttps(hm.serviceAreas?.mapImage)) errors.push('Homepage service-areas map image must be an https:// URL.');
+    // The poster is a still image, so it may be a bundled asset; the player source
+    // itself stays https-only because it is a third-party embed or a Storage file.
+    if (hm.video?.poster?.trim() && !isRenderableImageUrl(hm.video.poster)) errors.push('Homepage video poster ' + IMAGE_URL_HINT);
+    if (!isRenderableImageUrl(hm.serviceAreas?.mapImage)) errors.push('Homepage service-areas map image ' + IMAGE_URL_HINT);
   }
 
   if (Array.isArray(c.serviceDetails)) {

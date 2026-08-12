@@ -42,24 +42,38 @@ export function HomePage() {
       {/* Hero — top-aligned with nav clearance on mobile, centered on desktop */}
       <section className="relative min-h-[780px] flex items-start md:items-center pt-14 md:pt-0 overflow-hidden">
         <div className="absolute inset-0 z-0">
+          {/* The banner is a wide landscape shot with the house right of centre. On
+              desktop the crop takes the full width, so centre it; on narrow screens
+              cover crops the sides away, so bias the focal point right to keep the
+              house in frame instead of only driveway. */}
           <img
-            alt="ThaiViet Painting — New Zealand home"
-            className="w-full h-full object-cover"
+            alt="Freshly painted and stained home overlooking the coast, New Zealand"
+            className="w-full h-full object-cover object-[68%_center] md:object-center"
             src={hero.image}
+            width={1376}
+            height={768}
+            fetchPriority="high"
+            decoding="async"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-surface/90 via-surface/40 to-transparent" />
+          {/* Dark scrim: the hero copy is light-on-photo, so the banner is held back
+              behind the text and released over the subject. Vertical on mobile where
+              the copy spans the full width, horizontal on desktop where it sits in
+              the left column and the house should stay in full colour on the right. */}
+          <div className="absolute inset-0 bg-gradient-to-b from-on-surface/80 via-on-surface/65 via-58% to-on-surface/25 md:bg-gradient-to-r md:from-on-surface/85 md:from-5% md:via-on-surface/55 md:via-38% md:to-transparent md:to-68%" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 w-full">
           <div className="max-w-2xl">
-            <span className="mt-4 inline-block px-3 py-1 bg-primary/10 text-primary font-bold text-xs uppercase tracking-widest rounded mb-6">
+            <span className="mt-4 inline-block px-3 py-1 bg-primary text-on-primary font-bold text-xs uppercase tracking-widest rounded mb-6">
               {hero.badge}
             </span>
-            <h1 className="font-headline text-4xl sm:text-5xl md:text-7xl font-extrabold text-on-surface leading-[1.1] mb-6">
+            {/* The base brand red is too dark to sit on the scrim — primary-bright is
+                the same hue lifted into legible range against the photo. */}
+            <h1 className="font-headline text-4xl sm:text-5xl md:text-7xl font-extrabold text-white leading-[1.1] mb-6">
               {hero.titleLead}
               <br />
-              <span className="text-primary">{hero.titleAccent}</span>
+              <span className="text-primary-bright">{hero.titleAccent}</span>
             </h1>
-            <p className="font-body text-lg sm:text-xl text-on-surface-variant leading-relaxed mb-10 max-w-lg">
+            <p className="font-body text-lg sm:text-xl text-white/85 leading-relaxed mb-10 max-w-lg">
               {hero.subtitle}
             </p>
             <div className="flex flex-col sm:flex-row sm:flex-wrap gap-4 mb-10">
@@ -77,17 +91,19 @@ export function HomePage() {
               </Link>
             </div>
             {hero.certs.length > 0 && (
-              <div className="pt-6 border-t border-outline-variant/30">
-                <p className="text-xs uppercase tracking-widest text-on-surface-variant font-semibold mb-4">
+              <div className="pt-6 border-t border-white/25">
+                <p className="text-xs uppercase tracking-widest text-white/70 font-semibold mb-4">
                   {hero.certLabel}
                 </p>
-                <div className="grid grid-cols-3 gap-4 items-center max-w-md">
+                {/* The certification marks are dark artwork on transparent PNGs, so on
+                    the dark scrim each one sits on its own light chip to stay visible. */}
+                <div className="grid grid-cols-3 gap-3 items-center max-w-md">
                   {hero.certs.map((src, i) => (
-                    <div key={i} className="flex justify-center">
+                    <div key={i} className="flex justify-center bg-white/90 rounded-lg px-3 py-2">
                       <img
                         src={src}
                         alt="Certification"
-                        className="max-h-20 w-auto object-contain"
+                        className="max-h-16 w-auto object-contain"
                       />
                     </div>
                   ))}
