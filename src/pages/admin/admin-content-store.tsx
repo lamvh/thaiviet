@@ -12,6 +12,28 @@ import { PROJECT_FILTERS } from '../../data/projects';
 
 export type PublishStatus = 'idle' | 'publishing' | 'done' | 'error';
 
+// How long editing has to pause before the row is written. Long enough that a burst of
+// keystrokes collapses into one write, short enough that an upload or a toggle feels
+// immediate.
+export const AUTOSAVE_DELAY_MS = 1500;
+
+// Should an autosave be scheduled right now? Split out of the effect so the retry rules
+// are unit-testable without rendering React.
+//
+// `lastAttempted` is the exact content object handed to the previous save. Content is
+// replaced immutably on every edit, so reference equality answers "has anything changed
+// since the attempt that failed?" — which is what stops a rejected payload (invalid
+// field, or a row another admin moved) from retrying forever on a timer.
+export function shouldScheduleAutosave(
+  state: Pick<AdminState, 'dirty' | 'publishStatus' | 'content'>,
+  lastAttempted: SiteContent | null,
+): boolean {
+  if (!state.dirty) return false; // nothing unsaved
+  if (state.publishStatus === 'publishing') return false; // a write is already in flight
+  if (state.publishStatus === 'error' && lastAttempted === state.content) return false; // wait for an edit
+  return true;
+}
+
 type ItemKind = 'projects' | 'posts';
 
 interface EditState { kind: ItemKind; id: string; isNew?: boolean; }
@@ -97,7 +119,7 @@ export function reducer(state: AdminState, a: Action): AdminState {
       if (!state.editing) return state;
       const { kind, id } = state.editing;
       const list = (state.content[kind] as Array<Project | Post>).map((x) => (x.id === id ? { ...x, ...state.draft } : x));
-      return { ...state, content: { ...state.content, [kind]: list }, editing: null, dirty: true, toast: 'Applied — click Save to publish' };
+      return { ...state, content: { ...state.content, [kind]: list }, editing: null, dirty: true, toast: 'Applied' };
     }
     case 'CLOSE_EDIT': {
       // Discard a freshly-added item that was never saved.
@@ -120,7 +142,7 @@ export function reducer(state: AdminState, a: Action): AdminState {
       const list = (state.content[a.kind] as Array<Project | Post>).filter((x) => x.id !== a.id);
       // If the deleted item was open in the edit drawer, close it to avoid a dangling editor.
       const editing = state.editing?.kind === a.kind && state.editing.id === a.id ? null : state.editing;
-      return { ...state, content: { ...state.content, [a.kind]: list } as SiteContent, editing, dirty: true, toast: 'Deleted — click Save to publish' };
+      return { ...state, content: { ...state.content, [a.kind]: list } as SiteContent, editing, dirty: true, toast: 'Deleted' };
     }
     case 'UPDATE_HERO':
       return { ...state, content: { ...state.content, hero: { ...state.content.hero, [a.key]: a.val } }, dirty: true };
@@ -129,7 +151,7 @@ export function reducer(state: AdminState, a: Action): AdminState {
     case 'TOGGLE_SERVICE':
       return { ...state, content: { ...state.content, serviceDetails: state.content.serviceDetails.map((x) => x.slug === a.slug ? { ...x, visible: x.visible === false } : x) }, dirty: true, toast: 'Visibility updated' };
     case 'DELETE_SERVICE':
-      return { ...state, content: { ...state.content, serviceDetails: state.content.serviceDetails.filter((x) => x.slug !== a.slug) }, dirty: true, toast: 'Deleted — click Save to publish' };
+      return { ...state, content: { ...state.content, serviceDetails: state.content.serviceDetails.filter((x) => x.slug !== a.slug) }, dirty: true, toast: 'Deleted' };
     case 'SVC_COMPOSE_START':
       return { ...state, serviceCompose: { step: 'pick', templateId: null, meta: null, values: null, editingId: null } };
     case 'SVC_COMPOSE_PICK': {
@@ -158,10 +180,10 @@ export function reducer(state: AdminState, a: Action): AdminState {
       if (c.editingId) {
         const id = c.editingId;
         const serviceDetails = state.content.serviceDetails.map((x) => (x.slug === id ? { ...x, ...fields, page } : x));
-        return { ...state, content: { ...state.content, serviceDetails }, dirty: true, serviceCompose: reset, toast: 'Service updated — click Save to publish' };
+        return { ...state, content: { ...state.content, serviceDetails }, dirty: true, serviceCompose: reset, toast: 'Service updated' };
       }
       const item: ServiceDetail = { ...fields, visible: true, page };
-      return { ...state, content: { ...state.content, serviceDetails: [item, ...state.content.serviceDetails] }, dirty: true, serviceCompose: reset, toast: 'Service added — click Save to publish' };
+      return { ...state, content: { ...state.content, serviceDetails: [item, ...state.content.serviceDetails] }, dirty: true, serviceCompose: reset, toast: 'Service added' };
     }
     case 'UPDATE_HOMEPAGE':
       return { ...state, content: { ...state.content, homepage: a.homepage }, dirty: true };
@@ -231,10 +253,10 @@ export function reducer(state: AdminState, a: Action): AdminState {
       if (c.editingId) {
         const id = c.editingId;
         const projects = state.content.projects.map((p) => (p.id === id ? { ...p, ...fields, page } : p));
-        return { ...state, content: { ...state.content, projects }, dirty: true, compose: reset, toast: 'Project updated — click Save to publish' };
+        return { ...state, content: { ...state.content, projects }, dirty: true, compose: reset, toast: 'Project updated' };
       }
       const proj: Project = { id: a.id, ...fields, visible: true, page };
-      return { ...state, content: { ...state.content, projects: [proj, ...state.content.projects] }, dirty: true, compose: reset, toast: 'Project added — click Save to publish' };
+      return { ...state, content: { ...state.content, projects: [proj, ...state.content.projects] }, dirty: true, compose: reset, toast: 'Project added' };
     }
     default:
       return state;
@@ -313,6 +335,10 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
   const stateRef = useRef(state);
   stateRef.current = state;
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Autosave plumbing: the content object handed to the last save attempt (so a rejected
+  // payload does not retry on a loop) and a stable handle on publish() for the timer.
+  const lastAttempted = useRef<SiteContent | null>(null);
+  const publishRef = useRef<() => Promise<void>>(async () => {});
 
   // One-time cleanup: drop any draft left behind by the old localStorage-backed version.
   useEffect(() => {
@@ -334,7 +360,8 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
     return () => { active = false; };
   }, []);
 
-  // Warn before leaving with unsaved (unpublished) edits.
+  // Warn before leaving with edits that have not reached the row yet. Autosave makes
+  // that window short (the debounce plus one request) but not zero, so the guard stays.
   useEffect(() => {
     const handler = (e: BeforeUnloadEvent) => { if (state.dirty) { e.preventDefault(); e.returnValue = ''; } };
     window.addEventListener('beforeunload', handler);
@@ -388,8 +415,11 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
       // and what becomes the new baseline both reflect any last-moment edits.
       const snapshot = clone(stateRef.current.content);
       const loadedUpdatedAt = stateRef.current.remoteUpdatedAt;
+      // A validation failure has to be a sticky status, not a toast: with autosave there
+      // is no button click to tie it to, and a toast that fades after two seconds would
+      // let an editor keep typing into content that is silently no longer being saved.
       const errors = validateContent(snapshot);
-      if (errors.length) { dispatch({ t: 'TOAST', msg: errors[0] }); return; }
+      if (errors.length) { dispatch({ t: 'PUBLISH_ERROR', msg: errors[0] }); return; }
       dispatch({ t: 'PUBLISH_START' });
       try {
         // Concurrent-edit guard: if the row moved since we loaded it, another admin
@@ -416,7 +446,8 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
         if (!data || data.length === 0) throw new Error('Write blocked — no row updated (check Supabase RLS policy)');
         dispatch({ t: 'MARK_PUBLISHED', content: snapshot, updatedAt: data[0].updated_at ?? nextUpdatedAt });
         dispatch({ t: 'PUBLISH_DONE', commitUrl: '' });
-        dispatch({ t: 'TOAST', msg: 'Saved to database ✓' });
+        // No success toast — autosave fires on every edit, and the status indicator in
+        // the header already reports "Saved". A toast per keystroke-burst is just noise.
       } catch (e) {
         dispatch({ t: 'PUBLISH_ERROR', msg: e instanceof Error ? e.message : 'Save failed' });
       }
@@ -430,6 +461,25 @@ export function AdminContentProvider({ children }: { children: ReactNode }) {
     editComposed: (id) => dispatch({ t: 'COMPOSE_EDIT', id }),
     publishComposed: () => dispatch({ t: 'COMPOSE_PUBLISH', id: uniqueId('p', state.content.projects.map((x) => x.id)) }),
   };
+
+  // Autosave. Every edit writes itself back, so there is no Save button to forget and an
+  // uploaded image is live as soon as the field stops changing. The timer restarts on
+  // each edit, so a burst of typing costs one row write instead of one per keystroke.
+  //
+  // Declared after `api` so it can call the same publish() the rest of the app uses; the
+  // ref keeps that call out of the dependency list, which would otherwise change identity
+  // on every render and re-arm the timer forever.
+  publishRef.current = api.publish;
+  useEffect(() => {
+    if (!shouldScheduleAutosave(state, lastAttempted.current)) return;
+    const timer = setTimeout(() => {
+      // Record what we are about to send *before* sending it: if this payload is
+      // rejected, shouldScheduleAutosave uses it to hold off until a real edit arrives.
+      lastAttempted.current = stateRef.current.content;
+      void publishRef.current();
+    }, AUTOSAVE_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, [state.dirty, state.content, state.publishStatus]);
 
   return <Ctx.Provider value={api}>{children}</Ctx.Provider>;
 }

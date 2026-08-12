@@ -4,29 +4,6 @@ import { Container } from "../components/ui/Container"
 import { ServiceCard } from "../components/cards/ServiceCard"
 import { useSiteContent } from "../lib/site-content-context"
 
-const GALLERY = [
-  {
-    span: "md:col-span-8",
-    title: "Khandallah Modern Restoration",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBjp-mJO-OorLjQ6Sp3-95aiRBOIWGVuPrtxXKNrSDBWG-4pr7piJ3OqS9XjEM3ebCEcS-2mL5-_PlEEBpGyIiKcXnPANZBhYJ_-_5D7JTys6iQghsiHrF0XiXuxEO9GXY9p0TMmNkk7hO9S6t7SMjHI2xu1NTZGji2SQID_1LAe7_ylDgrtvsrpLDfNInPvvuWLPR49A5oloMlebHCCDVG7hwA7RB9sjOwMEcwY7vuy28PCXo9diH1nfUUs79CCWsNJgFGN6dMjZI",
-  },
-  {
-    span: "md:col-span-4",
-    title: "Wadestown Interior Refresh",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDEuPZUp5836dj4bMyNgbK7vGCO3uYEyniYImUAhQQ3nKuK3wEGwbOHwpjNbFLhJ4tHLaSRQ_NTqe0hIjkpuG6_AiMAfec2J_-UfbyLeyDSYYCAHF7bF__QhF7vD2BaBWwp_4CyoIRDp_6sbsD1EAmPuzGr4bzRBK7NmiN2DPdCbIFMWK8izqkP-8AN5TlbLeqqh0Kd__YqnKCrDtCqtEMq1bS0uZbY_YIuh2KkJxvKSdF6FxJuEGZwBCutEQ8oiN8SE2gVUx_L-DM",
-  },
-  {
-    span: "md:col-span-4",
-    title: "Lower Hutt Roof Protection",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuCLD3_2Jv6NJPmYLYJB0xrOhNB87Zg70hs4SpdLXr_P8pIVDv63m_Wf5TPHC2Od1dkzU3Nhm63OueBnDkasSHUQciszYoTfqNN8LB3jat9FSYda-i48ILwAkjj6jxJojov26kQQC8KjwGWADgSrzdRRlhIyqOZK5OVkHELUzB4cVnvxVMCf_48qsgBQ4tbGRt2DHW4hkIAo5UTPfd4Y9FK3Mn0yxXtC3N6lFujUOi0j6c7ZBklaNK82EkV9n173jfRXfDTsINQmndQ",
-  },
-  {
-    span: "md:col-span-8",
-    title: "Thorndon Feature Wall",
-    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAR4KcelQl1n7C37HIUOd4HzTac20iGeyZeAoO_FoeiCFtKcL88lRtu5nV1zPURXBU_FM3v3vp-41cpJ94j5xmxknPIaRToiacwbFYGKa0byGYPQdRyJPxiJnDot2HuQGnj2_Kd68mMpNi-Lv3n5M8MtDOXDA920T_HI6Nb7f-x0Me32fTduVzoNGhjxXCpRftAUmCBPNt1QD5JV9w_UofoEWc4-10TLJrwoykFrktMaw1I-bmUw20RMwg9bDPhqnnpp_O-cw3NNK8",
-  },
-]
-
 export function ServicesPage() {
   const { serviceDetails } = useSiteContent()
   return (
@@ -56,34 +33,6 @@ export function ServicesPage() {
               .map((s) => (
                 <ServiceCard key={s.slug} service={s} subtitle={s.desc} />
               ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="py-24 px-5 sm:px-8 overflow-hidden">
-        <Container>
-          <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center font-headline">
-            Transforming Homes
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-12 md:grid-rows-2 gap-4 md:h-[800px]">
-            {GALLERY.map((g) => (
-              <div
-                key={g.title}
-                className={
-                  "rounded-xl overflow-hidden relative group h-64 md:h-auto " +
-                  g.span
-                }
-              >
-                <img
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  src={g.img}
-                  alt={g.title}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <p className="text-white font-bold">{g.title}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </Container>
       </section>

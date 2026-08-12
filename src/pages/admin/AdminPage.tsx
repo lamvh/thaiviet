@@ -119,7 +119,7 @@ function AdminInner() {
               <HeroEditor
                 hero={content.hero}
                 onChange={store.updateHero}
-                onSave={() => store.toast(isHttpsUrl(content.hero.image) ? 'Hero applied — click Save to publish' : 'Image URL must start with https://')}
+                onSave={() => store.toast(isHttpsUrl(content.hero.image) ? 'Hero applied' : 'Image URL must start with https://')}
               />
               <HomepageEditor />
             </div>

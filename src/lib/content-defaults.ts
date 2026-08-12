@@ -1,31 +1,6 @@
 import type { SiteContent } from '../pages/admin/useAdminContent';
-import type { ServiceDetail } from './types';
 import bundled from '../content/site-content.json';
 import { migrateServices, type LegacyServiceDetail } from './migrate-services';
-
-// TEMPORARY — hard-pinned artwork for three services.
-// These images ship with the build and must win over whatever the live content row
-// stores, because the row still points at expiring Google/Unsplash URLs. Pinning runs
-// on every load (public site and admin alike), so a stored value can never override
-// them — the trade-off is that these three images are NOT editable from admin while
-// this block exists. To hand them back to the CMS, delete PINNED_SERVICE_IMAGES +
-// pinServiceImages and their call sites; the stored row (or the bundled default in
-// site-content.json, which already holds the same paths) takes over again.
-const PINNED_SERVICE_IMAGES: Record<string, string> = {
-  interior: '/images/interior-painting.webp',
-  exterior: '/images/exterior-painting.webp',
-  roof: '/images/roof-maintenance.webp',
-};
-
-// A service's card image and its detail-page hero image are the same picture by design,
-// so pin both — pinning only the card would make the grid and the detail page disagree.
-function pinServiceImages(list: ServiceDetail[]): ServiceDetail[] {
-  return list.map((s) => {
-    const image = PINNED_SERVICE_IMAGES[s.slug];
-    if (!image) return s;
-    return { ...s, image, page: { ...s.page, meta: { ...s.page.meta, heroImg: image } } };
-  });
-}
 
 // Bundled JSON is the complete, always-valid shape. The DB row may be older than the
 // current schema (e.g. saved before the homepage blocks existed), so every remote load
@@ -35,7 +10,7 @@ function pinServiceImages(list: ServiceDetail[]): ServiceDetail[] {
 // hand-migrating the JSON blob.
 export const DEFAULT_CONTENT = {
   ...(bundled as Record<string, unknown>),
-  serviceDetails: pinServiceImages(migrateServices((bundled as { serviceDetails: LegacyServiceDetail[] }).serviceDetails)),
+  serviceDetails: migrateServices((bundled as { serviceDetails: LegacyServiceDetail[] }).serviceDetails),
 } as unknown as SiteContent;
 
 function isPlainObject(v: unknown): v is Record<string, unknown> {
@@ -90,5 +65,5 @@ function rewriteRetiredBanner<T>(node: T): T {
 // every load back-fills card fields + a default template rather than rejecting the row.
 export function withContentDefaults(partial: unknown): SiteContent {
   const merged = deepMerge(DEFAULT_CONTENT, rewriteRetiredBanner(partial));
-  return { ...merged, serviceDetails: pinServiceImages(migrateServices(merged.serviceDetails ?? [])) };
+  return { ...merged, serviceDetails: migrateServices(merged.serviceDetails ?? []) };
 }
