@@ -50,7 +50,7 @@ lib/       types.ts · migrate-services.ts · content-defaults.ts (deepMerge) ·
 ## Routes
 `/` Home (marketing landing) · `/about` (company story) · `/services` · `/services/:slug` (service detail — template-only, one page per CMS service) · `/projects` · `/projects/:id` (case study) · `/our-work` (service videos & reels) · `/blog` · `/contact` · `/privacy` (privacy policy). Any unmatched URL renders `NotFoundPage` (`pages/NotFoundPage.tsx`) — a real 404 screen, not the homepage.
 
-`/admin/*` is the CMS, gated by Supabase Auth (see **Admin auth** below). Sidebar sections: Overview · Projects · Blog · Project Templates · Homepage · About Page · Services · Service Templates · Service Areas · Contact & Social · **Leads** (read-only quote requests) · Privacy Policy · Media Library · Settings.
+`/admin/*` is the CMS, gated by Supabase Auth (see **Admin auth** below). The sidebar (`AdminSidebar.tsx`, sticky) groups its sections: Overview · **Pages** (Homepage · About Page · Privacy Policy) · **Portfolio** (Projects · Project Templates · Blog) · **Services** (Services · Service Templates · Service Areas) · **Customers** (**Leads** — read-only quote requests · Contact & Social) · **System** (Media Library · Settings). The header is sticky and carries the save status (`PublishBar`) plus the **DB & Storage status pills** (see below). The Homepage editor (`HomeEditor.tsx`) lists its cards in live-page order with a sticky jump bar; removing a list item (`ItemCard`) asks for confirmation because the change autosaves straight to the live site.
 
 Content blocks are admin-editable and stored in Supabase / bundled `site-content.json`:
 - `home` block → landing page (admin → **Homepage**)
@@ -97,6 +97,14 @@ Consequences to keep in mind when touching this area:
 - **Wizards and the edit drawer keep their one commit step** (*Add service* / *Save changes* / *Apply*). Their draft (`compose` / `serviceCompose` / `draft`) lives outside `content` on purpose — a half-filled service must not go live. Only once it lands in `content` does autosave pick it up.
 - **`beforeunload` stays.** The unsaved window is short (debounce + one request) but not zero.
 - No success toast on save — the indicator covers it; a toast per edit burst is noise.
+
+## DB & storage connection status
+
+`DbStatusBadge.tsx` (admin header) shows two pills — **DB** and **Storage** — each driven by the generic `useConnectionStatus(probe)` hook in `use-db-connection-status.ts`:
+- **DB** (`probeDatabase`): `site_content` `select id` for `SITE_CONTENT_ID` — the cheapest real read on the table autosave writes to, so *connected* means URL, key, RLS and network all work.
+- **Storage** (`probeMediaBucket`): `list('', { limit: 1 })` on the media bucket (`MEDIA_BUCKET`, from `VITE_SUPABASE_MEDIA_BUCKET`). A missing/misnamed bucket or a read-policy problem shows as *unreachable* with the Supabase message in the tooltip.
+
+Each probe runs on mount, every 30 s while the tab is visible, when the tab regains focus and when the browser comes back online (8 s timeout). States: **connected** (with latency) · **slow** (> 1.5 s) · **offline** (browser reports no network) · **unreachable** (error / timeout). Click a pill to re-check immediately.
 
 ## Admin auth (Supabase Auth)
 

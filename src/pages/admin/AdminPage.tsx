@@ -22,6 +22,7 @@ import { MediaLibrary } from './sections/MediaLibrary';
 import { EditDrawer } from './EditDrawer';
 import { Toast } from './Toast';
 import { PublishBar } from './PublishBar';
+import { DbStatusBadge } from './DbStatusBadge';
 import { SettingsPanel } from './SettingsPanel';
 
 const META: Record<AdminSection, [string, string]> = {
@@ -77,7 +78,7 @@ function AdminInner() {
       )}
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="flex items-center gap-3 sm:gap-5 px-4 sm:px-8 py-4 bg-white border-b border-[#e7e3dc] flex-wrap">
+        <header className="sticky top-0 z-40 flex items-center gap-3 sm:gap-5 px-4 sm:px-8 py-4 bg-white/95 backdrop-blur border-b border-[#e7e3dc] flex-wrap">
           <button className="md:hidden text-on-surface-variant" onClick={() => setMobileNav(true)} aria-label="Open menu">
             <Icon name="menu" className="text-2xl" />
           </button>
@@ -86,12 +87,14 @@ function AdminInner() {
             <p className="text-[13px] text-[#8a8377] mt-0.5 truncate">{sub}</p>
           </div>
           <PublishBar />
+          <DbStatusBadge />
           <a href={SITE_URL} target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 bg-white border border-[#e7e3dc] text-on-surface px-4 py-2.5 rounded-lg font-bold text-[13px]">
             <Icon name="open_in_new" className="text-[17px]" /> View site
           </a>
         </header>
 
-        <div className="p-4 sm:p-8 flex-1 overflow-auto">
+        {/* overflow-x-clip (not auto) so this is not a scroll container — sticky toolbars inside editors stick to the viewport. */}
+        <div className="p-4 sm:p-8 flex-1 min-w-0 overflow-x-clip">
           {section === 'overview' && <Overview content={content} onNavigate={setSection} />}
           {section === 'projects' && (
             <ProjectsTable

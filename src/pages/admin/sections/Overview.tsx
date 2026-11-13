@@ -11,9 +11,11 @@ export function Overview({ content, onNavigate }: { content: SiteContent; onNavi
     { label: 'Live pages', value: 7, icon: 'public', sub: 'Home · About · more' },
   ];
   const quick: { label: string; icon: string; to: AdminSection }[] = [
+    { label: 'Edit homepage', icon: 'home', to: 'home' },
     { label: 'Edit projects', icon: 'photo_library', to: 'projects' },
     { label: 'Write a post', icon: 'article', to: 'blog' },
-    { label: 'Update hero', icon: 'home', to: 'home' },
+    { label: 'Check leads', icon: 'inbox', to: 'leads' },
+    { label: 'Upload media', icon: 'perm_media', to: 'media' },
     { label: 'Contact details', icon: 'call', to: 'contact' },
   ];
 
@@ -38,16 +40,18 @@ export function Overview({ content, onNavigate }: { content: SiteContent; onNavi
           Update what visitors see on thaiviet.co.nz — edit projects and blog posts, toggle what's published, change the
           homepage hero, service areas and contact details. Pick a section to begin.
         </p>
-        <div className="flex flex-wrap gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {quick.map((q) => (
             <button
               key={q.to}
               onClick={() => onNavigate(q.to)}
-              className="flex items-center gap-2.5 bg-surface-container-low border border-[#eae6df] rounded-xl px-4 py-3.5 text-sm font-semibold hover:bg-surface-container transition-colors"
+              className="group flex items-center gap-3 bg-surface-container-low border border-[#eae6df] rounded-xl px-4 py-3.5 text-sm font-semibold text-left hover:bg-white hover:border-primary/40 hover:shadow-sm transition-all"
             >
-              <Icon name={q.icon} className="text-primary text-lg" />
-              {q.label}
-              <Icon name="chevron_right" className="text-[#b9b2a6] text-lg" />
+              <span className="w-9 h-9 rounded-lg bg-[#fbeceb] text-primary flex items-center justify-center flex-none">
+                <Icon name={q.icon} className="text-lg" />
+              </span>
+              <span className="flex-1">{q.label}</span>
+              <Icon name="chevron_right" className="text-[#b9b2a6] text-lg group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
             </button>
           ))}
         </div>

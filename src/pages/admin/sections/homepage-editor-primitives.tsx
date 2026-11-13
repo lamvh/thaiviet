@@ -30,11 +30,20 @@ export function AutoTextarea({ value, onChange, className }: { value: string; on
 export const labelCls = 'block text-xs font-bold uppercase tracking-wider text-[#8a8377] mb-1.5';
 export const fieldCls = 'w-full box-border bg-[#faf8f4] border border-[#e6e1d8] rounded-lg p-3 text-sm text-on-surface focus:outline-none focus:border-primary';
 
-export function Card({ title, hint, children }: { title: string; hint?: string; children: ReactNode }) {
+// `id` makes the card a jump-nav target (scroll-mt clears the sticky header + toolbar);
+// `icon` gives long editors a visual anchor per section.
+export function Card({ title, hint, children, id, icon }: { title: string; hint?: string; children: ReactNode; id?: string; icon?: string }) {
   return (
-    <div className="bg-white border border-[#eae6df] rounded-2xl p-6">
-      <h3 className="font-headline text-base font-bold">{title}</h3>
-      {hint && <p className="text-xs text-[#8a8377] mt-1 mb-4">{hint}</p>}
+    <div id={id} className="bg-white border border-[#eae6df] rounded-2xl p-6 scroll-mt-40">
+      <div className="flex items-center gap-2.5">
+        {icon && (
+          <span className="w-8 h-8 rounded-lg bg-[#fbeceb] text-primary flex items-center justify-center flex-none">
+            <Icon name={icon} className="text-[18px]" />
+          </span>
+        )}
+        <h3 className="font-headline text-base font-bold">{title}</h3>
+      </div>
+      {hint && <p className="text-xs text-[#8a8377] mt-1.5 mb-4">{hint}</p>}
       <div className={'flex flex-col gap-4' + (hint ? '' : ' mt-4')}>{children}</div>
     </div>
   );
@@ -94,7 +103,9 @@ export function MediaPreview({ url, kind }: { url: string; kind: MediaKind }) {
   );
 }
 
-export function Field({ label, value, onChange, area, upload }: { label: string; value: string; onChange: (v: string) => void; area?: boolean; upload?: MediaKind }) {
+// `iconPreview` renders the typed Material Symbol name live beside the input, so editors
+// see the icon they picked instead of guessing from its name.
+export function Field({ label, value, onChange, area, upload, iconPreview }: { label: string; value: string; onChange: (v: string) => void; area?: boolean; upload?: MediaKind; iconPreview?: boolean }) {
   return (
     <div>
       <div className="flex items-center justify-between gap-2 mb-1.5">
@@ -105,8 +116,20 @@ export function Field({ label, value, onChange, area, upload }: { label: string;
             <UploadButton kind={upload} onUploaded={onChange} />
           </span>
         )}
+        {iconPreview && (
+          <a href="https://fonts.google.com/icons" target="_blank" rel="noopener" className="text-[11px] font-semibold text-primary hover:underline">
+            Browse icons
+          </a>
+        )}
       </div>
-      {area ? (
+      {iconPreview ? (
+        <div className="flex gap-2 items-center">
+          <span className="w-11 h-11 flex-none rounded-lg bg-[#fbeceb] text-primary flex items-center justify-center" aria-hidden>
+            <Icon name={value || 'help'} className="text-[22px]" />
+          </span>
+          <input className={fieldCls} value={value} onChange={(e) => onChange(e.target.value)} />
+        </div>
+      ) : area ? (
         <AutoTextarea value={value} onChange={onChange} className={fieldCls + ' resize-none overflow-hidden min-h-[88px]'} />
       ) : (
         <input className={fieldCls} value={value} onChange={(e) => onChange(e.target.value)} />
@@ -161,10 +184,14 @@ export function AddButton({ onClick, label }: { onClick: () => void; label: stri
   );
 }
 
+// Edits autosave straight to the live site, so removing a whole item asks first —
+// one stray click should not wipe a review or process step.
 export function ItemCard({ children, onRemove }: { children: ReactNode; onRemove: () => void }) {
   return (
-    <div className="border border-[#e6e1d8] rounded-lg p-3 pt-8 flex flex-col gap-3 relative">
-      <div className="absolute top-2 right-2"><RemoveButton onClick={onRemove} /></div>
+    <div className="border border-[#e6e1d8] rounded-lg p-3 pt-8 flex flex-col gap-3 relative bg-[#fdfcfa]">
+      <div className="absolute top-2 right-2">
+        <RemoveButton onClick={() => { if (window.confirm('Remove this item? The change goes live right away.')) onRemove(); }} />
+      </div>
       {children}
     </div>
   );
